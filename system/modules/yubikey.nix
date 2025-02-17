@@ -10,6 +10,7 @@
     pkgs.yubikey-personalization
     pkgs.libu2f-host
   ];
+
   services.pcscd.enable = true;
 
   # Yubikey integrations

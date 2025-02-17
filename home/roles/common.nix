@@ -15,5 +15,6 @@
     ../modules/shell/aria2.nix
     ../modules/shell/misc.nix
     ../modules/shell/nnn.nix
+    ../modules/shell/openssh.nix
   ];
 }

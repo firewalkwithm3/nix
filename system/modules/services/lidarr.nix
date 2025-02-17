@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 {
-  systemd.services.lidarr.path = [ pkgs.beets ];
+  systemd.services.lidarr.path = [
+    pkgs.beets
+  ];
 
   services.lidarr = {
     enable = true;
@@ -9,10 +11,10 @@
 
   services.caddy.virtualHosts."lidarr.ferngarden.net" = {
     logFormat = lib.mkForce ''
-      	    output discard
-      	  '';
+      output discard
+    '';
     extraConfig = ''
-      	    reverse_proxy 127.0.0.1:9000
-      	  '';
+      reverse_proxy 127.0.0.1:9000
+    '';
   };
 }
