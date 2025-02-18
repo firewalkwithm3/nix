@@ -10,9 +10,8 @@
   # Hostname
   networking.hostName = "forest";
 
-  # User password
-  age.secrets.user_forest.rekeyFile = ../../../secrets/users/forest.age;
-  users.users.fern.hashedPasswordFile = config.age.secrets.user_forest.path;
+  # Disable user password
+  users.users.fern.hashedPassword = "!";
 
   # Authorised SSH keys
   users.users.fern.openssh.authorizedKeys.keys = [
