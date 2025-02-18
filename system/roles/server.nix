@@ -12,7 +12,7 @@
     ../modules/services/pixelfed.nix
     ../modules/services/jellyseerr.nix
     ../modules/services/nextcloud.nix
-    ../modules/services/lurker.nix
+    #../modules/services/lurker.nix
     ../modules/services/navidrome.nix
     ../modules/services/wallos.nix
     ../modules/services/immich.nix
