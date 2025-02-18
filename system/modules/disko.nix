@@ -1,8 +1,17 @@
+{ config, hosts, ... }:
+let
+  hostName = config.networking.hostName;
+in
 {
+  # LUKS Password
+  age.secrets."luks_${hostName}".rekeyFile = ../../secrets/luks/${hostName}.age;
+
+  # Partitions
   disko.devices = {
     disk = {
       main = {
         type = "disk";
+        device = hosts.${hostName}.installDisk;
         content = {
           type = "gpt";
           partitions = {

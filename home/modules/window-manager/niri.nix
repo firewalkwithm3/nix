@@ -1,24 +1,24 @@
 { pkgs, config, ... }:
 let
   power-menu = pkgs.writeShellScript "fuzzel-power-menu.sh" ''
-    		#!/bin/bash
+    #!/bin/bash
 
-    		SELECTION="$(printf "󰶐  Turn off displays\n󰌾  Lock\n󰤄  Suspend\n󰍃  Log out\n󰜉  Reboot\n󰐥  Shutdown" | fuzzel --dmenu -l 6 -p "Power Menu: ")"
+    SELECTION="$(printf "󰶐  Turn off displays\n󰌾  Lock\n󰤄  Suspend\n󰍃  Log out\n󰜉  Reboot\n󰐥  Shutdown" | fuzzel --dmenu -l 6 -p "Power Menu: ")"
 
-    		case $SELECTION in
-          *"Turn off displays")
-            ${pkgs.niri-stable}/bin/niri msg action power-off-monitors;;
-    			*"Lock")
-    				${pkgs.gtklock}/bin/gtklock -d;;
-    			*"Suspend")
-    				${pkgs.systemd}/bin/systemctl suspend;;
-    			*"Log out")
-    				${pkgs.niri-stable}/bin/niri msg action quit;;
-    			*"Reboot")
-    				${pkgs.systemd}/bin/systemctl reboot;;
-    			*"Shutdown")
-    				${pkgs.systemd}/bin/systemctl poweroff;;
-    		esac
+    case $SELECTION in
+      *"Turn off displays")
+        ${pkgs.niri-stable}/bin/niri msg action power-off-monitors;;
+      *"Lock")
+    	${pkgs.gtklock}/bin/gtklock -d;;
+      *"Suspend")
+    	${pkgs.systemd}/bin/systemctl suspend;;
+      *"Log out")
+        ${pkgs.niri-stable}/bin/niri msg action quit;;
+      *"Reboot")
+    	${pkgs.systemd}/bin/systemctl reboot;;
+      *"Shutdown")
+    	${pkgs.systemd}/bin/systemctl poweroff;;
+    esac
   '';
 in
 {
@@ -201,7 +201,7 @@ in
 
     };
 
-    screenshot-path = "${config.home.homeDirectory}/Nextcloud/Pictures/Screenshots/garden/Screenshot_$(date '+%Y%m%d-%H%M%S').png";
+    screenshot-path = "${config.home.homeDirectory}/Nextcloud/Pictures/Screenshots/garden/Screenshot from %Y-%m-%d %H-%M-%S.png";
     hotkey-overlay.skip-at-startup = true;
     prefer-no-csd = true;
 

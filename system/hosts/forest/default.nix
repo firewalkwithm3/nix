@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -9,16 +8,6 @@
 
   # Hostname
   networking.hostName = "forest";
-
-  # Disable user password
-  users.users.fern.hashedPassword = "!";
-
-  # Authorised SSH keys
-  users.users.fern.openssh.authorizedKeys.keys = [
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMoJvPcUJDVVzO4dHROCFNlgJdDZSP5xyPx2s40zcx5QAAAABHNzaDo= YubiKey_5_NFC"
-  ];
-
-  age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLhv0WaxWuQhBb3BG4wrebkb+egB2hdeysbODTGXSSQ";
 
   # Filesystems
   fileSystems."/mnt/volume1" = {

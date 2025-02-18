@@ -6,6 +6,5 @@
     unrar
     # trash support
     trash-cli
-    # agenix
   ];
 }

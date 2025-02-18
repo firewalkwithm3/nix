@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   imports = [
     # system config
@@ -13,7 +12,6 @@
     ../modules/ssd.nix
     ../modules/zram.nix
     ../modules/agenix
-    #../modules/nixos-anywhere.nix
 
     # services
     ../modules/services/openssh.nix

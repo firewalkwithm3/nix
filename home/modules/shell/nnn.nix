@@ -2,7 +2,7 @@
 {
   programs.nnn = {
     enable = true;
-    package = pkgs.nnn.override ({ withNerdIcons = true; });
+    package = pkgs.nnn.override { withNerdIcons = true; };
     bookmarks = {
       d = "/home/fern/Downloads";
       l = "/home/fern/Software/lix";

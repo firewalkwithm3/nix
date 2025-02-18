@@ -1,5 +1,7 @@
 {
   boot = {
+    # Early KMS
+    initrd.kernelModules = [ "i915" ];
     # Animated boot
     plymouth.enable = true;
     # Silent boot

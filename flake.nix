@@ -102,6 +102,29 @@
         crowdsec.nixosModules.crowdsec-firewall-bouncer
         lurker.nixosModules.default
       ];
+
+      commonSpecialArgs = {
+        inherit inputs;
+
+        yubikey.pubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMoJvPcUJDVVzO4dHROCFNlgJdDZSP5xyPx2s40zcx5QAAAABHNzaDo=";
+
+        hosts = {
+          forest = {
+            pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLhv0WaxWuQhBb3BG4wrebkb+egB2hdeysbODTGXSSQ";
+            installDisk = "/dev/disk/by-id/nvme-SAMSUNG_MZVLW256HEHP-000L7_S35ENA1K324390";
+          };
+          garden = {
+            pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEp5zVloqXFtLEVCl44MwvdkfzIL4MsLqmENXjgPfnQ";
+            wg_address = "10.1.0.2/24";
+          };
+          leaf = {
+            pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIUqrhHngT/CRIjF6024MqJNy03ed7dSdKpN/7HSpToX";
+            wg_address = "10.1.0.4/24";
+            installDisk = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_mSATA_250GB_S41MNG0K821487A";
+          };
+        };
+      };
+
     in
     {
       agenix-rekey = agenix-rekey.configure {
@@ -110,7 +133,7 @@
       };
 
       nixosConfigurations.garden = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = commonSpecialArgs;
         modules = laptopModules ++ [
           lanzaboote.nixosModules.lanzaboote
           { home-manager.users.fern = import ./home/hosts/garden.nix; }
@@ -119,7 +142,7 @@
       };
 
       nixosConfigurations.leaf = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = commonSpecialArgs;
         modules = laptopModules ++ [
           { home-manager.users.fern = import ./home/hosts/leaf.nix; }
           ./system/hosts/leaf
@@ -127,7 +150,7 @@
       };
 
       nixosConfigurations.forest = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = commonSpecialArgs;
         modules = serverModules ++ [
           lanzaboote.nixosModules.lanzaboote
           { home-manager.users.fern = import ./home/hosts/forest.nix; }

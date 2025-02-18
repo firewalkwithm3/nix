@@ -18,8 +18,6 @@
     prismlauncher
     steam-tui
     gamemode
-    # media
-    jellyfin-media-player
     # virtualisation
     spice
     spice-gtk
