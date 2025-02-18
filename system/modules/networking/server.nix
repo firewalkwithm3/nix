@@ -12,4 +12,7 @@
 
   # Podman DNS
   virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+
+  # Enable DHCP
+  networking.useDHCP = true;
 }

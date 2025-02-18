@@ -14,4 +14,7 @@
     spiceUSBRedirection.enable = true;
   };
   programs.virt-manager.enable = true;
+
+  # KVM Module
+  boot.kernelModules = [ "kvm-intel" ];
 }

@@ -137,7 +137,7 @@
         modules = laptopModules ++ [
           lanzaboote.nixosModules.lanzaboote
           { home-manager.users.fern = import ./home/hosts/garden.nix; }
-          ./system/hosts/garden
+          ./system/hosts/garden.nix
         ];
       };
 
@@ -145,7 +145,7 @@
         specialArgs = commonSpecialArgs;
         modules = laptopModules ++ [
           { home-manager.users.fern = import ./home/hosts/leaf.nix; }
-          ./system/hosts/leaf
+          ./system/hosts/leaf.nix
         ];
       };
 
