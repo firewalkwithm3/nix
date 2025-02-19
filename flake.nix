@@ -56,7 +56,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       lanzaboote,
       impermanence,
       disko,
@@ -84,7 +83,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.fern.imports = [ nixvim.homeManagerModules.nixvim ];
+          home-manager.sharedModules = [ nixvim.homeManagerModules.nixvim ];
         }
       ];
 
@@ -93,7 +92,6 @@
         disko.nixosModules.disko
         auto-cpufreq.nixosModules.default
         niri.nixosModules.niri
-        { home-manager.users.fern.imports = [ impermanence.homeManagerModules.impermanence ]; }
       ];
 
       serverModules = commonModules ++ [
