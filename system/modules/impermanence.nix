@@ -28,6 +28,9 @@
         ".local/share/PrismLauncher"
         ".mozilla"
       ];
+      files = [
+        ".local/share/bemoji/emojis.txt"
+      ];
     };
   };
 
