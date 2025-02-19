@@ -1,4 +1,10 @@
-{ pkgs, config, yubikey, ... }:
+{
+  pkgs,
+  config,
+  yubikey,
+  hosts,
+  ...
+}:
 let
   hostName = config.networking.hostName;
 in
@@ -19,10 +25,30 @@ in
   # SSH server
   services.openssh = {
     enable = true;
+    knownHosts = {
+      "garden" = {
+        publicKey = hosts.garden.pubKey;
+        hostNames = [ "garden.internal" ];
+      };
+      "leaf" = {
+        publicKey = hosts.leaf.pubKey;
+        hostNames = [ "leaf.internal" ];
+      };
+      "forest" = {
+        publicKey = hosts.forest.pubKey;
+        hostNames = [ "forest.internal" ];
+      };
+    };
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
+    hostKeys = [
+      {
+        path = "/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
   };
 
   # Authorised SSH keys
