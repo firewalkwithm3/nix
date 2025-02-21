@@ -12,6 +12,7 @@
     ../modules/ssd.nix
     ../modules/zram.nix
     ../modules/agenix
+    ../modules/pam
 
     # services
     ../modules/services/openssh.nix
