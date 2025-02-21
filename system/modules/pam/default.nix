@@ -17,19 +17,23 @@
   };
 
   # PAM rules
-  security.pam.services = {
+  security.pam = {
     # Enable ssh-agent auth on forest
-    sudo.rssh = lib.optionalAttrs (config.networking.hostName == "forest") true;
-    sudo.rules.auth = {
-      # Prefer yubikey first
-      u2f.order = lib.mkForce (config.security.pam.services.sudo.rules.auth.unix.order - 10);
-    };
-    gtklock.rules.auth = {
-      # gtklock doesn't support fido2 pin
-      u2f.args = lib.mkForce [
-        "pinverification=0"
-        "userpresence=1"
-      ];
+    rssh.enable = lib.mkIf (config.networking.hostName == "forest") true;
+    services = {
+      # Enable rssh auth for sudo on forest
+      sudo.rssh = lib.mkIf (config.networking.hostName == "forest") true;
+      sudo.rules.auth = {
+        # Prefer yubikey first
+        u2f.order = lib.mkForce (config.security.pam.services.sudo.rules.auth.unix.order - 10);
+      };
+      gtklock.rules.auth = {
+        # gtklock doesn't support fido2 pin
+        u2f.args = lib.mkForce [
+          "pinverification=0"
+          "userpresence=1"
+        ];
+      };
     };
   };
 }
