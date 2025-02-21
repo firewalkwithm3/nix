@@ -16,12 +16,6 @@ in
     askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
   };
 
-  # Enable sudo on remote host with ssh key
-  security.pam = {
-    rssh.enable = true;
-    services.sudo.rssh = true;
-  };
-
   # SSH server
   services.openssh = {
     enable = true;
