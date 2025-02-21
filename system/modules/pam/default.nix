@@ -18,9 +18,9 @@
 
   # PAM rules
   security.pam.services = {
+    # Enable ssh-agent auth on forest
+    sudo.rssh = lib.optionalAttrs (config.networking.hostName == "forest") true;
     sudo.rules.auth = {
-      # Enable ssh-agent auth on forest
-      rssh = lib.optionalAttrs (config.networking.hostName == "forest") true;
       # Prefer yubikey first
       u2f.order = lib.mkForce (config.security.pam.services.sudo.rules.auth.unix.order - 10);
     };
