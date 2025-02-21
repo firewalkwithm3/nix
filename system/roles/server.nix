@@ -42,6 +42,7 @@
     ../modules/services/homeassistant.nix
     ../modules/services/jellyfin.nix
     ../modules/services/ntfy.nix
+    ../modules/services/zigbee2mqtt.nix
   ];
 
   # Permit insecure packages
