@@ -3,8 +3,6 @@
   age.secrets.gluetun-config.rekeyFile = ../../../secrets/services/gluetun-config.age;
   age.secrets.protonvpn.rekeyFile = ../../../secrets/services/protonvpn.age;
 
-  networking.firewall.allowedTCPPorts = [ 8888 ];
-
   virtualisation.oci-containers = {
     containers.gluetun = {
       image = "qmcgaw/gluetun:latest";
