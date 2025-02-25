@@ -28,6 +28,6 @@ jobs:
       - name: Merge pull requess\
         env:
           GH_TOKEN: ${{ github.token }}
-        run: "gh pr merge --delete-branch --disable-auto --merge ${{ steps.update.outputs.pull-request-number }}"
+        run: "gh pr merge --delete-branch --auto --merge ${{ steps.update.outputs.pull-request-number }}"
         if: ${{ steps.update.outputs.pull-request-number != '' }}
         
