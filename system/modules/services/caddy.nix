@@ -29,7 +29,7 @@
         "github.com/caddy-dns/porkbun@v0.2.1"
         "github.com/hslatman/caddy-crowdsec-bouncer@v0.7.2"
       ];
-      hash = "sha256-wfko6NGP4I5R0wTyOLJbDtlOboG1qU2DAP84RHoO7FA=";
+      hash = "sha256-HeHOXg90lA2JcAsc9DVt5/uSlz1xfO5810lQEQDqnqg=";
     };
     globalConfig = ''
             email admin@fern.garden
