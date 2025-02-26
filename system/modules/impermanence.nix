@@ -7,7 +7,6 @@
       "/var/lib/nixos"
       "/var/log"
       "/var/lib/systemd-coredump"
-      "/etc/NetworkManager/system-connections"
       "/etc/secureboot"
       "/var/lib/boltd"
     ];

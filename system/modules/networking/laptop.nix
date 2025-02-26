@@ -11,10 +11,30 @@ in
   # WiFi
   networking.networkmanager = {
     enable = true;
-    unmanaged = [ "forest" ];
+    unmanaged = [
+      "forest"
+    ];
     ensureProfiles = {
       environmentFiles = [ config.age.secrets.networkmanager.path ];
       profiles = {
+        internal-ethernet = {
+          connection = {
+            id = "Internal Ethernet";
+            type = "ethernet";
+            interface-name = "enp0s31f6";
+          };
+          ipv4.method = "auto";
+          ipv6.method = "disabled";
+        };
+        dock-ethernet = {
+          connection = {
+            id = "Dock Ethernet";
+            type = "ethernet";
+            interface-name = "enp11s0u1";
+          };
+          ipv4.method = "auto";
+          ipv6.method = "disabled";
+        };
         mycelium = {
           connection = {
             id = "mycelium";
@@ -56,7 +76,8 @@ in
   };
 
   # VPN
-  age.secrets."wireguard_${hostName}".rekeyFile = ../../../secrets/networking/wireguard/${hostName}.age;
+  age.secrets."wireguard_${hostName}".rekeyFile =
+    ../../../secrets/networking/wireguard/${hostName}.age;
 
   networking.wg-quick.interfaces = {
     forest = {
