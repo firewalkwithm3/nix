@@ -38,13 +38,12 @@
       defaultPhoneRegion = "AU";
     };
     autoUpdateApps.enable = true;
-    appstoreEnable = true;
+    appstoreEnable = false;
     extraApps = {
       inherit (config.services.nextcloud.package.packages.apps)
         bookmarks
         calendar
         contacts
-        tasks
         user_oidc
         ;
     };
