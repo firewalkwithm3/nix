@@ -52,7 +52,9 @@
             overwritehost = "cloud.ferngarden.net";
             trusted_domains = [ "cloud.ferngarden.net" ];
             trusted_proxies = [ "127.0.0.1" ];
-            defaultPhoneRegion = "AU";
+            default_phone_region = "AU";
+            log_type = "file";
+            maintenance_window_start = 8;
           };
           autoUpdateApps.enable = true;
           appstoreEnable = false;
