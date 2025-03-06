@@ -45,7 +45,7 @@ in
 
     ${namespace}.services.caddy.services.jellyfin = {
       port = cfg.port;
-      subdomain = "jellfin";
+      subdomain = "jellyfin";
       domain = "fern.garden";
     };
   };
