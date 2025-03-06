@@ -33,7 +33,10 @@ in
       networking = {
         firewall.interfaces.end0 = {
           allowedTCPPorts = [ 53 ];
-          allowedUDPPorts = [ 53 67 ];
+          allowedUDPPorts = [
+            53
+            67
+          ];
         };
         interfaces.end0.ipv4.addresses = [
           {
@@ -155,7 +158,10 @@ in
         externalInterface = "eno1";
       };
 
-      networking.firewall.trustedInterfaces = [ "ve-+" ];
+      networking.firewall = {
+        trustedInterfaces = [ "ve-+" ];
+        interfaces."veth+".allowedUDPPorts = [ 53 ];
+      };
 
       virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
     })
