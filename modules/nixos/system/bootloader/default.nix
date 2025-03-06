@@ -20,42 +20,51 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf config.${namespace}.impermanence.enable {
-      boot.initrd.systemd.services.rollback = {
-        description = "Rollback BTRFS root subvolume to a pristine state";
-        wantedBy = [ "initrd.target" ];
-        after = mkIf (config.${namespace}.filesystems.disko.encryption.enable) [
-          "systemd-cryptsetup@crypted.service"
-        ];
-        before = [ "sysroot.mount" ];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          # Create temporary mountpoint for rootfs subvolume
-          MNTPOINT=$(mktemp -d)
+      boot.initrd.systemd = {
+        initrdBin = [ pkgs.util-linux ];
+        services.rollback =
+          let
+            rootPart =
+              if config.${namespace}.filesystems.disko.encryption.enable then "/dev/mapper/crypted" else "/";
+          in
+          {
+            description = "Rollback BTRFS root subvolume to a pristine state";
+            wantedBy = [ "initrd.target" ];
+            after = mkIf (config.${namespace}.filesystems.disko.encryption.enable) [
+              "systemd-cryptsetup@crypted.service"
+            ];
+            before = [ "sysroot.mount" ];
+            unitConfig.DefaultDependencies = "no";
+            serviceConfig.Type = "oneshot";
+            script = ''
+              set -x
 
-          # Mount rootfs subvolume
-          rootPart=$(${pkgs.util-linux}/bin/findmnt -v -n -o SOURCE /)
-          mount -o subvol=/ $rootPart $MNTPOINT
+              # Create temporary mountpoint for rootfs subvolume
+              MNTPOINT=$(mktemp -d)
 
-          # Delete children of rootfs subvolume
-          btrfs subvolume list -o $MNTPOINT/rootfs |
-          cut -f9 -d' ' |
-          while read subvolume; do
-            echo "Deleting /$subvolume subvolume..."
-            btrfs subvolume delete "$MNTPOINT/$subvolume"
-          done &&
+              # Mount rootfs subvolume
+              mount -o subvol=/ ${rootPart} $MNTPOINT
 
-          # Delete rootfs subvolume
-          echo "Deleting rootfs subvolume..." &&
-          btrfs subvolume delete $MNTPOINT/rootfs
+              # Delete children of rootfs subvolume
+              btrfs subvolume list -o $MNTPOINT/rootfs |
+              cut -f9 -d' ' |
+              while read subvolume; do
+                echo "Deleting /$subvolume subvolume..."
+                btrfs subvolume delete "$MNTPOINT/$subvolume"
+              done &&
 
-          # Restore blank snapshot of rootfs
-          echo "Restoring blank rootfs subvolume..."
-          btrfs subvolume snapshot $MNTPOINT/rootfs-blank $MNTPOINT/rootfs
+              # Delete rootfs subvolume
+              echo "Deleting rootfs subvolume..." &&
+              btrfs subvolume delete $MNTPOINT/rootfs
 
-          # Unmount rootfs subvolume
-          umount $MNTPOINT
-        '';
+              # Restore blank snapshot of rootfs
+              echo "Restoring blank rootfs subvolume..."
+              btrfs subvolume snapshot $MNTPOINT/rootfs-blank $MNTPOINT/rootfs
+
+              # Unmount rootfs subvolume
+              umount $MNTPOINT
+            '';
+          };
       };
     })
 
