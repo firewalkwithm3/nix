@@ -33,6 +33,10 @@ in
         (mkIf config.${namespace}.bootloader.secureboot.enable [
           "/etc/secureboot"
         ])
+
+        (mkIf config.${namespace}.services.netatalk.enable [
+          "/var/srv/iMacG3"
+        ])
       ];
       files = [
         "/etc/machine-id"
