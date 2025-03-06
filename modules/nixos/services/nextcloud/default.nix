@@ -1,0 +1,104 @@
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.services.nextcloud;
+in
+{
+  options.${namespace}.services.nextcloud = with types; {
+    enable = mkBoolOpt false "Enable nextcloud";
+    port = mkOpt port 80 "Port to run on";
+    host = mkStrOpt "192.168.100.24" "IP to bind to";
+  };
+
+  config = mkIf cfg.enable {
+    age.secrets = {
+      nextcloud = {
+        rekeyFile = ../../../../secrets/services/nextcloud.age;
+        owner = "999";
+        group = "999";
+      };
+    };
+
+    containers.nextcloud = {
+      autoStart = true;
+      privateNetwork = true;
+      hostAddress = "192.168.100.20";
+      localAddress = "192.168.100.24";
+      bindMounts = {
+        "${config.age.secrets.nextcloud.path}".isReadOnly = true;
+        "/var/run/postgresql".mountPoint = "/var/run/postgresql";
+      };
+
+      config =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          services.nextcloud = {
+            enable = true;
+            package = pkgs.nextcloud30;
+            configureRedis = true;
+            enableImagemagick = true;
+            https = true;
+            hostName = "localhost";
+            phpOptions = {
+              "opcache.interned_strings_buffer" = "10";
+            };
+            config = {
+              dbhost = "/var/run/postgresql";
+              adminuser = "fern";
+              adminpassFile = "/run/agenix/nextcloud";
+              dbtype = "pgsql";
+            };
+            settings = {
+              overwriteprotocol = "https";
+              overwritehost = "cloud.ferngarden.net";
+              trusted_domains = [ "cloud.ferngarden.net" ];
+              trusted_proxies = [ "127.0.0.1" ];
+              default_phone_region = "AU";
+              log_type = "file";
+              maintenance_window_start = 8;
+            };
+            autoUpdateApps.enable = true;
+            appstoreEnable = false;
+            extraApps = {
+              inherit (config.services.nextcloud.package.packages.apps)
+                bookmarks
+                calendar
+                contacts
+                user_oidc
+                ;
+            };
+            extraAppsEnable = true;
+          };
+
+          system.stateVersion = "24.11";
+          networking = {
+            firewall = {
+              enable = true;
+              allowedTCPPorts = [ cfg.port ];
+            };
+            useHostResolvConf = lib.mkForce false;
+          };
+
+          services.resolved.enable = true;
+        };
+    };
+
+    ${namespace}.services.caddy.services.nextcloud = {
+      port = cfg.port;
+      host = cfg.host;
+      subdomain = "cloud";
+      domain = "ferngarden.net";
+    };
+  };
+}

@@ -1,0 +1,31 @@
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
+with lib;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.services.esphome;
+in
+{
+  options.${namespace}.services.esphome = with types; {
+    enable = mkBoolOpt config.${namespace}.services.home-assistant.enable "Enable esphome";
+    port = mkOpt port 6052 "Port to run on";
+  };
+
+  config = mkIf cfg.enable {
+    services.esphome = {
+      enable = true;
+      address = "127.0.0.1";
+      port = cfg.port;
+    };
+
+    ${namespace}.services.caddy.services.esphome = {
+      port = cfg.port;
+      subdomain = "esphome";
+      domain = "ferngarden.net";
+    };
+  };
+}
