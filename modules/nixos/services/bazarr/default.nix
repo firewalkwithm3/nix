@@ -23,7 +23,7 @@ in
     };
 
     ${namespace}.services.caddy.services.bazarr = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "bazarr";
       domain = "ferngarden.net";
     };

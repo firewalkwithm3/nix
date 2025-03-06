@@ -69,8 +69,7 @@ in
     };
 
     ${namespace}.services.caddy.services.readarr-ebooks = {
-      port = cfg.port;
-      host = cfg.host;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "readarr-ebooks";
       domain = "ferngarden.net";
     };

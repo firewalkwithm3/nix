@@ -12,7 +12,7 @@ in
 {
   options.${namespace}.services.immich = with types; {
     enable = mkBoolOpt false "Enable immich";
-    port = mkOpt port 0 "Port to run on";
+    port = mkOpt port 3001 "Port to run on";
   };
 
   config = mkIf cfg.enable {

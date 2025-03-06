@@ -28,7 +28,7 @@ in
     };
 
     ${namespace}.services.caddy.services.priviblur = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "priviblur";
       domain = "ferngarden.net";
     };

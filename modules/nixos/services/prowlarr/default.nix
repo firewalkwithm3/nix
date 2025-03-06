@@ -12,7 +12,7 @@ in
 {
   options.${namespace}.services.prowlarr = with types; {
     enable = mkBoolOpt false "Enable prowlarr";
-    port = mkOpt port 8191 "Port to run on";
+    flaresolverr.port = mkOpt port 8191 "Port to run on";
   };
 
   config = mkIf cfg.enable {
@@ -23,13 +23,13 @@ in
     virtualisation.oci-containers.containers = {
       flaresolverr = {
         image = "ghcr.io/flaresolverr/flaresolverr:latest";
-        ports = [ "${toString cfg.port}:${toString cfg.port}" ];
+        ports = [ "${toString cfg.flaresolverr.port}:${toString cfg.flaresolverr.port}" ];
         extraOptions = [ "--pull=newer" ];
       };
     };
 
     ${namespace}.services.caddy.services.prowlarr = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "prowlarr";
       domain = "ferngarden.net";
     };

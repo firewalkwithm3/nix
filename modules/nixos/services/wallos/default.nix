@@ -29,7 +29,7 @@ in
     };
 
     ${namespace}.services.caddy.services.wallos = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "subscriptions";
       domain = "ferngarden.net";
     };

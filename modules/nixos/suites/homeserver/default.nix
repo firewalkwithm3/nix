@@ -43,6 +43,7 @@ in
         ntfy = enabled;
         pixelfed = enabled;
         postgres = enabled;
+        priviblur = enabled;
         prowlarr = enabled;
         qbittorrent = enabled;
         radarr = enabled;
@@ -50,6 +51,7 @@ in
         readarr-ebooks = enabled;
         sonarr = enabled;
         vaultwarden = enabled;
+        wallos = enabled;
       };
     };
   };

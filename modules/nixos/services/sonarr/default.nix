@@ -12,7 +12,6 @@ in
 {
   options.${namespace}.services.sonarr = with types; {
     enable = mkBoolOpt false "Enable sonarr";
-    port = mkOpt port 0 "Port to run on";
   };
 
   config = mkIf cfg.enable {
@@ -22,7 +21,7 @@ in
     };
 
     ${namespace}.services.caddy.services.sonarr = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "sonarr";
       domain = "ferngarden.net";
     };

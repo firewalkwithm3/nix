@@ -12,7 +12,7 @@ in
 {
   options.${namespace}.services.radarr = with types; {
     enable = mkBoolOpt false "Enable radarr";
-    port = mkOpt port 5000 "Port to run on";
+    letterboxd.port = mkOpt port 5000 "Port to run on";
   };
 
   config = mkIf cfg.enable {
@@ -25,7 +25,7 @@ in
       containers.radarr-letterboxd = {
         environment.REDIS_URL = "redis://radarr-letterboxd-redis:6379";
         image = "screeny05/letterboxd-list-radarr:latest";
-        ports = [ "${toString cfg.port}:${toString cfg.port}" ];
+        ports = [ "${toString cfg.letterboxd.port}:${toString cfg.letterboxd.port}" ];
         extraOptions = [ "--pull=newer" ];
       };
 
@@ -36,7 +36,7 @@ in
     };
 
     ${namespace}.services.caddy.services.radarr = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "radarr";
       domain = "ferngarden.net";
     };

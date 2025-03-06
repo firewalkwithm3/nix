@@ -57,8 +57,7 @@ in
     };
 
     ${namespace}.services.caddy.services.readarr-audiobooks = {
-      port = cfg.port;
-      host = cfg.host;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "readarr-audiobooks";
       domain = "ferngarden.net";
     };

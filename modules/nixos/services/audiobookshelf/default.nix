@@ -24,7 +24,7 @@ in
 
     ${namespace}.services.caddy.services.audiobookshelf = {
       port = cfg.port;
-      subdomain = "audiobookshelf";
+      subdomain = "audiobooks";
       domain = "fern.garden";
     };
   };

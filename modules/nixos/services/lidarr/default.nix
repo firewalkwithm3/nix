@@ -13,7 +13,6 @@ in
 {
   options.${namespace}.services.lidarr = with types; {
     enable = mkBoolOpt false "Enable lidarr";
-    port = mkOpt port 9000 "Port to run on";
   };
 
   config = mkIf cfg.enable {
@@ -27,7 +26,7 @@ in
     };
 
     ${namespace}.services.caddy.services.lidarr = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "lidarr";
       domain = "ferngarden.net";
     };
