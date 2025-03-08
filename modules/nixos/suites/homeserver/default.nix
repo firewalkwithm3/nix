@@ -52,6 +52,7 @@ in
         sonarr = enabled;
         vaultwarden = enabled;
         wallos = enabled;
+        firefox-syncserver = enabled;
       };
     };
   };

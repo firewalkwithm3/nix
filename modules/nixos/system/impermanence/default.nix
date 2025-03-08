@@ -16,6 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    security.sudo.extraConfig = "Defaults lecture = never";
+
     environment.persistence."/persist" = {
       enable = true;
       hideMounts = true;

@@ -42,8 +42,6 @@ in
         ];
         hashedPasswordFile = config.age.secrets."user_${hostName}".path;
       };
-
-      security.sudo.extraConfig = "Defaults lecture = never";
     }
 
     (mkIf cfg.groups.media.enable {
