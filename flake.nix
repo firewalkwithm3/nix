@@ -1,6 +1,5 @@
 {
   description = "NixOS Systems Configuration";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -10,6 +9,11 @@
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    snowfall-flake = {
+      url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     lanzaboote = {
@@ -102,6 +106,7 @@
       overlays = with inputs; [
         agenix-rekey.overlays.default
         crowdsec.overlays.default
+        snowfall-flake.overlays.default
       ];
 
       ### TEMPLATES ###

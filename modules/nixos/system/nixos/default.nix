@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   namespace,
   ...
 }:
@@ -17,6 +18,7 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
+      environment.systemPackages = with pkgs; [ snowfallorg.flake ];
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"
