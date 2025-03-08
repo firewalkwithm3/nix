@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -16,8 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.gluetun-config.rekeyFile = ../../../../secrets/services/gluetun-config.age;
-    age.secrets.protonvpn.rekeyFile = ../../../../secrets/services/protonvpn.age;
+    age.secrets.gluetun-config.rekeyFile = (inputs.self + "/secrets/services/gluetun-config.age");
+    age.secrets.protonvpn.rekeyFile = (inputs.self + "/secrets/services/protonvpn.age");
 
     virtualisation.oci-containers = {
       containers.gluetun = {

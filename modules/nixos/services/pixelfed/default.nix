@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -18,7 +19,7 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.pixelfed = {
-      rekeyFile = ../../../../secrets/services/pixelfed.age;
+      rekeyFile = (inputs.self + "/secrets/services/pixelfed.age");
       owner = "972";
       group = "971";
     };

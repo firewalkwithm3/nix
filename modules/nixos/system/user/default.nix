@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -24,7 +25,7 @@ in
     {
       users.mutableUsers = false;
 
-      age.secrets."user_${hostName}".rekeyFile = ../../../../secrets/users/${hostName}.age;
+      age.secrets."user_${hostName}".rekeyFile = (inputs.self + "/secrets/users/${hostName}.age");
 
       users.users.${cfg.name} = { description = cfg.fullName;
         isNormalUser = true;

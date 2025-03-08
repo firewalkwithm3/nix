@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -19,12 +20,12 @@ in
   config = mkIf cfg.enable {
     age.secrets = {
       crowdsec = {
-        rekeyFile = ../../../../secrets/services/crowdsec.age;
+        rekeyFile = (inputs.self + "/secrets/services/crowdsec.age");
         owner = "crowdsec";
         group = "crowdsec";
       };
       crowdsec-bouncer = {
-        rekeyFile = ../../../../secrets/services/crowdsec-bouncer.age;
+        rekeyFile = (inputs.self + "/secrets/services/crowdsec-bouncer.age");
         owner = "crowdsec";
         group = "crowdsec";
       };

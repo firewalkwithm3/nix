@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -17,12 +18,12 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.authentik = {
-      rekeyFile = ../../../../secrets/services/authentik.age;
+      rekeyFile = (inputs.self + "/secrets/services/authentik.age");
       owner = "authentik";
       group = "authentik";
     };
     age.secrets.authentik-ldap = {
-      rekeyFile = ../../../../secrets/services/authentik-ldap.age;
+      rekeyFile = (inputs.self + "/secrets/services/authentik-ldap.age");
       owner = "authentik";
       group = "authentik";
     };

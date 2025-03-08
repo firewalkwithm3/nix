@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -19,7 +20,7 @@ in
   config = mkIf cfg.enable {
     age.secrets = {
       nextcloud = {
-        rekeyFile = ../../../../secrets/services/nextcloud.age;
+        rekeyFile = (inputs.self + "/secrets/services/nextcloud.age");
         owner = "999";
         group = "999";
       };

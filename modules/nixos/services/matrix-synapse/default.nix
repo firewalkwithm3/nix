@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -19,7 +20,7 @@ in
   config = mkIf cfg.enable {
     age.secrets = {
       matrix = {
-        rekeyFile = ../../../../secrets/services/matrix.age;
+        rekeyFile = (inputs.self + "/secrets/services/matrix.age");
         owner = "matrix-synapse";
         group = "matrix-synapse";
       };

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -25,8 +26,7 @@ in
       }
     ];
 
-    age.secrets."ssh_${config.${namespace}.user.name}".rekeyFile =
-      ../../../../secrets/ssh/${hostName}.age;
+    age.secrets."ssh_${hostName}".rekeyFile = (inputs.self + "/secrets/ssh/${hostName}.age");
 
     programs.ssh = {
       startAgent = true;

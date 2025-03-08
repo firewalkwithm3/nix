@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -50,7 +51,7 @@ in
 
     (mkIf cfg.yubikey.enable {
       age.secrets.u2f_keys = {
-        rekeyFile = ../../../../secrets/u2f_keys.age;
+        rekeyFile = (inputs.self + "/secrets/u2f_keys.age");
         owner = "fern";
       };
 

@@ -73,7 +73,7 @@ in
 
     age.secrets = {
       caddy = {
-        rekeyFile = ../../../../secrets/services/caddy.age;
+        rekeyFile = (inputs.self + "/secrets/services/caddy.age");
         owner = "caddy";
         group = "caddy";
       };

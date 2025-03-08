@@ -26,7 +26,7 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix-rekey = {
-      url = "github:oddlama/agenix-rekey";
+      url = "github:oddlama/agenix-rekey/1a30818e41b6573389abfe4f1f99086714c0ca6a";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

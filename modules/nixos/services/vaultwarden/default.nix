@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -17,7 +18,7 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.vaultwarden = {
-      rekeyFile = ../../../../secrets/services/vaultwarden.age;
+      rekeyFile = (inputs.self + "/secrets/services/vaultwarden.age");
       owner = "vaultwarden";
       group = "vaultwarden";
     };

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -38,7 +39,7 @@ in
 
     (mkIf cfg.rclone.enable {
       environment.systemPackages = [ pkgs.rclone ];
-      age.secrets.rclone.rekeyFile = ../../../../secrets/rclone.age;
+      age.secrets.rclone.rekeyFile = (inputs.self + "/secrets/rclone.age");
       environment.etc."rclone.conf".source = config.age.secrets.rclone.path;
 
       fileSystems."/mnt/onedrive" = {
@@ -55,8 +56,7 @@ in
     })
 
     (mkIf cfg.disko.encryption.enable {
-      age.secrets."luks_${config.${namespace}.user.name}".rekeyFile =
-        ../../../../secrets/luks/${hostName}.age;
+      age.secrets."luks_${hostName}".rekeyFile = (inputs.self + "/secrets/luks/${hostName}.age");
     })
 
     (mkIf cfg.disko.impermanence.enable {

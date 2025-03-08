@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -16,7 +17,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.miniflux.rekeyFile = ../../../../secrets/services/miniflux.age;
+    age.secrets.miniflux.rekeyFile = (inputs.self + "/secrets/services/miniflux.age");
 
     services.miniflux = {
       enable = true;

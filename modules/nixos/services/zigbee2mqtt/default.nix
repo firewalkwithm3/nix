@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -17,13 +18,13 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.mqtt = {
-      rekeyFile = ../../../../secrets/services/mqtt.age;
+      rekeyFile = (inputs.self + "/secrets/services/mqtt.age");
       owner = "mosquitto";
       group = "mosquitto";
     };
 
     age.secrets."z2m.yaml" = {
-      rekeyFile = ../../../../secrets/services/z2m.age;
+      rekeyFile = (inputs.self + "/secrets/services/z2m.age");
       owner = "zigbee2mqtt";
       group = "zigbee2mqtt";
     };

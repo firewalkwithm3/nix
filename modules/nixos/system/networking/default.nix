@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -68,7 +69,7 @@ in
     })
 
     (mkIf cfg.wifi.enable {
-      age.secrets.networkmanager.rekeyFile = ../../../../secrets/networking/networkmanager.age;
+      age.secrets.networkmanager.rekeyFile = (inputs.self + "/secrets/networking/networkmanager.age");
 
       systemd.network.links."81-wifi" = {
         matchConfig.Type = "wlan";
@@ -130,8 +131,9 @@ in
 
       networking.networkmanager.unmanaged = [ "forest" ];
 
-      age.secrets."wireguard_${hostName}".rekeyFile =
-        ../../../../secrets/networking/wireguard/${hostName}.age;
+      age.secrets."wireguard_${hostName}".rekeyFile = (
+        inputs.self + "/secrets/networking/wireguard/${hostName}.age"
+      );
 
       networking.wg-quick.interfaces = {
         forest = {

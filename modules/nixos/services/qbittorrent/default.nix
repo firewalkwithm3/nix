@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -16,8 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.qsticky.rekeyFile = ../../../../secrets/services/qsticky.age;
-    age.secrets.mam.rekeyFile = ../../../../secrets/services/mam.age;
+    age.secrets.qsticky.rekeyFile = (inputs.self + "/secrets/services/qsticky.age");
+    age.secrets.mam.rekeyFile = (inputs.self + "/secrets/services/mam.age");
 
     virtualisation.oci-containers.containers = {
       qbittorrent = {

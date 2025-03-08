@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -16,7 +17,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.borgmatic.rekeyFile = ../../../../secrets/services/borgmatic.age;
+    age.secrets.borgmatic.rekeyFile = (inputs.self + "/secrets/services/borgmatic.age");
 
     systemd.services.borgmatic.path = [ pkgs.sqlite ];
 
