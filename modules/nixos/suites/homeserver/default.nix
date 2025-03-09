@@ -34,6 +34,7 @@ in
         jellyfin = enabled;
         jellyseerr = enabled;
         lidarr = enabled;
+        mailserver = enabled;
         matrix-synapse = enabled;
         memos = enabled;
         minecraft = enabled;

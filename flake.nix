@@ -59,6 +59,8 @@
     };
 
     authentik-nix.url = "github:nix-community/authentik-nix";
+
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
   };
 
   outputs =
@@ -90,6 +92,7 @@
         impermanence.nixosModules.impermanence
         lanzaboote.nixosModules.lanzaboote
         stylix.nixosModules.stylix
+        simple-nixos-mailserver.nixosModule
       ];
 
       systems.hosts.weebill.modules = with inputs; [
