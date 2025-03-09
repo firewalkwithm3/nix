@@ -81,6 +81,13 @@ in
               INSTANCE_LANDING_SHOW_EXPLORE = false;
               OPEN_REGISTRATION = false;
               MAX_BIO_LENGTH = 500;
+              MAIL_DRIVER = "smtp";
+              MAIL_HOST = "mail.ferngarden.net";
+              MAIL_PORT = 465;
+              MAIL_USERNAME = "admin@ferngarden.net";
+              MAIL_ENCRYPTION = "ssl";
+              MAIL_FROM_ADDRESS = "admin@ferngarden.net";
+              MAIL_FROM_NAME = "admin@ferngarden.net";
             };
           };
           system.stateVersion = "23.11";

@@ -34,6 +34,11 @@ in
         DATABASE_URL = "postgresql:///vaultwarden";
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = cfg.port;
+        SMTP_HOST = "mail.ferngarden.net";
+        SMTP_FROM = "admin@ferngarden.net";
+        SMTP_PORT = 465;
+        SMTP_SECURITY = "force_tls";
+        SMTP_USERNAME = "admin@ferngarden.net";
       };
       environmentFile = config.age.secrets.vaultwarden.path;
     };

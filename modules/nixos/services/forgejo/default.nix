@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -16,6 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.forgejo.rekeyFile = (inputs.self + "/secrets/services/forgejo.age");
+
     services.forgejo = {
       enable = true;
       database = {
@@ -32,6 +35,14 @@ in
         HTTP_PORT = cfg.port;
         ROOT_URL = "https://git.fern.garden";
       };
+      settings.mailer = {
+        ENABLED = true;
+        FROM = "admin@ferngarden.net";
+        SMTP_ADDR = "mail.ferngarden.net";
+        SMTP_PORT = 465;
+        USER = "admin@ferngarden.net";
+      };
+      secrets.mailer.PASSWD = config.age.secrets.forgejo.path;
       settings.service.DISABLE_REGISTRATION = true;
     };
 

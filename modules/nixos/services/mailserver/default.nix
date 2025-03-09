@@ -1,9 +1,7 @@
 {
   inputs,
-  options,
   config,
   lib,
-  pkgs,
   namespace,
   ...
 }:
@@ -11,13 +9,12 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.mailserver;
-  certDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/";
+  certDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
 in
 {
   options.${namespace}.services.mailserver = with types; {
     enable = mkBoolOpt false "Enable mailserver";
     domain = mkStrOpt "ferngarden.net" "Domain to run on";
-    # port = mkOpt port 0 "Port to run on";
   };
 
   config = mkIf cfg.enable {
@@ -32,8 +29,13 @@ in
       localDnsResolver = false;
 
       loginAccounts = {
-        "mail@ferngarden.net" = {
+        "admin@ferngarden.net" = {
           hashedPasswordFile = config.age.secrets.mailserver.path;
+          sendOnly = true;
+          aliases = [
+            "postmaster@${cfg.domain}"
+            "abuse@${cfg.domain}"
+          ];
         };
       };
     };

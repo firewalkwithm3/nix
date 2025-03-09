@@ -31,6 +31,14 @@ in
     services.authentik = {
       enable = true;
       environmentFile = config.age.secrets.authentik.path;
+      settings.email = {
+        host = "mail.ferngarden.net";
+        port = 465;
+        username = "admin@ferngarden.net";
+        use_tls = false;
+        use_ssl = true;
+        from = "admin@ferngarden.net";
+      };
     };
 
     services.authentik-ldap = {
