@@ -11,6 +11,8 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.services.caddy;
 
+  www-pkg = host: "pkgs.${namespace}.www-" + strings.replaceStrings [ "." ] [ "-" ] host;
+
   service = {
     options = with types; {
       port = mkOption {
@@ -133,7 +135,7 @@ in
               '')
 
               (mkIf (!strings.hasPrefix "*." host) ''
-                root * /var/www/${host}
+                root * ${www-pkg host}/var/www
                 file_server
               '')
 
