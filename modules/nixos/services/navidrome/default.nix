@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -16,6 +17,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.navidrome.rekeyFile = (inputs.self + "/secrets/services/navidrome.age");
+
+    systemd.services.navidrome.serviceConfig.EnvironmentFile = [
+      config.age.secrets.navidrome.path
+    ];
+
     services.navidrome = {
       enable = true;
       settings.Address = "127.0.0.1";
