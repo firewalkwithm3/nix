@@ -20,9 +20,19 @@ in
       policies = {
         AutofillAddressEnabled = false;
         AutofillCreditCardEnabled = false;
-        Cookies = {
-          Behaviour = "reject-tracker-and-partition-foreign";
-        };
+        Containers.Default = [
+          {
+            name = "Meta";
+            color = "blue";
+            icon = "fingerprint";
+          }
+          {
+            name = "Shopping";
+            color = "orange";
+            icon = "cart";
+          }
+        ];
+        Cookies.Behaviour = "reject-tracker-and-partition-foreign";
         DisableFirefoxAccounts = true;
         DisableFirefoxStudies = true;
         DisableFormHistory = true;
@@ -38,9 +48,7 @@ in
           Highlights = false;
           Snippets = false;
         };
-        Homepage = {
-          StartPage = "none";
-        };
+        Homepage.StartPage = "none";
         EnableTrackingProtection = {
           Value = true;
           Cryptomining = true;
@@ -48,6 +56,12 @@ in
           EmailTracking = true;
         };
         ExtensionSettings = {
+          "*".installation_mode = "blocked";
+          "@testpilot-containers" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
+            default_area = "navbar";
+          };
           "uBlock0@raymondhill.net" = {
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
@@ -120,19 +134,6 @@ in
         settings = {
           "sidebar.revamp" = true;
           "sidebar.verticalTabs" = true;
-        };
-        containersForce = true;
-        containers = {
-          meta = {
-            color = "blue";
-            icon = "fingerprint";
-            id = 0;
-          };
-          shopping = {
-            color = "orange";
-            icon = "cart";
-            id = 1;
-          };
         };
         userChrome = ''
           #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
