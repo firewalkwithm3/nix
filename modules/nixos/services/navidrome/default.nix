@@ -25,14 +25,19 @@ in
 
     services.navidrome = {
       enable = true;
-      settings.Address = "127.0.0.1";
-      settings.port = 4533;
-      settings.MusicFolder = "/mnt/volume2/media/beets";
+      settings = {
+        Address = "127.0.0.1";
+        port = cfg.port;
+        ReverseProxyWhitelist = "0.0.0.0/0";
+        ReverseProxyUserHeader = "X-authentik-username";
+        EnableUserEditing = false;
+        MusicFolder = "/mnt/volume2/media/beets";
+      };
       group = "media";
     };
 
     ${namespace}.services.caddy.services.navidrome = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "music";
       domain = "fern.garden";
     };
