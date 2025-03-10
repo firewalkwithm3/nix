@@ -23,7 +23,7 @@ in
     };
 
     ${namespace}.services.caddy.services.esphome = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "esphome";
       domain = "ferngarden.net";
     };

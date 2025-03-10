@@ -81,7 +81,7 @@ in
     };
 
     ${namespace}.services.caddy.services.zigbee2mqtt = {
-      port = cfg.port;
+      port = config.${namespace}.services.authentik.port;
       subdomain = "z2m";
       domain = "ferngarden.net";
     };
