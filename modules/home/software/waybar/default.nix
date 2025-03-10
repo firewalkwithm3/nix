@@ -27,6 +27,7 @@ in
       settings.main = {
         "tray" = {
           icon-size = 13;
+          spacing = 5;
         };
         "idle_inhibitor" = {
           tooltip = false;
