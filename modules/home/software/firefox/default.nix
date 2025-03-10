@@ -15,8 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    ${namespace}.apps.hunspell.enable = true;
-
     programs.firefox = {
       enable = true;
       policies = {
@@ -106,16 +104,6 @@ in
             Status = "default";
             Type = "number";
           };
-          "sidebar.revamp" = {
-            Value = true;
-            Status = "default";
-            Type = "boolean";
-          };
-          "sidebar.verticalTabs" = {
-            Value = true;
-            Status = "default";
-            Type = "boolean";
-          };
           "places.history.enabled" = {
             Value = false;
             Status = "default";
@@ -129,6 +117,23 @@ in
         ShowHomeButton = false;
       };
       profiles.fern = {
+        settings = {
+          "sidebar.revamp" = true;
+          "sidebar.verticalTabs" = true;
+        };
+        containersForce = true;
+        containers = {
+          meta = {
+            color = "blue";
+            icon = "fingerprint";
+            id = 0;
+          };
+          shopping = {
+            color = "orange";
+            icon = "cart";
+            id = 1;
+          };
+        };
         userChrome = ''
           #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
             opacity: 0;
