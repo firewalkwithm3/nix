@@ -15,7 +15,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.nextcloud-client.Unit.After = mkForce [ "tray.target" ];
+    systemd.user.services.nextcloud-client.Unit.After = mkForce [
+      "tray.target"
+      "graphical-session.target"
+    ];
 
     services.nextcloud-client = {
       enable = true;

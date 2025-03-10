@@ -16,13 +16,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.waybar.Unit.After = lib.mkForce [ "graphical-session.target" ];
-
-    systemd.user.targets.tray = {
-      Unit = {
-        Description = "Home Manager System Tray";
-        Requires = [ "graphical-session.target" ];
-      };
+    systemd.user.services.waybar.Unit = {
+      After = mkForce [ "graphical-session.target" ];
+      Requisite = mkForce [ "graphical-session.target" ];
     };
 
     programs.waybar = {

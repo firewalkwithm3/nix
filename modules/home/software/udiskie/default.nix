@@ -15,7 +15,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.udiskie.Unit.After = mkForce [ "tray.target" ];
+    systemd.user.services.udiskie.Unit.After = mkForce [
+      "tray.target"
+      "graphical-session.target"
+    ];
 
     services.udiskie = {
       enable = true;

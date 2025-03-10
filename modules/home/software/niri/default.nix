@@ -16,6 +16,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    systemd.user.targets.tray = {
+      Unit = {
+        Description = "Home Manager System Tray";
+        Requires = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+
     gtk.iconTheme = {
       package = pkgs.papirus-icon-theme;
       name = "Papirus-Dark";
