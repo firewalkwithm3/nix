@@ -42,6 +42,7 @@ in
         navidrome = enabled;
         nextcloud = enabled;
         ntfy = enabled;
+        pinchflat = enabled;
         pixelfed = enabled;
         postgres = enabled;
         priviblur = enabled;
