@@ -19,12 +19,14 @@ in
     ${namespace}.cli = {
       archiving = enabled;
       aria2 = enabled;
+      caligula = enabled;
       fish = (mkIf osConfig.${namespace}.fish-shell.enable) enabled;
       git = enabled;
       nixvim = enabled;
       nnn = enabled;
       openssh = enabled;
       rsync = enabled;
+      television = enabled;
       tmux = enabled;
       trash = enabled;
     };
