@@ -1,0 +1,82 @@
+[
+  {
+    "pname": "Microsoft.NET.ILLink.Analyzers",
+    "version": "7.0.100-1.23401.1",
+    "hash": "sha256-jGyhmj7DZxTv9Hir6YonkpL+SDsRore8Ph4RNN+2q94="
+  },
+  {
+    "pname": "Microsoft.NET.ILLink.Tasks",
+    "version": "7.0.100-1.23401.1",
+    "hash": "sha256-n95rHugj0BOtCBvv5209zJ5ttPX0A2+RWLjEwwtxgRA="
+  },
+  {
+    "pname": "Microsoft.NETCore.Platforms",
+    "version": "3.1.0",
+    "hash": "sha256-cnygditsEaU86bnYtIthNMymAHqaT/sf9Gjykhzqgb0="
+  },
+  {
+    "pname": "Microsoft.Win32.Registry",
+    "version": "4.7.0",
+    "hash": "sha256-+jWCwRqU/J/jLdQKDFm93WfIDrDMXMJ984UevaQMoi8="
+  },
+  {
+    "pname": "Microsoft.Win32.SystemEvents",
+    "version": "4.7.0",
+    "hash": "sha256-GHxnD1Plb32GJWVWSv0Y51Kgtlb+cdKgOYVBYZSgVF4="
+  },
+  {
+    "pname": "Packaging.Targets",
+    "version": "0.1.232",
+    "hash": "sha256-boiMjc7oglq472AMH23qnzyLsDkGuCr9n0ijZoH9zYE="
+  },
+  {
+    "pname": "System.Buffers",
+    "version": "4.5.1",
+    "hash": "sha256-wws90sfi9M7kuCPWkv1CEYMJtCqx9QB/kj0ymlsNaxI="
+  },
+  {
+    "pname": "System.Configuration.ConfigurationManager",
+    "version": "4.7.0",
+    "hash": "sha256-rYjp/UmagI4ZULU1ocia/AiXxLNL8uhMV8LBF4QFW10="
+  },
+  {
+    "pname": "System.Diagnostics.PerformanceCounter",
+    "version": "4.7.0",
+    "hash": "sha256-gcanKBgh7EWUJxfa7h9f/HkfTtGRp0BLg9fVDIhjANQ="
+  },
+  {
+    "pname": "System.Drawing.Common",
+    "version": "4.7.0",
+    "hash": "sha256-D3qG+xAe78lZHvlco9gHK2TEAM370k09c6+SQi873Hk="
+  },
+  {
+    "pname": "System.Security.AccessControl",
+    "version": "4.7.0",
+    "hash": "sha256-/9ZCPIHLdhzq7OW4UKqTsR0O93jjHd6BRG1SRwgHE1g="
+  },
+  {
+    "pname": "System.Security.Cryptography.ProtectedData",
+    "version": "4.7.0",
+    "hash": "sha256-dZfs5q3Ij1W1eJCfYjxI2o+41aSiFpaAugpoECaCOug="
+  },
+  {
+    "pname": "System.Security.Permissions",
+    "version": "4.7.0",
+    "hash": "sha256-BGgXMLUi5rxVmmChjIhcXUxisJjvlNToXlyaIbUxw40="
+  },
+  {
+    "pname": "System.Security.Principal.Windows",
+    "version": "4.7.0",
+    "hash": "sha256-rWBM2U8Kq3rEdaa1MPZSYOOkbtMGgWyB8iPrpIqmpqg="
+  },
+  {
+    "pname": "System.Text.Encoding.CodePages",
+    "version": "4.7.0",
+    "hash": "sha256-/wLj3mcmScFAD/9cxmKyQnfdbaF9Mr/lpCuEsMarygM="
+  },
+  {
+    "pname": "System.Windows.Extensions",
+    "version": "4.7.0",
+    "hash": "sha256-yW+GvQranReaqPw5ZFv+mSjByQ5y1pRLl05JIEf3tYU="
+  }
+]

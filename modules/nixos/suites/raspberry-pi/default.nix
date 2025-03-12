@@ -25,7 +25,10 @@ in
       nixos.timers = enabled;
       pam.rssh = enabled;
 
-      services.netatalk = enabled;
+      services = {
+        netatalk = enabled;
+        webone = enabled;
+      };
     };
   };
 }
