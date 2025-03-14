@@ -18,6 +18,7 @@ in
     user = mkStrOpt "webone" "User to run webone as";
     group = mkStrOpt "webone" "Group to run webone as";
     logDir = mkStrOpt "/var/log/webone" "Log directory";
+    dataDir = mkStrOpt "/var/lib/webone" "Data directory";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -28,7 +29,7 @@ in
     {
       users.users.${cfg.user} = {
         group = cfg.group;
-        home = "/var/lib/webone";
+        home = cfg.dataDir;
         isSystemUser = true;
       };
 
@@ -38,6 +39,20 @@ in
         "${cfg.logDir}".d = {
           inherit (cfg) user group;
           mode = "0775";
+        };
+
+        "${cfg.dataDir}".d = {
+          inherit (cfg) user group;
+          mode = "0770";
+        };
+      };
+
+      environment.etc = {
+        "webone.conf.d/ssl.conf".text = generators.toINI { } {
+          SecureProxy = {
+            SslCertificate = "${cfg.dataDir}/ssl.crt";
+            SslPrivateKey = "${cfg.dataDir}/ssl.key";
+          };
         };
       };
 
@@ -56,6 +71,7 @@ in
           User = cfg.user;
           Group = cfg.group;
           ExecStart = "${pkgs.${namespace}.webone}/bin/webone --daemon --log ${cfg.logDir}/webone.log";
+          Environment = [ "OPENSSL_CONF=${pkgs.${namespace}.webone}/lib/webone/openssl_webone.cnf" ];
           TimeoutStopSec = 10;
           Restart = "on-failure";
           RestartSec = 5;

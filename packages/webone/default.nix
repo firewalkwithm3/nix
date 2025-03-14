@@ -2,6 +2,7 @@
   fetchFromGitHub,
   buildDotnetModule,
   dotnetCorePackages,
+  pkgs,
 }:
 
 buildDotnetModule rec {
@@ -14,6 +15,11 @@ buildDotnetModule rec {
     rev = "v${version}";
     sha256 = "sha256-pSHn/TyiRyUSlylo7fY1wXan6TLtLyk1GR5UZQl3/C4=";
   };
+
+  buildInputs = with pkgs; [
+    imagemagick
+    ffmpeg
+  ];
 
   projectFile = "WebOne.csproj";
   nugetDeps = ./deps.json;
