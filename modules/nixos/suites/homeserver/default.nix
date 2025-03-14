@@ -20,7 +20,10 @@ in
       networking.containers = enabled;
       nixos.timers = enabled;
       pam.rssh = enabled;
-      user.groups.media = enabled;
+      user = {
+        groups.media = enabled;
+        passwdless-sudo = enabled;
+      };
 
       services = {
         audiobookshelf = enabled;

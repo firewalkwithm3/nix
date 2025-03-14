@@ -19,6 +19,7 @@ in
     fullName = mkStrOpt "Fern Garden" "Full name of the user";
     email = mkStrOpt "mail@fern.garden" "Email of the user";
     groups.media.enable = mkBoolOpt false "Enable the media group";
+    passwdless-sudo.enable = mkBoolOpt false "Enable passwordless sudo for users in wheel group";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -27,7 +28,8 @@ in
 
       age.secrets."user_${hostName}".rekeyFile = (inputs.self + "/secrets/users/${hostName}.age");
 
-      users.users.${cfg.name} = { description = cfg.fullName;
+      users.users.${cfg.name} = {
+        description = cfg.fullName;
         isNormalUser = true;
         uid = 1000;
         createHome = true;
@@ -43,6 +45,10 @@ in
         hashedPasswordFile = config.age.secrets."user_${hostName}".path;
       };
     }
+
+    (mkIf cfg.passwdless-sudo.enable {
+      security.sudo.wheelNeedsPassword = false;
+    })
 
     (mkIf cfg.groups.media.enable {
       users.groups.media = {

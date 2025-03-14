@@ -24,6 +24,7 @@ in
       };
       nixos.timers = enabled;
       pam.rssh = enabled;
+      user.passwdless-sudo = enabled;
 
       services = {
         netatalk = enabled;
