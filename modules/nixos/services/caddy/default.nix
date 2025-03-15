@@ -95,7 +95,7 @@ in
           "github.com/caddy-dns/porkbun@v0.2.1"
           "github.com/hslatman/caddy-crowdsec-bouncer@v0.7.2"
         ];
-        hash = "sha256-HeHOXg90lA2JcAsc9DVt5/uSlz1xfO5810lQEQDqnqg=";
+        hash = "sha256-cDkcAZgMtzvo9hYvn/9j+lWEKokjnyZMldhlRJ49EtU=";
       };
 
       globalConfig = ''
