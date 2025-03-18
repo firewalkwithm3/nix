@@ -25,6 +25,8 @@ in
       ];
 
       nix.settings.trusted-users = [ "fern" ];
+
+      programs.nix-index-database.comma.enable = true;
     }
 
     (mkIf cfg.timers.enable {

@@ -6,6 +6,11 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    nix-index = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,6 +100,7 @@
         lanzaboote.nixosModules.lanzaboote
         stylix.nixosModules.stylix
         simple-nixos-mailserver.nixosModule
+        nix-index.nixosModules.nix-index
       ];
 
       systems.hosts.weebill.modules = with inputs; [

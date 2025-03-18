@@ -57,7 +57,10 @@ in
         binds = {
           "Mod+Shift+Slash".action.show-hotkey-overlay = { };
 
-          "Mod+Return".action.spawn = "${pkgs.kitty}/bin/kitty";
+          "Mod+Return".action.spawn = [
+            "${pkgs.kitty}/bin/kitty"
+            "--single-instance"
+          ];
 
           "Mod+Space".action.spawn = "${pkgs.fuzzel}/bin/fuzzel";
           "Mod+E".action.spawn = [
