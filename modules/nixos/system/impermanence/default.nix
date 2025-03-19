@@ -61,8 +61,9 @@ in
             ".config/Signal"
           ])
 
-          (mkIf hm-cfg.apps.fluffychat.enable [
-            ".local/share/chat.fluffy.fluffychat"
+          (mkIf hm-cfg.apps.cinny.enable [
+            ".local/share/cinny"
+            ".local/share/in.cinny.app"
           ])
 
           (mkIf hm-cfg.apps.feishin.enable [
@@ -75,6 +76,7 @@ in
 
           (mkIf hm-cfg.apps.nextcloud.enable [
             "Nextcloud"
+            ".config/Nextcloud"
           ])
         ];
         files = mkMerge [

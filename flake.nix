@@ -80,8 +80,6 @@
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "fluffychat-linux-1.22.1"
-          "olm-3.2.16"
           "dotnet-sdk-6.0.136"
           "dotnet-runtime-6.0.36"
         ];

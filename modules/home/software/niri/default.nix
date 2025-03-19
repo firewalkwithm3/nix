@@ -251,7 +251,7 @@ in
             ];
           }
           { command = [ "${config.programs.firefox.finalPackage}/bin/firefox" ]; }
-          { command = [ "${pkgs.fluffychat}/bin/fluffychat" ]; }
+          { command = [ "${pkgs.cinny-desktop}/bin/cinny" ]; }
           { command = [ "${pkgs.signal-desktop}/bin/signal-desktop" ]; }
           { command = [ "${pkgs.feishin}/bin/feishin" ]; }
         ];
@@ -337,7 +337,7 @@ in
           }
           {
             matches = [
-              { app-id = "fluffychat"; }
+              { app-id = "cinny"; }
               { app-id = "Signal"; }
             ];
             open-on-workspace = "chat";

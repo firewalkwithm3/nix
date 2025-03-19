@@ -19,7 +19,7 @@ in
     ${namespace}.apps = {
       feishin = enabled;
       firefox = enabled;
-      fluffychat = enabled;
+      cinny = enabled;
       gimp = enabled;
       imv = enabled;
       kitty = enabled;
