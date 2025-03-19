@@ -14,15 +14,10 @@ in
   options.${namespace}.services.navidrome = with types; {
     enable = mkBoolOpt false "Enable navidrome";
     port = mkOpt port 4533 "Port to run on";
+    musicDir = mkStrOpt "/mnt/volume2/media/beets" "Directory where music files are kept";
   };
 
   config = mkIf cfg.enable {
-    age.secrets.navidrome.rekeyFile = (inputs.self + "/secrets/services/navidrome.age");
-
-    systemd.services.navidrome.serviceConfig.EnvironmentFile = [
-      config.age.secrets.navidrome.path
-    ];
-
     services.navidrome = {
       enable = true;
       settings = {
@@ -31,9 +26,33 @@ in
         ReverseProxyWhitelist = "0.0.0.0/0";
         ReverseProxyUserHeader = "X-authentik-username";
         EnableUserEditing = false;
-        MusicFolder = "/mnt/volume2/media/beets";
+        MusicFolder = cfg.musicDir;
       };
       group = "media";
+    };
+
+    age.secrets.explo.rekeyFile = (inputs.self + "/secrets/services/explo.age");
+
+    virtualisation.oci-containers.containers = {
+      explo = {
+        image = "ghcr.io/lumepart/explo:latest";
+        volumes = [
+          "${cfg.musicDir}/explo:${cfg.musicDir}/explo"
+          "${config.age.secrets.explo.path}:/opt/explo/.env"
+        ];
+        environment = {
+          CRON_SCHEDULE = "0 1 * * 1";
+          EXPLO_SYSTEM = "subsonic";
+          SYSTEM_URL = "http://127.0.0.1:4533";
+          SYSTEM_USERNAME = "fern";
+          DOWNLOAD_DIR = "/mnt/volume2/media/beets/explo";
+          LISTENBRAINZ_USER = "mtqueerie";
+          PERSIST = "false";
+          PUID = "1000";
+          PGID = "1800";
+        };
+        extraOptions = [ "--pull=newer" ];
+      };
     };
 
     ${namespace}.services.caddy.services.navidrome = {
