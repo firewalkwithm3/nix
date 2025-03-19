@@ -43,7 +43,7 @@ stdenv.mkDerivation {
             <head>
               <title>meow!!</title>
       	<meta charset="utf-8"/>
-      	<link rel="stylesheet" href="css/index.css?v20220326">
+      	<link rel="stylesheet" href="index.css">
       	<link rel="icon" type="image/x-icon" href="images/favicon.png"/>
       	<meta name="viewport" content="width=device-width, initial-scale=1">
             </head>

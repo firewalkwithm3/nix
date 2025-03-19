@@ -11,7 +11,7 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.services.caddy;
 
-  www-pkg = host: "pkgs.${namespace}.www-" + strings.replaceStrings [ "." ] [ "-" ] host;
+  www-pkg = host: strings.replaceStrings [ "." ] [ "-" ] host;
 
   service = {
     options = with types; {
@@ -134,8 +134,8 @@ in
                 handle { redir https://${(strings.removePrefix "*." host)} }
               '')
 
-              (mkIf (!strings.hasPrefix "*." host) ''
-                root * ${www-pkg host}/var/www
+              (mkIf (!strings.hasPrefix "*." host && strings.removePrefix "*." host != "ferngarden.net") ''
+                root * ${pkgs.${namespace}."www-${strings.replaceStrings [ "." ] [ "-" ] host}"}/var/www
                 file_server
               '')
 
