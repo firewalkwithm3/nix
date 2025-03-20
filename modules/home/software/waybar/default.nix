@@ -49,7 +49,7 @@ in
           };
         };
         "network#wifi" = {
-          interface = "wlp3s0";
+          interface = "wifi";
           tooltip = true;
           tooltip-format = "{essid}";
           format = "{icon}";
@@ -70,7 +70,7 @@ in
           on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
         };
         "network#wireguard" = {
-          interface = "forest";
+          interface = "spoonbill";
           tooltip = false;
           format = "󰖂";
           format-disconnected = "";

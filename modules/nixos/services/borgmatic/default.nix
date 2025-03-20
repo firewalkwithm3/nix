@@ -24,15 +24,16 @@ in
     services.borgmatic = {
       enable = true;
       configurations = {
-        "forest" = {
+        "spoonbill" = {
           exclude_patterns = [
             "/var/lib/audiobookshelf/config/absdatabase.sqlite"
             "/var/lib/bazarr/db/bazarr.db"
             "/var/lib/calibre-server/users.sqlite"
             "/var/lib/calibre-web/app.db"
             "/var/lib/calibre-web/gdrive.db"
-            "/var/lib/containers/storage/volumes/hass/_data/zigbee.db*"
             "/var/lib/containers/storage/volumes/hass/_data/home-assistant_v2.db*"
+            "/var/lib/containers/storage/volumes/hass/_data/zigbee.db*"
+            "/var/lib/containers/storage/volumes/pinchflat-config/_data/db/pinchflat.db*"
             "/var/lib/containers/storage/volumes/wallos-db/_data/wallos.db"
             "/var/lib/jellyfin/data/jellyfin.db*"
             "/var/lib/jellyfin/data/library.db*"
@@ -40,34 +41,41 @@ in
             "/var/lib/jellyseerr/db/db.sqlite3*"
             "/var/lib/lidarr/.config/Lidarr/lidarr.db*"
             "/var/lib/lidarr/.config/Lidarr/logs.db*"
+            "/var/lib/mosquitto/mosquitto.db"
             "/var/lib/navidrome/navidrome.db*"
-            "/var/lib/nixos-containers/readarr-audio/var/lib/readarr/readarr.db*"
             "/var/lib/nixos-containers/readarr-audio/var/lib/readarr/logs.db*"
-            "/var/lib/nixos-containers/readarr-ebook/var/lib/readarr/readarr.db*"
+            "/var/lib/nixos-containers/readarr-audio/var/lib/readarr/readarr.db*"
             "/var/lib/nixos-containers/readarr-ebook/var/lib/readarr/logs.db*"
-            "/var/lib/prowlarr/prowlarr.db*"
+            "/var/lib/nixos-containers/readarr-ebook/var/lib/readarr/readarr.db*"
+            "/var/lib/ntfy-sh/*.db"
+            "/var/lib/postfix/conf/*.db"
             "/var/lib/prowlarr/logs.db*"
-            "/var/lib/radarr/.config/Radarr/radarr.db*"
+            "/var/lib/prowlarr/prowlarr.db*"
             "/var/lib/radarr/.config/Radarr/logs.db*"
-            "/var/lib/sonarr/.config/NzbDrone/sonarr.db*"
+            "/var/lib/radarr/.config/Radarr/radarr.db*"
             "/var/lib/sonarr/.config/NzbDrone/logs.db*"
+            "/var/lib/sonarr/.config/NzbDrone/sonarr.db*"
+            "/var/lib/zigbee2mqtt/database.db"
           ];
           source_directories = [
             "/var/lib/audiobookshelf"
             "/var/lib/authentik"
             "/var/lib/bazarr"
-            "/var/lib/bitwarden_rs"
             "/var/lib/caddy"
             "/var/lib/calibre-server"
             "/var/lib/calibre-web"
             "/var/lib/containers/storage/volumes/appdaemon-certs"
             "/var/lib/containers/storage/volumes/appdaemon-config"
             "/var/lib/containers/storage/volumes/hass"
+            "/var/lib/containers/storage/volumes/pinchflat-config"
             "/var/lib/containers/storage/volumes/priviblur"
+            "/var/lib/containers/storage/volumes/qbittorrent-config"
+            "/var/lib/containers/storage/volumes/seedboxapi"
             "/var/lib/containers/storage/volumes/wallos-db"
             "/var/lib/containers/storage/volumes/wallos-logos"
-            "/var/lib/containers/storage/volumes/qbittorrent-config"
             "/var/lib/crowdsec"
+            "/var/lib/dhparams"
+            "/var/lib/dovecot"
             "/var/lib/esphome"
             "/var/lib/forgejo"
             "/var/lib/immich"
@@ -77,14 +85,21 @@ in
             "/var/lib/lidarr"
             "/var/lib/matrix-synapse"
             "/var/lib/minecraft"
+            "/var/lib/mosquitto"
             "/var/lib/navidrome"
-            "/var/lib/nextcloud"
+            "/var/lib/nixos-containers/nextcloud/var/lib/nextcloud"
+            "/var/lib/nixos-containers/pixelfed/var/lib/pixelfed"
             "/var/lib/nixos-containers/readarr-audio/var/lib/readarr"
             "/var/lib/nixos-containers/readarr-ebook/var/lib/readarr"
-            "/var/lib/pixelfed"
+            "/var/lib/ntfy-sh"
+            "/var/lib/opendkim"
+            "/var/lib/postfix"
             "/var/lib/prowlarr"
             "/var/lib/radarr"
+            "/var/lib/rspamd"
             "/var/lib/sonarr"
+            "/var/lib/vaultwarden"
+            "/var/lib/zigbee2mqtt"
           ];
           postgresql_databases = [
             {
@@ -162,8 +177,20 @@ in
               path = "/var/lib/lidarr/.config/Lidarr/logs.db";
             }
             {
+              name = "mosquitto";
+              path = "/var/lib/mosquitto/mosquitto.db";
+            }
+            {
               name = "navidrome";
               path = "/var/lib/navidrome/navidrome.db";
+            }
+            {
+              name = "ntfy-sh-cache-file";
+              path = "/var/lib/ntfy-sh/cache-file.db";
+            }
+            {
+              name = "ntfy-sh-user";
+              path = "/var/lib/ntfy-sh/user.db";
             }
             {
               name = "readarr-audio";
@@ -180,6 +207,42 @@ in
             {
               name = "readarr-ebook-logs";
               path = "/var/lib/nixos-containers/readarr-ebook/var/lib/readarr/logs.db";
+            }
+            {
+              name = "postfix-aliases";
+              path = "/var/lib/postfix/conf/aliases.db";
+            }
+            {
+              name = "postfix-denied_recipients";
+              path = "/var/lib/postfix/conf/denied_recipients.db";
+            }
+            {
+              name = "postfix-regex_vaccounts";
+              path = "/var/lib/postfix/conf/regex_vaccounts.db";
+            }
+            {
+              name = "postfix-regex_valias";
+              path = "/var/lib/postfix/conf/regex_valias.db";
+            }
+            {
+              name = "postfix-reject_recipients";
+              path = "/var/lib/postfix/conf/reject_recipients.db";
+            }
+            {
+              name = "postfix-reject_senders";
+              path = "/var/lib/postfix/conf/reject_senders.db";
+            }
+            {
+              name = "postfix-vaccounts";
+              path = "/var/lib/postfix/conf/vaccounts.db";
+            }
+            {
+              name = "postfix-valias";
+              path = "/var/lib/postfix/conf/valias.db";
+            }
+            {
+              name = "postfix-virtual";
+              path = "/var/lib/postfix/conf/virtual.db";
             }
             {
               name = "prowlarr";
@@ -205,15 +268,15 @@ in
               name = "sonarr-logs";
               path = "/var/lib/sonarr/.config/NzbDrone/logs.db";
             }
+            {
+              name = "zigbee2mqtt";
+              path = "/var/lib/zigbee2mqtt/database.db";
+            }
           ];
           repositories = [
             {
-              label = "borgbase";
-              path = "ssh://b3w98w7t@b3w98w7t.repo.borgbase.com/./repo";
-            }
-            {
               label = "onedrive";
-              path = "/mnt/onedrive/Backups/forest";
+              path = "/mnt/onedrive/Backups/spoonbill";
             }
           ];
           compression = "lz4";
