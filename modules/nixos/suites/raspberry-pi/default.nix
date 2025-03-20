@@ -16,20 +16,10 @@ in
 
   config = mkIf cfg.enable {
     ${namespace} = {
+      suites.server = enabled;
       bootloader.raspberry-pi = enabled;
       filesystems.disko.raspberry-pi = enabled;
-      networking = {
-        wifi = enabled;
-        wlan-eth-bridge = enabled;
-      };
-      nixos.timers = enabled;
-      pam.rssh = enabled;
-      user.passwdless-sudo = enabled;
-
-      services = {
-        netatalk = enabled;
-        webone = enabled;
-      };
+      networking.containers = mkDefault disabled;
     };
   };
 }

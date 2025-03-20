@@ -17,10 +17,7 @@ in
   config = mkIf cfg.enable {
     ${namespace} = {
       desktop-environment = enabled;
-      networking = {
-        wifi = enabled;
-        wireguard = enabled;
-      };
+      networking.wireguard = enabled;
       yubikey = enabled;
       power-management = enabled;
     };

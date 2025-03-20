@@ -14,7 +14,7 @@ in
 {
   options.${namespace}.networking = with types; {
     enable = mkBoolOpt true "Enable networking";
-    wifi.enable = mkBoolOpt false "Enable WiFi";
+    wifi.enable = mkBoolOpt true "Enable WiFi";
     wireguard = {
       enable = mkBoolOpt false "Enable Wireguard";
       address = mkStrOpt "" "Wireguard client address";

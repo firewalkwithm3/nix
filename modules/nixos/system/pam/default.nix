@@ -23,6 +23,7 @@ in
     (mkIf cfg.gtklock.enable {
       security.pam.services.gtklock = { };
     })
+
     (mkIf cfg.rssh.enable {
       security.pam = {
         rssh.enable = true;

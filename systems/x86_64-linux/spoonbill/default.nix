@@ -16,8 +16,46 @@ with lib.${namespace};
 
     bootloader.secureboot = enabled;
     filesystems.ssd = enabled;
+    filesystems.rclone = enabled;
+    networking.wifi = disabled;
     firmware.intel-microcode = enabled;
     graphics.intel = enabled;
+
+    user.groups.media = enabled;
+
+    services = {
+      audiobookshelf = enabled;
+      bazarr = enabled;
+      borgmatic = enabled;
+      caddy = enabled;
+      calibre = enabled;
+      forgejo = enabled;
+      home-assistant = enabled;
+      immich = enabled;
+      jellyfin = enabled;
+      jellyseerr = enabled;
+      lidarr = enabled;
+      mailserver = enabled;
+      matrix-synapse = enabled;
+      memos = enabled;
+      minecraft = enabled;
+      miniflux = enabled;
+      navidrome = enabled;
+      nextcloud = enabled;
+      ntfy = enabled;
+      pinchflat = enabled;
+      pixelfed = enabled;
+      postgres = enabled;
+      priviblur = enabled;
+      prowlarr = enabled;
+      qbittorrent = enabled;
+      radarr = enabled;
+      readarr-audiobooks = enabled;
+      readarr-ebooks = enabled;
+      sonarr = enabled;
+      vaultwarden = enabled;
+      wallos = enabled;
+    };
   };
 
   boot.initrd.availableKernelModules = [

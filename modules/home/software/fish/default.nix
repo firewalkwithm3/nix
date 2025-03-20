@@ -18,9 +18,6 @@ in
     {
       programs.fish = {
         enable = true;
-        interactiveShellInit = ''
-          set -gx EDITOR 'nvim'
-        '';
         functions = {
           fish_greeting = "";
           nrs = "nixos-rebuild switch --use-remote-sudo --flake /home/fern/git/nix";
@@ -30,6 +27,23 @@ in
         };
       };
     }
+
+    (mkIf config.${namespace}.cli.nixvim.enable {
+      programs.fish.interactiveShellInit = ''
+        set -gx EDITOR 'nvim'
+      '';
+    })
+
+    (mkIf config.${namespace}.cli.caligula.enable {
+      programs.fish.functions.burn = ''
+        caligula burn \
+          --compression auto \
+          --hash skip \
+          --force \
+          --root always \
+          $argv
+      '';
+    })
 
     (mkIf config.${namespace}.cli.nnn.enable {
       programs.fish = {

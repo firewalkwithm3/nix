@@ -21,9 +21,6 @@ in
       encryption.enable = mkBoolOpt true "Enable LUKS encryption";
       disk = mkStrOpt "" "Disk to install NixOS to";
       raspberry-pi.enable = mkBoolOpt false "Enable Raspberry Pi disk layout";
-      impermanence.enable =
-        mkBoolOpt config.${namespace}.impermanence.enable
-          "Whether to enable impermanent rootfs";
     };
   };
 
@@ -59,7 +56,7 @@ in
       age.secrets."luks_${hostName}".rekeyFile = (inputs.self + "/secrets/luks/${hostName}.age");
     })
 
-    (mkIf cfg.disko.impermanence.enable {
+    (mkIf config.${namespace}.impermanence.enable {
       fileSystems."/persist".neededForBoot = true;
     })
 
@@ -181,7 +178,7 @@ in
                       type = "btrfs";
                       extraArgs = [ "-f" ];
                       postMountHook = mkIf cfg.disko.raspberry-pi.enable "touch /mnt/disko-first-boot";
-                      postCreateHook = mkIf cfg.disko.impermanence.enable ''
+                      postCreateHook = mkIf config.${namespace}.impermanence.enable ''
                         MNTPOINT=$(mktemp -d)
                         mount "/dev/mapper/crypted" "$MNTPOINT" -o subvol=/
                         trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
@@ -202,7 +199,7 @@ in
                             "noatime"
                           ];
                         };
-                        "/persist" = mkIf cfg.disko.impermanence.enable {
+                        "/persist" = mkIf config.${namespace}.impermanence.enable {
                           mountpoint = "/persist";
                           mountOptions = [
                             "compress=zstd"
@@ -219,7 +216,7 @@ in
                 root.content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];
-                  postCreateHook = mkIf cfg.disko.impermanence.enable ''
+                  postCreateHook = mkIf config.${namespace}.impermanence.enable ''
                     MNTPOINT=$(mktemp -d)
                     mount "/dev/disk/by-partlabel/disk-main-root" "$MNTPOINT" -o subvol=/
                     trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
@@ -240,7 +237,7 @@ in
                         "noatime"
                       ];
                     };
-                    "/persist" = mkIf cfg.disko.impermanence.enable {
+                    "/persist" = mkIf config.${namespace}.impermanence.enable {
                       mountpoint = "/persist";
                       mountOptions = [
                         "compress=zstd"
