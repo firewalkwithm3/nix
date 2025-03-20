@@ -129,14 +129,14 @@ in
         }
       ];
 
-      networking.networkmanager.unmanaged = [ "spoonbill" ];
+      networking.networkmanager.unmanaged = [ "osprey" ];
 
       age.secrets."wireguard_${hostName}".rekeyFile = (
         inputs.self + "/secrets/networking/wireguard/${hostName}.age"
       );
 
       networking.wg-quick.interfaces = {
-        spoonbill = {
+        osprey = {
           address = [ cfg.wireguard.address ];
           dns = [ "10.0.1.1" ];
           mtu = 1380;

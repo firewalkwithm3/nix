@@ -70,7 +70,7 @@ in
           on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
         };
         "network#wireguard" = {
-          interface = "spoonbill";
+          interface = "osprey";
           tooltip = false;
           format = "󰖂";
           format-disconnected = "";
