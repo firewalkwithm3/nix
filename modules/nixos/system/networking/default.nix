@@ -25,8 +25,11 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      networking.firewall.enable = true;
-      networking.networkmanager.enable = true;
+      networking = {
+        firewall.enable = true;
+        networkmanager.enable = true;
+        nftables.enable = true;
+      };
     }
 
     (mkIf cfg.wlan-eth-bridge.enable {
@@ -47,7 +50,6 @@ in
         ];
 
         nftables = {
-          enable = true;
           ruleset = ''
             table ip nat {
               chain POSTROUTING {
@@ -156,13 +158,15 @@ in
     (mkIf cfg.containers.enable {
       networking.nat = {
         enable = true;
-        internalInterfaces = [ "ve-+" ];
+        internalInterfaces = [ "ve-*" ];
         externalInterface = "eno1";
       };
 
       networking.firewall = {
-        trustedInterfaces = [ "ve-+" ];
-        interfaces."veth+".allowedUDPPorts = [ 53 ];
+        trustedInterfaces = [
+          "ve-*"
+          "veth*"
+        ];
       };
 
       virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
