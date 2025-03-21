@@ -7,7 +7,7 @@ with lib;
 with lib.${namespace};
 {
   ${namespace} = {
-    suites.homeserver = enabled;
+    suites.server = enabled;
 
     filesystems.disko = disabled;
     impermanence = disabled;
