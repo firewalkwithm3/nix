@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.readarr-ebooks = with types; {
-    enable = mkBoolOpt false "Enable readarr-ebooks";
+    enable = mkBoolOpt false "Enable readarr-ebooks - ebook fetcher & organiser";
     port = mkOpt port 8787 "Port to run on";
     host = mkStrOpt "192.168.100.22" "IP to bind to";
   };
@@ -20,8 +20,8 @@ in
     networking.nat = {
       forwardPorts = [
         {
-          destination = "${cfg.host}:${toString config.${namespace}.services.calibre.calibre-server.port}";
-          sourcePort = config.${namespace}.services.calibre.calibre-server.port;
+          destination = "${cfg.host}:${toString config.${namespace}.services.calibre.server.port}";
+          sourcePort = config.${namespace}.services.calibre.server.port;
         }
       ];
     };

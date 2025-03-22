@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.home-assistant = with types; {
-    enable = mkBoolOpt false "Enable home assistant";
+    enable = mkBoolOpt false "Enable home assistant - home automation software";
     port = mkOpt port 8123 "Port to run on";
   };
 

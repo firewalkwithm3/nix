@@ -11,7 +11,9 @@ let
 in
 {
   options.${namespace}.services.esphome = with types; {
-    enable = mkBoolOpt config.${namespace}.services.home-assistant.enable "Enable esphome";
+    enable =
+      mkBoolOpt config.${namespace}.services.home-assistant.enable
+        "Enable esphome - ESP32 configuration utility";
     port = mkOpt port 6052 "Port to run on";
   };
 

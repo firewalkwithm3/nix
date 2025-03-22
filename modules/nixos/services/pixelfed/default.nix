@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.pixelfed = with types; {
-    enable = mkBoolOpt false "Enable pixelfed";
+    enable = mkBoolOpt false "Enable pixelfed - social photo sharing platform";
     port = mkOpt port 80 "Port to run on";
     host = mkStrOpt "192.168.100.23" "IP to bind to";
   };
@@ -28,7 +28,7 @@ in
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.20";
-      localAddress = "${cfg.host}";
+      localAddress = cfg.host;
       bindMounts = {
         "${config.age.secrets.pixelfed.path}".isReadOnly = true;
       };
@@ -90,7 +90,7 @@ in
               MAIL_FROM_NAME = "admin@ferngarden.net";
             };
           };
-          system.stateVersion = "23.11";
+          system.stateVersion = "24.11";
 
           networking = {
             firewall = {

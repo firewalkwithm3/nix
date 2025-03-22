@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.priviblur = with types; {
-    enable = mkBoolOpt false "Enable priviblur";
+    enable = mkBoolOpt false "Enable priviblur - private tumblr frontend";
     port = mkOpt port 8084 "Port to run on";
   };
 

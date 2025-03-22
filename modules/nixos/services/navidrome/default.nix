@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.navidrome = with types; {
-    enable = mkBoolOpt false "Enable navidrome";
+    enable = mkBoolOpt false "Enable navidrome - music streaming service";
     port = mkOpt port 4533 "Port to run on";
     musicDir = mkStrOpt "/mnt/volume2/media/beets" "Directory where music files are kept";
   };
@@ -45,7 +45,7 @@ in
           EXPLO_SYSTEM = "subsonic";
           SYSTEM_URL = "http://127.0.0.1:4533";
           SYSTEM_USERNAME = "fern";
-          DOWNLOAD_DIR = "/mnt/volume2/media/beets/explo";
+          DOWNLOAD_DIR = "${cfg.musicDir}/explo";
           LISTENBRAINZ_USER = "mtqueerie";
           PERSIST = "false";
           PUID = "1000";

@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.pinchflat = with types; {
-    enable = mkBoolOpt false "Enable pinchflat";
+    enable = mkBoolOpt false "Enable pinchflat - YouTube downloader";
     port = mkOpt port 8945 "Port to run on";
   };
 

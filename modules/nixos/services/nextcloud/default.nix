@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.nextcloud = with types; {
-    enable = mkBoolOpt false "Enable nextcloud";
+    enable = mkBoolOpt false "Enable nextcloud - cloud storage service";
     port = mkOpt port 80 "Port to run on";
     host = mkStrOpt "192.168.100.24" "IP to bind to";
   };
@@ -30,7 +30,7 @@ in
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.20";
-      localAddress = "192.168.100.24";
+      localAddress = cfg.host;
       bindMounts = {
         "${config.age.secrets.nextcloud.path}".isReadOnly = true;
         "/var/run/postgresql".mountPoint = "/var/run/postgresql";

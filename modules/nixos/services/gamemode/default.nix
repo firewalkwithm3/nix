@@ -11,10 +11,7 @@ let
 in
 {
   options.${namespace}.services.gamemode = with types; {
-    enable =
-      mkBoolOpt
-        config.home-manager.users.${config.${namespace}.user.name}.${namespace}.apps.prismlauncher.enable
-        "Enable gamemode service";
+    enable = mkBoolOpt config.${namespace}.desktop-environment.enable "Enable gamemode service";
   };
 
   config = mkIf cfg.enable {

@@ -11,8 +11,8 @@ let
 in
 {
   options.${namespace}.services.netatalk = with types; {
-    enable = mkBoolOpt false "Enable Netatalk (AFP implementation)";
-    port = mkPortOpt 548 "Port to run Netatalk on";
+    enable = mkBoolOpt false "Enable Netatalk - AFP implementation";
+    port = mkPortOpt 548 "Port to run on";
   };
 
   config = mkIf cfg.enable {

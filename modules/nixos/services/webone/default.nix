@@ -12,9 +12,8 @@ let
 in
 {
   options.${namespace}.services.webone = with types; {
-    enable = mkBoolOpt false "Enable webone";
+    enable = mkBoolOpt false "Enable webone - HTTP proxy for vintage computers";
     port = mkOpt port 8080 "Port to run on";
-    openFirewall = mkBoolOpt true "Open port in firewall";
     user = mkStrOpt "webone" "User to run webone as";
     group = mkStrOpt "webone" "Group to run webone as";
     logDir = mkStrOpt "/var/log/webone" "Log directory";
@@ -22,11 +21,9 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.openFirewall {
-      networking.firewall.interfaces.end0.allowedTCPPorts = [ cfg.port ];
-    })
-
     {
+      networking.firewall.interfaces.end0.allowedTCPPorts = [ cfg.port ];
+
       users.users.${cfg.user} = {
         group = cfg.group;
         home = cfg.dataDir;

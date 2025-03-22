@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.audiobookshelf = with types; {
-    enable = mkBoolOpt false "Enable AudiobookShelf";
+    enable = mkBoolOpt false "Enable audiobookshelf - audiobooks manager";
     port = mkOpt port 8081 "Port to run on";
   };
 

@@ -22,7 +22,7 @@ in
     assertions = [
       {
         assertion = cfg.pubKey != "";
-        message = "Please provide the host's SSH public key for use with agenix";
+        message = "Please provide the host's SSH public key";
       }
     ];
 

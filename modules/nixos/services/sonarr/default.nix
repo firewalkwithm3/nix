@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.sonarr = with types; {
-    enable = mkBoolOpt false "Enable sonarr";
+    enable = mkBoolOpt false "Enable sonarr - TV fetcher & organiser";
   };
 
   config = mkIf cfg.enable {

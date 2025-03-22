@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.jellyseerr = with types; {
-    enable = mkBoolOpt false "Enable jellyseerr";
+    enable = mkBoolOpt false "Enable jellyseerr - Jellyfin requests interface";
     port = mkOpt port 5055 "Port to run on";
   };
 

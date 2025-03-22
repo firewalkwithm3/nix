@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.prowlarr = with types; {
-    enable = mkBoolOpt false "Enable prowlarr";
+    enable = mkBoolOpt false "Enable prowlarr - tracker indexer";
     flaresolverr.port = mkOpt port 8191 "Port to run on";
   };
 

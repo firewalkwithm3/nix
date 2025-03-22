@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.immich = with types; {
-    enable = mkBoolOpt false "Enable immich";
+    enable = mkBoolOpt false "Enable immich - cloud photo storage";
     port = mkOpt port 3001 "Port to run on";
   };
 

@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.wallos = with types; {
-    enable = mkBoolOpt false "Enable wallos";
+    enable = mkBoolOpt false "Enable wallos - subscription manager";
     port = mkOpt port 8088 "Port to run on";
   };
 

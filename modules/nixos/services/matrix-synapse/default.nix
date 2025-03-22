@@ -12,9 +12,9 @@ let
 in
 {
   options.${namespace}.services.matrix-synapse = with types; {
-    enable = mkBoolOpt false "Enable matrix-synapse";
+    enable = mkBoolOpt false "Enable matrix-synapse - encrypted chat server";
     port = mkOpt port 8008 "Port to run on";
-    federation.port = mkOpt port 8448 "Port to run on";
+    federation.port = mkOpt port 8448 "Port for federation";
   };
 
   config = mkIf cfg.enable {

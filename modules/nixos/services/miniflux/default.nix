@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.miniflux = with types; {
-    enable = mkBoolOpt false "Enable miniflux";
+    enable = mkBoolOpt false "Enable miniflux - RSS feed manager";
     port = mkOpt port 8083 "Port to run on";
   };
 
@@ -24,7 +24,7 @@ in
       adminCredentialsFile = config.age.secrets.miniflux.path;
       config = {
         BASE_URL = "https://rss.ferngarden.net";
-        LISTEN_ADDR = "0.0.0.0:8083";
+        LISTEN_ADDR = "127.0.0.1:8083";
         OAUTH2_PROVIDER = "oidc";
         OAUTH2_REDIRECT_URL = "https://rss.ferngarden.net/oauth2/oidc/callback";
         OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.fern.garden/application/o/miniflux/";

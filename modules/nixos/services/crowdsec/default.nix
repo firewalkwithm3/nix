@@ -13,7 +13,9 @@ let
 in
 {
   options.${namespace}.services.crowdsec = with types; {
-    enable = mkBoolOpt config.${namespace}.services.caddy.enable "Enable crowdsec";
+    enable =
+      mkBoolOpt config.${namespace}.services.caddy.enable
+        "Enable crowdsec - crowd-sourced threat intelligence";
     port = mkOpt port 8091 "Port to run on";
   };
 
@@ -24,6 +26,7 @@ in
         owner = "crowdsec";
         group = "crowdsec";
       };
+
       crowdsec-bouncer = {
         rekeyFile = (inputs.self + "/secrets/services/crowdsec-bouncer.age");
         owner = "crowdsec";
@@ -81,6 +84,5 @@ in
         api_url = "http://127.0.0.1:${toString cfg.port}";
       };
     };
-
   };
 }

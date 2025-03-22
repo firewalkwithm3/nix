@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.ntfy = with types; {
-    enable = mkBoolOpt false "Enable ntfy";
+    enable = mkBoolOpt false "Enable ntfy - notification service";
     port = mkOpt port 2586 "Port to run on";
   };
 

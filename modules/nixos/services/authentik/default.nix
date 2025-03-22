@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.authentik = with types; {
-    enable = mkBoolOpt config.${namespace}.services.caddy.enable "Enable Authentik";
+    enable = mkBoolOpt config.${namespace}.services.caddy.enable "Enable authentik - SSO";
     port = mkOpt port 9000 "Port to run on";
   };
 
@@ -22,6 +22,7 @@ in
       owner = "authentik";
       group = "authentik";
     };
+
     age.secrets.authentik-ldap = {
       rekeyFile = (inputs.self + "/secrets/services/authentik-ldap.age");
       owner = "authentik";

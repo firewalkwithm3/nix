@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.postgres = with types; {
-    enable = mkBoolOpt false "Enable postgres";
+    enable = mkBoolOpt false "Enable postgres - database";
   };
 
   config = mkIf cfg.enable {

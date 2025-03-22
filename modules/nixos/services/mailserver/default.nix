@@ -19,6 +19,7 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.mailserver.rekeyFile = (inputs.self + "/secrets/services/mailserver.age");
+
     mailserver = {
       enable = true;
       fqdn = "mail.${cfg.domain}";

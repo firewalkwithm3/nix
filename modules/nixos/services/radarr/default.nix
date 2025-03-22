@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.radarr = with types; {
-    enable = mkBoolOpt false "Enable radarr";
+    enable = mkBoolOpt false "Enable radarr - movie fetcher & organiser";
     letterboxd.port = mkOpt port 5000 "Port to run on";
   };
 

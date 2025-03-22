@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.minecraft = with types; {
-    enable = mkBoolOpt false "Enable module";
+    enable = mkBoolOpt false "Enable paper minecraft server";
     port = mkOpt port 25565 "Port to run on";
   };
 

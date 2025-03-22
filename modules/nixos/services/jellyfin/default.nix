@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.jellyfin = with types; {
-    enable = mkBoolOpt false "Enable jellyfin";
+    enable = mkBoolOpt false "Enable jellyfin - media server";
     port = mkOpt port 8096 "Port to run on";
   };
 

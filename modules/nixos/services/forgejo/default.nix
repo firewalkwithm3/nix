@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.forgejo = with types; {
-    enable = mkBoolOpt false "Enable forgejo";
+    enable = mkBoolOpt false "Enable forgejo - git frontend";
     port = mkOpt port 3000 "Port to run on";
   };
 

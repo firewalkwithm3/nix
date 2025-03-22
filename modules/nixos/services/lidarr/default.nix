@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.lidarr = with types; {
-    enable = mkBoolOpt false "Enable lidarr";
+    enable = mkBoolOpt false "Enable lidarr - music fetcher & organiser";
   };
 
   config = mkIf cfg.enable {

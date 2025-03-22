@@ -11,8 +11,8 @@ let
 in
 {
   options.${namespace}.services.bazarr = with types; {
-    enable = mkBoolOpt false "Enable Bazarr";
-    port = mkOpt port 0 "Port to run on";
+    enable = mkBoolOpt false "Enable bazarr - subtitles fetcher";
+    port = mkOpt port 6767 "Port to run on";
   };
 
   config = mkIf cfg.enable {

@@ -11,8 +11,6 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.services.caddy;
 
-  www-pkg = host: strings.replaceStrings [ "." ] [ "-" ] host;
-
   service = {
     options = with types; {
       port = mkOption {
@@ -61,7 +59,7 @@ let
 in
 {
   options.${namespace}.services.caddy = with types; {
-    enable = mkBoolOpt false "Enable Caddy webserver & reverse proxy";
+    enable = mkBoolOpt false "Enable caddy - webserver & reverse proxy";
     services = mkOpt (attrsOf (submodule service)) { } "The services to proxy";
     domains = mkOpt (listOf str) [
       "ferngarden.net"
@@ -89,7 +87,6 @@ in
 
     services.caddy = {
       enable = true;
-
       package = pkgs.caddy.withPlugins {
         plugins = [
           "github.com/caddy-dns/porkbun@v0.2.1"

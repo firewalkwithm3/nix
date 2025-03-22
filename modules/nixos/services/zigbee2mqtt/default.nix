@@ -12,7 +12,9 @@ let
 in
 {
   options.${namespace}.services.zigbee2mqtt = with types; {
-    enable = mkBoolOpt config.${namespace}.services.home-assistant.enable "Enable zigbee2mqtt";
+    enable =
+      mkBoolOpt config.${namespace}.services.home-assistant.enable
+        "Enable zigbee2mqtt - integrate zigbee devices into home assistant";
     port = mkOpt port 1884 "Port to run on";
   };
 

@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.readarr-audiobooks = with types; {
-    enable = mkBoolOpt false "Enable readarr-audiobooks";
+    enable = mkBoolOpt false "Enable readarr-audiobooks - audiobook fetcher & organiser";
     port = mkOpt port 8787 "Port to run on";
     host = mkStrOpt "192.168.100.21" "IP to bind to";
   };
@@ -21,7 +21,7 @@ in
       autoStart = true;
       privateNetwork = true;
       hostAddress = "192.168.100.20";
-      localAddress = "${cfg.host}";
+      localAddress = cfg.host;
       bindMounts = {
         "volume2" = {
           hostPath = "/mnt/volume2";

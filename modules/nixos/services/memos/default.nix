@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.services.memos = with types; {
-    enable = mkBoolOpt false "Enable memos";
+    enable = mkBoolOpt false "Enable memos - note-taking application";
     port = mkOpt port 5230 "Port to run on";
   };
 

@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.vaultwarden = with types; {
-    enable = mkBoolOpt false "Enable vaultwarden";
+    enable = mkBoolOpt false "Enable vaultwarden - password manager";
     port = mkOpt port 8087 "Port to run on";
   };
 

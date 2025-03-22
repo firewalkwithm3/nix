@@ -12,7 +12,9 @@ let
 in
 {
   options.${namespace}.services.gluetun = with types; {
-    enable = mkBoolOpt config.${namespace}.services.qbittorrent.enable "Enable gluetun";
+    enable =
+      mkBoolOpt config.${namespace}.services.qbittorrent.enable
+        "Enable gluetun - VPN client in a container";
     port = mkOpt port 5001 "Port to run on";
   };
 

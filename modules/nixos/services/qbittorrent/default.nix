@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.services.qbittorrent = with types; {
-    enable = mkBoolOpt false "Enable qbittorrent";
+    enable = mkBoolOpt false "Enable qbittorrent - torrent client";
     port = mkOpt port 5001 "Port to run on";
   };
 
