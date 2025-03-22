@@ -59,7 +59,7 @@
     stylix.url = "github:danth/stylix/release-24.11";
 
     crowdsec = {
-      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git?rev=6e29e3574d56f8397cda8794564ccff4d0cf25ee";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

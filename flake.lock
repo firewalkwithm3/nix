@@ -220,15 +220,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1742561636,
-        "narHash": "sha256-ymVMa5FY152SddbY8HsugyyoAkRofZ+MSfjoC9HF1bY=",
+        "lastModified": 1741195753,
+        "narHash": "sha256-EYME6JRSz/6MmyBYSS6fx6Ivqoqu/uDZBbyI4VrxF7w=",
         "ref": "refs/heads/main",
-        "rev": "6ec0f48d0a7eeb34a22a2cf50e9707f9f18a4742",
-        "revCount": 39,
+        "rev": "6e29e3574d56f8397cda8794564ccff4d0cf25ee",
+        "revCount": 37,
         "type": "git",
         "url": "https://codeberg.org/kampka/nix-flake-crowdsec.git"
       },
       "original": {
+        "rev": "6e29e3574d56f8397cda8794564ccff4d0cf25ee",
         "type": "git",
         "url": "https://codeberg.org/kampka/nix-flake-crowdsec.git"
       }
