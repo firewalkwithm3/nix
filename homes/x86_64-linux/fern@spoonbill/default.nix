@@ -1,12 +1,15 @@
 {
   osConfig,
+  lib,
   ...
 }:
 let
   namespace = "flock";
 in
+with lib;
+with lib.${namespace};
 {
-  ${namespace}.suites.server.enable = true;
+  ${namespace}.suites.server = enabled;
 
   # ======================== DO NOT CHANGE THIS ========================
   home.stateVersion = osConfig.system.stateVersion;
