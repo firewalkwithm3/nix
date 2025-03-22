@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -13,15 +12,19 @@ let
 in
 {
   options.${namespace}.apps.hunspell = with types; {
-    enable = mkBoolOpt (
-      config.${namespace}.apps.firefox.enable || config.${namespace}.apps.libreoffice.enable
-    ) "Enable spell checker";
+    enable = mkBoolOpt config.${namespace}.window-manager.niri.enable "Enable spell checker";
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      hunspell
-      hunspellDicts.en_AU
-    ];
-  };
+  config =
+    mkIf
+      (
+        cfg.enable
+        && (config.${namespace}.apps.firefox.enable || config.${namespace}.apps.libreoffice.enable)
+      )
+      {
+        home.packages = with pkgs; [
+          hunspell
+          hunspellDicts.en_AU
+        ];
+      };
 }

@@ -11,7 +11,9 @@ let
 in
 {
   options.${namespace}.window-manager.fuzzel = with types; {
-    enable = mkBoolOpt config.${namespace}.window-manager.niri.enable "Enable fuzzel - application launcher";
+    enable =
+      mkBoolOpt config.${namespace}.window-manager.niri.enable
+        "Enable fuzzel - application launcher";
   };
 
   config = mkIf cfg.enable {

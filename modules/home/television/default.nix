@@ -32,8 +32,8 @@ in
       ${namespace}.cli.television.settings.cable_channel = [
         {
           name = "nixpkgs";
-          source_command = "${pkgs.nix-search-tv}/bin/nix-search-tv print";
-          preview_command = "${pkgs.nix-search-tv}/bin/nix-search-tv preview {}";
+          source_command = "nix-search-tv print";
+          preview_command = "nix-search-tv preview {}";
         }
       ];
     })

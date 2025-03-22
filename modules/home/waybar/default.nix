@@ -63,18 +63,16 @@ in
           on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
         };
         "network#eth" = {
-          interface = "enp0s31f6";
+          interface = "ethernet";
           tooltip = false;
           format = "󰈀";
           format-disconnected = "";
-          on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
         };
         "network#wireguard" = {
           interface = "osprey";
           tooltip = false;
           format = "󰖂";
           format-disconnected = "";
-          on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
         };
         "clock" = {
           tooltip = true;
@@ -96,7 +94,7 @@ in
         "battery#bat0" = {
           bat = "BAT0";
           tooltip = true;
-          tooltip-format = "Internal: {capacity}%";
+          tooltip-format = "BAT0: {capacity}%";
           states = {
             warning = 30;
             critical = 15;
@@ -119,7 +117,7 @@ in
         "battery#bat1" = {
           bat = "BAT1";
           tooltip = true;
-          tooltip-format = "External: {capacity}%";
+          tooltip-format = "BAT1: {capacity}%";
           states = {
             warning = 30;
             critical = 15;

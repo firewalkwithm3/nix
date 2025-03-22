@@ -10,6 +10,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.window-manager.niri;
+  hostName = osConfig.networking.hostName;
 in
 {
   options.${namespace}.window-manager.niri = with types; {
@@ -31,29 +32,7 @@ in
       name = "Papirus-Dark";
     };
 
-    programs.niri.settings =
-      let
-        power-menu = pkgs.writeShellScript "fuzzel-power-menu.sh" ''
-          #!/bin/bash
-
-          SELECTION="$(printf "󰶐  Turn off displays\n󰌾  Lock\n󰤄  Suspend\n󰍃  Log out\n󰜉  Reboot\n󰐥  Shutdown" | fuzzel --dmenu -l 6 -p "Power Menu: ")"
-
-          case $SELECTION in
-            *"Turn off displays")
-              ${pkgs.niri}/bin/niri msg action power-off-monitors;;
-            *"Lock")
-          	${pkgs.gtklock}/bin/gtklock -d;;
-            *"Suspend")
-          	${pkgs.systemd}/bin/systemctl suspend;;
-            *"Log out")
-              ${pkgs.niri}/bin/niri msg action quit;;
-            *"Reboot")
-          	${pkgs.systemd}/bin/systemctl reboot;;
-            *"Shutdown")
-          	${pkgs.systemd}/bin/systemctl poweroff;;
-          esac
-        '';
-      in
+    programs.niri.settings = mkMerge [
       {
         binds = {
           "Mod+Shift+Slash".action.show-hotkey-overlay = { };
@@ -71,11 +50,30 @@ in
             "-n"
           ];
 
-          "Super+Alt+L".action.spawn = [
-            "${pkgs.gtklock}/bin/gtklock"
-            "-d"
-          ];
-          "Mod+Shift+E".action.spawn = "${power-menu}";
+          "Mod+Shift+E".action.spawn =
+            let
+              power-menu = pkgs.writeShellScript "fuzzel-power-menu.sh" ''
+                #!/bin/bash
+
+                SELECTION="$(printf "󰶐  Turn off displays\n󰌾  Lock\n󰤄  Suspend\n󰍃  Log out\n󰜉  Reboot\n󰐥  Shutdown" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 6 -p "Power Menu: ")"
+
+                case $SELECTION in
+                  *"Turn off displays")
+                    ${pkgs.niri}/bin/niri msg action power-off-monitors;;
+                  *"Lock")
+                	  ${pkgs.gtklock}/bin/gtklock -d -m ${pkgs.gtklock-userinfo-module}/lib/gtklock/userinfo-module.so -m ${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so;;
+                  *"Suspend")
+                	  ${pkgs.systemd}/bin/systemctl suspend;;
+                  *"Log out")
+                    ${pkgs.niri}/bin/niri msg action quit;;
+                  *"Reboot")
+                	  ${pkgs.systemd}/bin/systemctl reboot;;
+                  *"Shutdown")
+                	  ${pkgs.systemd}/bin/systemctl poweroff;;
+                esac
+              '';
+            in
+            "${power-menu}";
 
           "Mod+P".action.screenshot-screen = { };
           "Mod+Shift+P".action.screenshot = { };
@@ -236,7 +234,6 @@ in
 
         };
 
-        screenshot-path = "${config.home.homeDirectory}/Nextcloud/Pictures/Screenshots/garden/Screenshot from %Y-%m-%d %H-%M-%S.png";
         hotkey-overlay.skip-at-startup = true;
         prefer-no-csd = true;
 
@@ -345,6 +342,11 @@ in
             open-maximized = true;
           }
         ];
-      };
+      }
+
+      (mkIf config.${namespace}.apps.nextcloud.enable {
+        screenshot-path = "${config.home.homeDirectory}/Nextcloud/Pictures/Screenshots/${hostName}/Screenshot from %Y-%m-%d %H-%M-%S.png";
+      })
+    ];
   };
 }
