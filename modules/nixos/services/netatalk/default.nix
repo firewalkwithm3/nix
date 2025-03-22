@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.interfaces.end0.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.interfaces.ethernet.allowedTCPPorts = [ cfg.port ];
 
     services.netatalk = {
       enable = true;

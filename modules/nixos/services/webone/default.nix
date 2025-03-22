@@ -22,7 +22,7 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      networking.firewall.interfaces.end0.allowedTCPPorts = [ cfg.port ];
+      networking.firewall.interfaces.ethernet.allowedTCPPorts = [ cfg.port ];
 
       users.users.${cfg.user} = {
         group = cfg.group;
