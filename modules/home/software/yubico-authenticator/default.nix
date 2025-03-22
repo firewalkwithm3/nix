@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.yubico-authenticator = with types; {
-    enable = mkBoolOpt false "Enable Yubico Authenticator";
+    enable = mkBoolOpt false "Enable yubico-authenticator - YubiKey management application";
   };
 
   config = mkIf cfg.enable {

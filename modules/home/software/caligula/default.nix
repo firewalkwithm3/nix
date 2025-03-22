@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.cli.caligula = with types; {
-    enable = mkBoolOpt false "Enable Caligula disk writer";
+    enable = mkBoolOpt false "Enable caligula - disk writer";
   };
 
   config = mkIf cfg.enable {

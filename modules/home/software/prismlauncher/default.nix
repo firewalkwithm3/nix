@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.prismlauncher = with types; {
-    enable = mkBoolOpt false "Enable PrismLauncher - Minecraft client";
+    enable = mkBoolOpt false "Enable prismlauncher - Minecraft client";
   };
 
   config = mkIf cfg.enable {

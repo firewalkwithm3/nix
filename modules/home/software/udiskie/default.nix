@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.window-manager.udiskie = with types; {
-    enable = mkBoolOpt false "Enable udiskie - udisks2 manager";
+    enable = mkBoolOpt false "Enable udiskie - removable drive manager";
   };
 
   config = mkIf cfg.enable {

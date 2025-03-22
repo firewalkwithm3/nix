@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.window-manager.wlsunset = with types; {
-    enable = mkBoolOpt false "Enable wlsunset service";
+    enable = mkBoolOpt false "Enable wlsunset - day/night gamma adjustment service";
   };
 
   config = mkIf cfg.enable {

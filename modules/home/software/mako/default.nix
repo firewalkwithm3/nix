@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.window-manager.mako = with types; {
-    enable = mkBoolOpt false "Enable mako notification daemon";
+    enable = mkBoolOpt false "Enable mako - notification daemon";
   };
 
   config = mkIf cfg.enable {

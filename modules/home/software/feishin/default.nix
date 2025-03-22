@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.feishin = with types; {
-    enable = mkBoolOpt false "Enable Feishin music player";
+    enable = mkBoolOpt false "Enable feishin - music player";
   };
 
   config = mkIf cfg.enable {

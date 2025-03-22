@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.cli.rsync = with types; {
-    enable = mkBoolOpt false "Enable rsync";
+    enable = mkBoolOpt false "Enable rsync - file transfer utility";
   };
 
   config = mkIf cfg.enable {

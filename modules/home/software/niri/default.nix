@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.window-manager.niri = with types; {
-    enable = mkBoolOpt false "Enable Niri window manager";
+    enable = mkBoolOpt false "Enable niri - window manager";
   };
 
   config = mkIf cfg.enable {

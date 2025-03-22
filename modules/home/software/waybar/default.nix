@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.window-manager.waybar = with types; {
-    enable = mkBoolOpt false "Enable waybar";
+    enable = mkBoolOpt false "Enable waybar - window manager status bar";
   };
 
   config = mkIf cfg.enable {

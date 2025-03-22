@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.cli.nixvim = with types; {
-    enable = mkBoolOpt false "Enable Neovim text editor";
+    enable = mkBoolOpt false "Enable neovim - text editor";
   };
 
   config = mkIf cfg.enable {

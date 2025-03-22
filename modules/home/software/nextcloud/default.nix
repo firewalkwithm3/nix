@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.apps.nextcloud = with types; {
-    enable = mkBoolOpt false "Enable Nextcloud client";
+    enable = mkBoolOpt false "Enable nextcloud client - cloud storage";
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.cli.fish = with types; {
-    enable = mkBoolOpt false "Enable fish shell";
+    enable = mkBoolOpt false "Enable fish - command line shell";
   };
 
   config = mkIf cfg.enable (mkMerge [

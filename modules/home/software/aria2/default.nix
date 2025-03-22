@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.cli.aria2 = with types; {
-    enable = mkBoolOpt false "Enable aria2 downloader";
+    enable = mkBoolOpt false "Enable aria2 - downloader";
   };
 
   config = mkIf cfg.enable {

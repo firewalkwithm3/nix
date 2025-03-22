@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.libreoffice = with types; {
-    enable = mkBoolOpt false "Enable libreoffice";
+    enable = mkBoolOpt false "Enable libreoffice - office suite";
   };
 
   config = mkIf cfg.enable {

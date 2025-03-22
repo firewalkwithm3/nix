@@ -13,9 +13,9 @@ let
 in
 {
   options.${namespace}.cli.television = with types; {
-    enable = mkBoolOpt false "Enable Television TUI fuzzy finder";
-    settings = mkOpt settingsFormat.type { } "Settings for Television";
-    nix-search-tv.enable = mkBoolOpt true "Enable plugin for searching nix packages";
+    enable = mkBoolOpt false "Enable television - TUI fuzzy finder";
+    settings = mkOpt settingsFormat.type { } "Settings for television";
+    nix-search-tv.enable = mkBoolOpt true "Enable nix-search-tv - plugin for searching nix packages";
   };
 
   config = mkIf cfg.enable (mkMerge [

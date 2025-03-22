@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.cinny = with types; {
-    enable = mkBoolOpt false "Enable the cinny Matrix client";
+    enable = mkBoolOpt false "Enable cinny - matrix client";
   };
 
   config = mkIf cfg.enable {

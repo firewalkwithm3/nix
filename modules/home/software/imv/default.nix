@@ -13,7 +13,7 @@ let
 in
 {
   options.${namespace}.apps.imv = with types; {
-    enable = mkBoolOpt false "Enable the imv image viewer";
+    enable = mkBoolOpt false "Enable imv - image viewer";
   };
 
   config = mkIf cfg.enable {

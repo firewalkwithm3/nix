@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.window-manager.swayidle = with types; {
-    enable = mkBoolOpt false "Enable sway idle service";
+    enable = mkBoolOpt false "Enable swayidle - idle management daemon";
   };
 
   config = mkIf cfg.enable {

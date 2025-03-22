@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.apps.firefox = with types; {
-    enable = mkBoolOpt false "Enable Firefox browser";
+    enable = mkBoolOpt false "Enable firefox - web browser";
   };
 
   config = mkIf cfg.enable {

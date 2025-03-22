@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.apps.kitty = with types; {
-    enable = mkBoolOpt false "Enable Kitty terminal";
+    enable = mkBoolOpt false "Enable kitty - terminal emulator";
   };
 
   config = mkIf cfg.enable {

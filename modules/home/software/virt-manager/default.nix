@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.virt-manager = with types; {
-    enable = mkBoolOpt false "Enable virt-manager";
+    enable = mkBoolOpt false "Enable virt-manager - qemu frontend";
   };
 
   config = mkIf cfg.enable {

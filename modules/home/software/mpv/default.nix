@@ -11,7 +11,7 @@ let
 in
 {
   options.${namespace}.apps.mpv = with types; {
-    enable = mkBoolOpt false "Enable MPV video player";
+    enable = mkBoolOpt false "Enable mpv - video player";
   };
 
   config = mkIf cfg.enable {

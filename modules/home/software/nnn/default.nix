@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.cli.nnn = with types; {
-    enable = mkBoolOpt false "Enable nnn terminal file browser";
+    enable = mkBoolOpt false "Enable nnn - terminal file browser";
   };
 
   config = mkIf cfg.enable {

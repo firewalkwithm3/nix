@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.signal = with types; {
-    enable = mkBoolOpt false "Enable the Signal encrypted messenger";
+    enable = mkBoolOpt false "Enable signal - encrypted messenger";
   };
 
   config = mkIf cfg.enable {

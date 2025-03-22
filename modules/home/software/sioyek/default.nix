@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.apps.sioyek = with types; {
-    enable = mkBoolOpt false "Enable the sioyek PDF reader";
+    enable = mkBoolOpt false "Enable sioyek - PDF reader";
   };
 
   config = mkIf cfg.enable {
