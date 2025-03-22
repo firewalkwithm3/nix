@@ -10,7 +10,7 @@ with lib.${namespace};
     suites.rpi = enabled;
 
     filesystems.disko = {
-      disk = "/dev/disk/by-id/ata-SAMSUNG_MZMTD128HAFV-000_S15MNEAD203643";
+      disk = "/dev/disk/by-id/mmc-SK32G_0xc4ee9443";
       encryption = disabled;
     };
 
