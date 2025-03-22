@@ -14,12 +14,12 @@ let
 in
 {
   options.${namespace}.filesystems = {
-    rclone.enable = mkBoolOpt false "Enable rclone drives";
-    ssd.enable = mkBoolOpt false "Enable SSD options";
+    rclone.enable = mkBoolOpt false "Enable rclone mounts";
+    ssd.enable = mkBoolOpt false "Enable SSD support";
     disko = with types; {
       enable = mkBoolOpt true "Allow disko to manage partitions and mounts";
-      encryption.enable = mkBoolOpt true "Enable LUKS encryption";
       disk = mkStrOpt "" "Disk to install NixOS to";
+      encryption.enable = mkBoolOpt true "Enable LUKS encryption";
       raspberry-pi.enable = mkBoolOpt false "Enable Raspberry Pi disk layout";
     };
   };
@@ -58,27 +58,6 @@ in
 
     (mkIf config.${namespace}.impermanence.enable {
       fileSystems."/persist".neededForBoot = true;
-    })
-
-    (mkIf cfg.disko.raspberry-pi.enable {
-      boot.postBootCommands = ''
-        # On the first boot, resize the disk
-        if [ -f /disko-first-boot ]; then
-          set -euo pipefail
-          set -x
-          # Figure out device names for the boot device and root filesystem.
-          rootPart=$(${pkgs.util-linux}/bin/findmnt -v -n -o SOURCE /)
-          bootDevice=$(lsblk -npo PKNAME $rootPart)
-          partNum=$(lsblk -npo MAJ:MIN $rootPart | ${pkgs.gawk}/bin/awk -F: '{print $2}')
-
-          # Resize the root partition and the filesystem to fit the disk
-          echo ",+," | sfdisk -N$partNum --no-reread $bootDevice
-          ${pkgs.parted}/bin/partprobe
-
-          # Prevents this from running on later boots.
-          rm -f /disko-first-boot
-        fi
-      '';
     })
 
     (mkIf cfg.disko.enable {
@@ -169,7 +148,7 @@ in
                   size = "100%";
                   content = {
                     type = "luks";
-                    name = "crypted";
+                    name = hostName;
                     passwordFile = "/tmp/luks.key";
                     settings = {
                       allowDiscards = true;
@@ -177,10 +156,9 @@ in
                     content = {
                       type = "btrfs";
                       extraArgs = [ "-f" ];
-                      postMountHook = mkIf cfg.disko.raspberry-pi.enable "touch /mnt/disko-first-boot";
                       postCreateHook = mkIf config.${namespace}.impermanence.enable ''
                         MNTPOINT=$(mktemp -d)
-                        mount "/dev/mapper/crypted" "$MNTPOINT" -o subvol=/
+                        mount "/dev/mapper/${hostName}" "$MNTPOINT" -o subvol=/
                         trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
                         btrfs subvolume snapshot -r $MNTPOINT/rootfs $MNTPOINT/rootfs-blank
                       '';

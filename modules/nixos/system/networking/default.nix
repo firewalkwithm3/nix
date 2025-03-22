@@ -20,7 +20,7 @@ in
       address = mkStrOpt "" "Wireguard client address";
     };
     containers.enable = mkBoolOpt false "Enable container networking config";
-    wlan-eth-bridge.enable = mkBoolOpt false "Share WiFi internet with ethernet";
+    wlan-eth-bridge.enable = mkBoolOpt false "Enable WiFi to ethernet bridge (ie. for sharing internet with iMac G3)";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -30,19 +30,30 @@ in
         networkmanager.enable = true;
         nftables.enable = true;
       };
+
+      systemd.network.links = {
+        "81-wifi" = {
+          matchConfig.Type = "wlan";
+          linkConfig.Name = "wifi";
+        };
+        "81-ethernet" = {
+          matchConfig.Type = "ether";
+          linkConfig.Name = "ethernet";
+        };
+      };
     }
 
     (mkIf cfg.wlan-eth-bridge.enable {
       boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
       networking = {
-        firewall.interfaces.end0 = {
+        firewall.interfaces.ethernet = {
           allowedTCPPorts = [ 53 ];
           allowedUDPPorts = [
             53
             67
           ];
         };
-        interfaces.end0.ipv4.addresses = [
+        interfaces.ethernet.ipv4.addresses = [
           {
             address = "10.3.0.1";
             prefixLength = 24;
@@ -64,7 +75,7 @@ in
       services.dnsmasq = {
         enable = true;
         settings = {
-          interface = "end0";
+          interface = "ethernet";
           dhcp-range = "10.3.0.2,10.3.0.255,255.255.255.0,24h";
         };
       };
@@ -72,11 +83,6 @@ in
 
     (mkIf cfg.wifi.enable {
       age.secrets.networkmanager.rekeyFile = (inputs.self + "/secrets/networking/networkmanager.age");
-
-      systemd.network.links."81-wifi" = {
-        matchConfig.Type = "wlan";
-        linkConfig.Name = "wifi";
-      };
 
       networking.networkmanager = {
         ensureProfiles = {
@@ -159,7 +165,7 @@ in
       networking.nat = {
         enable = true;
         internalInterfaces = [ "ve-*" ];
-        externalInterface = "eno1";
+        externalInterface = "ethernet";
       };
 
       networking.firewall = {

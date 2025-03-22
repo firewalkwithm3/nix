@@ -17,11 +17,6 @@ with lib.${namespace};
     graphics.intel = enabled;
 
     networking.wlan-eth-bridge = enabled;
-
-    services = {
-      netatalk = enabled;
-      webone = enabled;
-    };
   };
 
   boot.initrd.availableKernelModules = [

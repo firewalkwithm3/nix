@@ -12,7 +12,7 @@ let
 in
 {
   options.${namespace}.home-manager = with types; {
-    enable = mkBoolOpt true "Enable home dir management with home-manager";
+    enable = mkBoolOpt true "Enable home management with home-manager";
   };
 
   config = mkIf cfg.enable {

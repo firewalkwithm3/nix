@@ -43,15 +43,17 @@ in
       files = [
         "/etc/machine-id"
         "/etc/ssh/ssh_host_ed25519_key"
-        "/etc/ssh/ssh_host_ed25519_key.pub"
       ];
       users.${config.${namespace}.user.name} = {
         directories = mkMerge [
           [
             "Downloads"
             "git"
-            ".local/share/keyrings"
           ]
+
+          (mkIf config.${namespace}.desktop-environment.enable [
+            ".local/share/keyrings"
+          ])
 
           (mkIf hm-cfg.apps.prismlauncher.enable [
             ".local/share/PrismLauncher"

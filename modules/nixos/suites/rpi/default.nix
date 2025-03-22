@@ -19,7 +19,6 @@ in
       suites.server = enabled;
       bootloader.raspberry-pi = enabled;
       filesystems.disko.raspberry-pi = enabled;
-      networking.containers = mkDefault disabled;
     };
   };
 }
