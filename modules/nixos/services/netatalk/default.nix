@@ -26,7 +26,7 @@ in
           "uam list" = "uams_guest.so";
         };
         iMacG3 = {
-          path = "/srv/iMacG3";
+          path = "/mnt/iMacG3";
         };
       };
     };

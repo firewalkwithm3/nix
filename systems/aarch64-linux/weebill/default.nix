@@ -26,6 +26,11 @@ with lib.${namespace};
     };
   };
 
+  fileSystems."/mnt" = {
+    device = "/dev/disk/by-id/usb-Seagate_Expansion_HDD_00000000NACVB7BG-0:0-part1";
+    fsType = "ext4";
+  };
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "24.11";
   # ======================== DO NOT CHANGE THIS ========================
