@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.bootloader;
+  hostName = config.networking.hostName;
 in
 {
   options.${namespace}.bootloader = with types; {
@@ -25,13 +26,13 @@ in
         services.rollback =
           let
             rootPart =
-              if config.${namespace}.filesystems.disko.encryption.enable then "/dev/mapper/crypted" else "/";
+              if config.${namespace}.filesystems.disko.encryption.enable then "/dev/mapper/${hostName}" else "/";
           in
           {
             description = "Rollback BTRFS root subvolume to a pristine state";
             wantedBy = [ "initrd.target" ];
             after = mkIf (config.${namespace}.filesystems.disko.encryption.enable) [
-              "systemd-cryptsetup@crypted.service"
+              "systemd-cryptsetup@${hostName}.service"
             ];
             before = [ "sysroot.mount" ];
             unitConfig.DefaultDependencies = "no";

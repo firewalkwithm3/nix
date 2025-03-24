@@ -60,7 +60,7 @@ in
           publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMOltBRuLQ7MOZK8T1aYUKdBHXcshNPv+/EMoC7lXsE7";
         };
 
-        "musk-duck" = {
+        "muskduck" = {
           hostNames = [
             "musk-duck.internal"
             "10.0.1.10"

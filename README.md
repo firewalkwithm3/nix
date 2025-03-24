@@ -3,7 +3,7 @@
 ## weebill
 Raspberry Pi 4B used as a fileserver for an iMac G3.
 
-## musk-duck
+## muskduck
 Lenovo ThinkPad T480.
 
 ## pardalote
