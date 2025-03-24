@@ -61,7 +61,7 @@ in
                   *"Turn off displays")
                     ${pkgs.niri}/bin/niri msg action power-off-monitors;;
                   *"Lock")
-                	  ${pkgs.gtklock}/bin/gtklock -d -m ${pkgs.gtklock-userinfo-module}/lib/gtklock/userinfo-module.so -m ${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so;;
+                	  ${pkgs.gtklock}/bin/gtklock -d;;
                   *"Suspend")
                 	  ${pkgs.systemd}/bin/systemctl suspend;;
                   *"Log out")
@@ -231,6 +231,8 @@ in
           "Mod+Shift+Equal".action.set-window-height = "+10%";
 
           "Mod+Shift+Space".action.toggle-window-floating = { };
+
+          "Mod+W".action.toggle-column-tabbed-display = { };
 
         };
 

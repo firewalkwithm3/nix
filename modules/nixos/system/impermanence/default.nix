@@ -76,6 +76,9 @@ in
             "Nextcloud"
             ".config/Nextcloud"
           ])
+          (mkIf config.${namespace}.audio.enable [
+            ".local/state/wireplumber"
+          ])
         ];
         files = mkMerge [
           (mkIf hm-cfg.window-manager.fuzzel.enable [

@@ -25,13 +25,13 @@ in
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.gtklock}/bin/gtklock -d -m ${pkgs.gtklock-userinfo-module}/lib/gtklock/userinfo-module.so -m ${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so";
+          command = "${pkgs.gtklock}/bin/gtklock -d";
         }
       ];
       timeouts = [
         {
           timeout = 300;
-          command = "${pkgs.gtklock}/bin/gtklock -d -m ${pkgs.gtklock-userinfo-module}/lib/gtklock/userinfo-module.so -m ${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so";
+          command = "${pkgs.gtklock}/bin/gtklock -d";
         }
       ];
     };
