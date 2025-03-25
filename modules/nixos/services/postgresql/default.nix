@@ -27,6 +27,7 @@ in
         "matrix-synapse"
         "miniflux"
         "nextcloud"
+        "paperless"
         "vaultwarden"
       ];
       ensureUsers = [
@@ -56,6 +57,10 @@ in
         }
         {
           name = "nextcloud";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "paperless";
           ensureDBOwnership = true;
         }
         {

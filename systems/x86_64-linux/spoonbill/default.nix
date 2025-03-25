@@ -45,6 +45,7 @@ with lib.${namespace};
       ntfy = enabled;
       pinchflat = enabled;
       pixelfed = enabled;
+      paperless = enabled;
       postgres = enabled;
       priviblur = enabled;
       prowlarr = enabled;
