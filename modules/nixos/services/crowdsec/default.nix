@@ -1,5 +1,6 @@
 {
   inputs,
+  system,
   config,
   lib,
   pkgs,
@@ -60,6 +61,7 @@ in
 
     services.crowdsec = {
       enable = true;
+      package = inputs.crowdsec.packages.${system}.crowdsec;
       enrollKeyFile = config.age.secrets.crowdsec.path;
       acquisitions = [
         {
@@ -79,6 +81,7 @@ in
 
     services.crowdsec-firewall-bouncer = {
       enable = true;
+      package = inputs.crowdsec.packages.${system}.crowdsec-firewall-bouncer;
       settings = {
         api_key = ''''${API_KEY}'';
         api_url = "http://127.0.0.1:${toString cfg.port}";
