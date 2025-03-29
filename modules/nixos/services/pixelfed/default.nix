@@ -42,7 +42,7 @@ in
         let
           pf-localfs-patch = pkgs.writeText "01-local-filesystem.patch" ''
             diff --git a/config/filesystems.php b/config/filesystems.php
-            index 00254e93..fc1a58f3 100644
+            index 71f542a..fc1a58f 100644
             --- a/config/filesystems.php
             +++ b/config/filesystems.php
             @@ -49,11 +49,11 @@ return [
@@ -54,7 +54,7 @@ in
                              ],
                              'dir' => [
                                  'public' => 0755,
-            -                    'private' => 0700,
+            -                    'private' => 0711,
             +                    'private' => 0750,
                              ],
                          ],
