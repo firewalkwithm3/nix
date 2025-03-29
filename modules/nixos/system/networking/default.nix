@@ -15,10 +15,7 @@ in
   options.${namespace}.networking = with types; {
     enable = mkBoolOpt true "Enable networking";
     wifi.enable = mkBoolOpt true "Enable WiFi";
-    wireguard = {
-      enable = mkBoolOpt false "Enable Wireguard";
-      address = mkStrOpt "" "Wireguard client address";
-    };
+    tailscale.enable = mkBoolOpt true "Enable Tailscale";
     containers.enable = mkBoolOpt false "Enable container networking config";
     wlan-eth-bridge.enable = mkBoolOpt false "Enable WiFi to ethernet bridge (ie. for sharing internet with iMac G3)";
   };
@@ -129,36 +126,14 @@ in
       };
     })
 
-    (mkIf cfg.wireguard.enable {
-      assertions = [
-        {
-          assertion = cfg.wireguard.address != "";
-          message = "Please provide the Wireguard client address";
-        }
-      ];
+    (mkIf cfg.tailscale.enable {
+      networking.networkmanager.unmanaged = [ "tailscale" ];
 
-      networking.networkmanager.unmanaged = [ "osprey" ];
-
-      age.secrets."wireguard_${hostName}".rekeyFile = (
-        inputs.self + "/secrets/networking/wireguard/${hostName}.age"
-      );
-
-      networking.wg-quick.interfaces = {
-        osprey = {
-          address = [ cfg.wireguard.address ];
-          dns = [ "10.0.1.1" ];
-          mtu = 1380;
-          privateKeyFile = config.age.secrets."wireguard_${hostName}".path;
-          peers = [
-            {
-              publicKey = "3838nTriit2ZaqnQZykDcQEKsBBDiXPW+DUKretu9RI=";
-              allowedIPs = [ "0.0.0.0/0" ];
-              endpoint = "103.115.191.242:51820";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
+      services.tailscale = {
+        enable = true;
+        interfaceName = "tailscale";
       };
+
     })
 
     (mkIf cfg.containers.enable {

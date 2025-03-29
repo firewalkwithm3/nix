@@ -68,8 +68,8 @@ in
           format = "󰈀";
           format-disconnected = "";
         };
-        "network#wireguard" = {
-          interface = "osprey";
+        "network#tailscale" = {
+          interface = "tailscale";
           tooltip = false;
           format = "󰖂";
           format-disconnected = "";
@@ -144,7 +144,7 @@ in
         modules-right = [
           "tray"
           "idle_inhibitor"
-          "network#wireguard"
+          "network#tailscale"
           "network#eth"
           "network#wifi"
           "battery#bat0"

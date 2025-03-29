@@ -10,7 +10,6 @@ with lib.${namespace};
     suites.laptop = enabled;
 
     filesystems.disko.disk = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_mSATA_250GB_S41MNG0K821487A";
-    networking.wireguard.address = "10.1.0.4/24";
     services.openssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIUqrhHngT/CRIjF6024MqJNy03ed7dSdKpN/7HSpToX";
 
     filesystems.ssd = enabled;

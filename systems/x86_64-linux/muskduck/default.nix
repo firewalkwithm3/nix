@@ -10,7 +10,6 @@ with lib.${namespace};
     suites.laptop = enabled;
 
     filesystems.disko.disk = "/dev/disk/by-id/nvme-SAMSUNG_MZVLW256HEHP-000L7_S35ENA1K324390";
-    networking.wireguard.address = "10.1.0.2/24";
     services.openssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEp5zVloqXFtLEVCl44MwvdkfzIL4MsLqmENXjgPfnQ";
 
     bootloader.secureboot = enabled;
