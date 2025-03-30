@@ -9,7 +9,6 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.networking;
-  hostName = config.networking.hostName;
 in
 {
   options.${namespace}.networking = with types; {
@@ -23,7 +22,10 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       networking = {
-        firewall.enable = true;
+        firewall = {
+          enable = true;
+          checkReversePath = "loose";
+        };
         networkmanager.enable = true;
         nftables.enable = true;
       };
