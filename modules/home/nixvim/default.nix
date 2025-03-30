@@ -54,7 +54,11 @@ in
             pick = { };
             sessions = { };
             cursorword = { };
-            hipatterns = { };
+            hipatterns = {
+              highlighters = {
+                hex_color.__raw = "require('mini.hipatterns').gen_highlighter.hex_color()";
+              };
+            };
             icons = { };
             indentscope = { };
             notify = { };

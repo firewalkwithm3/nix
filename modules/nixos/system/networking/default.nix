@@ -21,6 +21,8 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
+      services.resolved.enable = true;
+
       networking = {
         firewall = {
           enable = true;
