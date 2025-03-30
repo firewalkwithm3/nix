@@ -43,9 +43,9 @@ with lib.${namespace};
       navidrome = enabled;
       nextcloud = enabled;
       ntfy = enabled;
+      paperless = enabled;
       pinchflat = enabled;
       pixelfed = enabled;
-      paperless = enabled;
       postgres = enabled;
       priviblur = enabled;
       prowlarr = enabled;
@@ -56,7 +56,6 @@ with lib.${namespace};
       sonarr = enabled;
       vaultwarden = enabled;
       wallos = enabled;
-      tailscale-exit-node = enabled;
     };
   };
 

@@ -24,12 +24,12 @@ in
       services.resolved.enable = true;
 
       networking = {
+        networkmanager.enable = true;
+        nftables.enable = true;
         firewall = {
           enable = true;
           checkReversePath = "loose";
         };
-        networkmanager.enable = true;
-        nftables.enable = true;
       };
 
       systemd.network.links = {
@@ -83,7 +83,7 @@ in
     })
 
     (mkIf cfg.wifi.enable {
-      age.secrets.networkmanager.rekeyFile = (inputs.self + "/secrets/networking/networkmanager.age");
+      age.secrets.networkmanager.rekeyFile = (inputs.self + "/secrets/networkmanager.age");
 
       networking.networkmanager = {
         ensureProfiles = {
@@ -131,11 +131,12 @@ in
     })
 
     (mkIf cfg.tailscale.enable {
-      networking.networkmanager.unmanaged = [ "tailscale" ];
+      age.secrets.tailscale.rekeyFile = (inputs.self + "/secrets/tailscale.age");
 
       services.tailscale = {
         enable = true;
         interfaceName = "tailscale";
+        authKeyFile = config.age.secrets.tailscale.path;
       };
 
       networking.nameservers = [
@@ -143,6 +144,7 @@ in
         "8.8.8.8"
         "1.1.1.1"
       ];
+
       networking.search = [ "kingfisher-antares.ts.net" ];
     })
 

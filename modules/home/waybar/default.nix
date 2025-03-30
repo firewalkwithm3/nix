@@ -68,12 +68,6 @@ in
           format = "󰈀";
           format-disconnected = "";
         };
-        "network#tailscale" = {
-          interface = "tailscale";
-          tooltip = false;
-          format = "󰖂";
-          format-disconnected = "";
-        };
         "clock" = {
           tooltip = true;
           tooltip-format = "{:%A %d %B}";
@@ -144,7 +138,6 @@ in
         modules-right = [
           "tray"
           "idle_inhibitor"
-          "network#tailscale"
           "network#eth"
           "network#wifi"
           "battery#bat0"
