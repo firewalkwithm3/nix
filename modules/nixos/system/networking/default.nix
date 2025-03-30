@@ -134,6 +134,12 @@ in
         interfaceName = "tailscale";
       };
 
+      networking.nameservers = [
+        "100.100.100.100"
+        "8.8.8.8"
+        "1.1.1.1"
+      ];
+      networking.search = [ "kingfisher-antares.ts.net" ];
     })
 
     (mkIf cfg.containers.enable {

@@ -56,6 +56,7 @@ with lib.${namespace};
       sonarr = enabled;
       vaultwarden = enabled;
       wallos = enabled;
+      tailscale-exit-node = enabled;
     };
   };
 
