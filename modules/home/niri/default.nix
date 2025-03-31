@@ -301,6 +301,14 @@ in
             { proportion = 2. / 3.; }
           ];
           gaps = 6;
+          tab-indicator = {
+            gap = 4;
+            width = 4;
+            length.total-proportion = 1. / 2.;
+            position = "left";
+            gaps-between-tabs = 4;
+            corner-radius = 0;
+          };
         };
 
         environment = {
