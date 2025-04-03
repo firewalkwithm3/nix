@@ -38,7 +38,11 @@ in
           linkConfig.Name = "wifi";
         };
         "81-ethernet" = {
-          matchConfig.Type = "ether";
+          matchConfig = {
+            Type = "ether";
+            Kind = "!*";
+            Driver = "!rndis_host";
+          };
           linkConfig.Name = "ethernet";
         };
       };
