@@ -91,7 +91,7 @@ in
         ];
         environment = {
           DEBUG = "1";
-          interval = "1";
+          interval = "60";
         };
       };
     };
