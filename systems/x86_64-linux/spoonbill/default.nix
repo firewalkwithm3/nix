@@ -43,7 +43,6 @@ with lib.${namespace};
       navidrome = enabled;
       nextcloud = enabled;
       ntfy = enabled;
-      paperless = enabled;
       pinchflat = enabled;
       pixelfed = enabled;
       postgres = enabled;
