@@ -35,6 +35,10 @@ in
         (mkIf config.${namespace}.bootloader.secureboot.enable [
           "/etc/secureboot"
         ])
+
+        (mkIf config.${namespace}.networking.tailscale.enable [
+          "/var/lib/tailscale"
+        ])
       ];
       files = [
         "/etc/machine-id"
@@ -62,6 +66,10 @@ in
           (mkIf hm-cfg.apps.cinny.enable [
             ".local/share/cinny"
             ".local/share/in.cinny.app"
+          ])
+
+          (mkIf hm-cfg.apps.beeper.enable [
+            ".config/BeeperTexts"
           ])
 
           (mkIf hm-cfg.apps.feishin.enable [

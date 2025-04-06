@@ -18,6 +18,11 @@ in
   };
 
   config = mkIf (cfg.enable && osConfig.${namespace}.networking.tailscale.enable) {
+    systemd.user.services.trayscale.Unit.After = mkForce [
+      "tray.target"
+      "graphical-session.target"
+    ];
+
     services.trayscale = enabled;
   };
 }

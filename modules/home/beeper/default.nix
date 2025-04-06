@@ -8,10 +8,10 @@
 with lib;
 with lib.${namespace};
 let
-  cfg = config.${namespace}.beeper;
+  cfg = config.${namespace}.apps.beeper;
 in
 {
-  options.${namespace}.beeper = with types; {
+  options.${namespace}.apps.beeper = with types; {
     enable =
       mkBoolOpt config.${namespace}.window-manager.niri.enable
         "Enable beeper - universal chat application";
