@@ -137,6 +137,8 @@ in
     (mkIf cfg.tailscale.enable {
       age.secrets.tailscale.rekeyFile = (inputs.self + "/secrets/tailscale.age");
 
+      systemd.services.tailscaled.after = [ "systemd-networkd-wait-online.service" ];
+
       services.tailscale = {
         enable = true;
         interfaceName = "tailscale";
