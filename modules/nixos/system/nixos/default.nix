@@ -31,8 +31,6 @@ in
     }
 
     (mkIf cfg.timers.enable {
-      systemd.extraConfig = "DefaultLimitNOFILE=2048";
-
       system.autoUpgrade = {
         enable = true;
         dates = "3:00";

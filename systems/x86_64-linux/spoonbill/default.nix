@@ -101,6 +101,14 @@ with lib.${namespace};
     fsType = "ext4";
   };
 
+  # Fixes for "too many open files" during rebuilds
+  systemd.extraConfig = "DefaultLimitNOFILE=2048";
+
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_instances" = lib.mkDefault 524288;
+    "fs.inotify.max_user_watches" = lib.mkDefault 524288;
+  };
+
   # ======================== DO NOT CHANGE THIS ========================
   system.stateVersion = "24.11";
   # ======================== DO NOT CHANGE THIS ========================
