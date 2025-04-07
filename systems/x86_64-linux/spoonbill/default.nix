@@ -55,6 +55,7 @@ with lib.${namespace};
       sonarr = enabled;
       vaultwarden = enabled;
       wallos = enabled;
+      searx = enabled;
     };
   };
 
