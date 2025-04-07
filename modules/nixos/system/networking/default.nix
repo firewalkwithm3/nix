@@ -81,6 +81,7 @@ in
         enable = true;
         settings = {
           interface = "ethernet";
+          bind-interfaces = true;
           dhcp-range = "10.3.0.2,10.3.0.255,255.255.255.0,24h";
         };
       };
