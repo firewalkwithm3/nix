@@ -18,6 +18,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # https://github.com/NixOS/nixpkgs/issues/151550
+    systemd.services.navidrome.serviceConfig.BindReadOnlyPaths = ["/run/systemd/resolve/stub-resolv.conf"];
+
     services.navidrome = {
       enable = true;
       settings = {
