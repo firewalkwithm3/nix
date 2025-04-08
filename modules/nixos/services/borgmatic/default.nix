@@ -21,6 +21,14 @@ in
 
     systemd.services.borgmatic.path = [ pkgs.sqlite ];
 
+    systemd.tmpfiles.settings."10-borgmatic" = {
+      "/var/lib/backups".d = {
+        mode = "0775";
+        user = "root";
+        group = "root";
+      };
+    };
+
     services.borgmatic = {
       enable = true;
       configurations = {
@@ -254,6 +262,10 @@ in
               label = "weebill";
               path = "ssh://borg@weebill/./spoonbill";
             }
+            {
+              label = "local";
+              path = "/var/lib/backups/spoonbill";
+            }
           ];
           compression = "lz4";
           archive_name_format = "backup-{now}";
@@ -261,7 +273,8 @@ in
           keep_weekly = 4;
           keep_monthly = 2;
           skip_actions = [ "check" ];
-          encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
+          # encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
+          encryption_passphrase = "{credential file ${config.age.secrets.borgmatic.path}}";
           ssh_command = "ssh -i /etc/ssh/ssh_host_ed25519_key";
         };
       };
