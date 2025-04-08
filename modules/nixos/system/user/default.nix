@@ -73,7 +73,7 @@ in
         group = "borg";
         createHome = true;
         home = cfg.users.borg.home;
-        packages = with pkgs; [ borgbackup ];
+        packages = with pkgs; [ borgbackup sqlite ];
         openssh.authorizedKeys.keys = [
           inputs.self.nixosConfigurations.spoonbill.config.${namespace}.services.openssh.pubKey
         ];
