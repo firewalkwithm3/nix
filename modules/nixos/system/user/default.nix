@@ -18,6 +18,7 @@ in
     name = mkStrOpt "fern" "Name of the (single) user";
     fullName = mkStrOpt "Fern Garden" "Full name of the user";
     email = mkStrOpt "mail@fern.garden" "Email of the user";
+    users.borg.enable = mkBoolOpt false "Enable the borg user for backups";
     groups.media.enable = mkBoolOpt false "Enable the media group";
     passwdless-sudo.enable = mkBoolOpt false "Enable passwordless sudo for users in wheel group";
   };
@@ -25,16 +26,17 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       users.mutableUsers = false;
+      users.defaultUserShell = mkIf (config.${namespace}.fish-shell.enable) pkgs.fish;
 
       age.secrets."user_${hostName}".rekeyFile = (inputs.self + "/secrets/users/${hostName}.age");
 
       users.users.${cfg.name} = {
         description = cfg.fullName;
         isNormalUser = true;
+        useDefaultShell = true;
         uid = 1000;
         createHome = true;
         group = "users";
-        shell = mkIf (config.${namespace}.fish-shell.enable) pkgs.fish;
         extraGroups = [
           "wheel"
           "networkmanager"
@@ -57,6 +59,22 @@ in
       users.users.${cfg.name}.extraGroups = [
         "media"
       ];
+    })
+
+    (mkIf cfg.users.borg.enable {
+      users.groups.borg = { };
+      users.users.borg = {
+        isSystemUser = true;
+        shell = pkgs.bashInteractive;
+        group = "borg";
+        createHome = true;
+        home = "/var/lib/backups";
+        packages = with pkgs; [ borgmatic ];
+        openssh.authorizedKeys.keys = [
+          inputs.self.nixosConfigurations.spoonbill.config.${namespace}.services.openssh.pubKey
+        ];
+      };
+
     })
   ]);
 }

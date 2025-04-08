@@ -18,6 +18,8 @@ with lib.${namespace};
 
     filesystems.ssd = enabled;
 
+    user.users.borg = enabled;
+
     networking.wlan-eth-bridge = enabled;
 
     services = {

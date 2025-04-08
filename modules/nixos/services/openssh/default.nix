@@ -11,6 +11,7 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.services.openssh;
   hostName = config.networking.hostName;
+  hosts = builtins.attrNames inputs.self.nixosConfigurations;
 in
 {
   options.${namespace}.services.openssh = with types; {
@@ -18,75 +19,51 @@ in
     pubKey = mkStrOpt "" "Host public key";
   };
 
-  config = {
-    assertions = [
-      {
-        assertion = cfg.pubKey != "";
-        message = "Please provide the host's SSH public key";
-      }
-    ];
-
-    age.secrets."ssh_${hostName}".rekeyFile = (inputs.self + "/secrets/ssh/${hostName}.age");
-
-    programs.ssh = {
-      startAgent = true;
-      enableAskPassword = true;
-      askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-    };
-
-    services.openssh = {
-      enable = true;
-      settings = {
-        PermitRootLogin = "no";
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-        AllowUsers = [ config.${namespace}.user.name ];
-      };
-      authorizedKeysInHomedir = false;
-      knownHosts = {
-        "spoonbill" = {
-          hostNames = [
-            "spoonbill.internal"
-            "10.0.1.2"
-          ];
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLhv0WaxWuQhBb3BG4wrebkb+egB2hdeysbODTGXSSQ";
-        };
-
-        "weebill" = {
-          hostNames = [
-            "weebill.internal"
-            "10.0.1.3"
-          ];
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMOltBRuLQ7MOZK8T1aYUKdBHXcshNPv+/EMoC7lXsE7";
-        };
-
-        "muskduck" = {
-          hostNames = [
-            "musk-duck.internal"
-            "10.0.1.10"
-          ];
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEp5zVloqXFtLEVCl44MwvdkfzIL4MsLqmENXjgPfnQ";
-        };
-
-        "pardalote" = {
-          hostNames = [
-            "pardalote.internal"
-            "10.0.1.12"
-          ];
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEp5zVloqXFtLEVCl44MwvdkfzIL4MsLqmENXjgPfnQ";
-        };
-
-        "github" = {
-          hostNames = [ "github.com" ];
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
-        };
-      };
-      hostKeys = [
+  config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = [
         {
-          path = "/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
+          assertion = cfg.pubKey != "";
+          message = "Please provide the host's SSH public key";
         }
       ];
-    };
-  };
+
+      age.secrets."ssh_${hostName}".rekeyFile = (inputs.self + "/secrets/ssh/${hostName}.age");
+
+      programs.ssh = {
+        startAgent = true;
+        enableAskPassword = true;
+        askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+      };
+
+      services.openssh = {
+        enable = true;
+        settings = {
+          PermitRootLogin = "no";
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+          AllowUsers = [ config.${namespace}.user.name ];
+        };
+        authorizedKeysInHomedir = false;
+        knownHosts =
+          let
+            hostNames = host: {
+              hostNames = [ host ];
+              publicKey = inputs.self.nixosConfigurations.${host}.config.flock.services.openssh.pubKey;
+            };
+          in
+          flip genAttrs hostNames hosts;
+        hostKeys = [
+          {
+            path = "/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+          }
+        ];
+      };
+    }
+
+    (mkIf config.${namespace}.user.users.borg.enable {
+      services.openssh.settings.AllowUsers = [ "borg" ];
+    })
+  ]);
 }
