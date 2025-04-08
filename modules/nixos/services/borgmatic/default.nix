@@ -278,6 +278,10 @@ in
               label = "onedrive";
               path = "/mnt/onedrive/Backups/spoonbill";
             }
+            {
+              label = "weebill";
+              path = "ssh://borg@weebill/./spoonbill";
+            }
           ];
           compression = "lz4";
           archive_name_format = "backup-{now}";
@@ -286,7 +290,7 @@ in
           keep_monthly = 2;
           skip_actions = [ "check" ];
           encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
-          ssh_command = "ssh -i /home/fern/.ssh/borgmatic";
+          ssh_command = "ssh -i /etc/ssh/ssh_host_ed25519_key";
         };
       };
     };
