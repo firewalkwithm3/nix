@@ -273,8 +273,7 @@ in
           keep_weekly = 4;
           keep_monthly = 2;
           skip_actions = [ "check" ];
-          # encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
-          encryption_passphrase = "{credential file ${config.age.secrets.borgmatic.path}}";
+          encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
           ssh_command = "ssh -i /etc/ssh/ssh_host_ed25519_key";
         };
       };
