@@ -18,7 +18,10 @@ in
     name = mkStrOpt "fern" "Name of the (single) user";
     fullName = mkStrOpt "Fern Garden" "Full name of the user";
     email = mkStrOpt "mail@fern.garden" "Email of the user";
-    users.borg.enable = mkBoolOpt false "Enable the borg user for backups";
+    users.borg = {
+      enable = mkBoolOpt false "Enable the borg user for backups";
+      home = mkStrOpt "/mnt/backups" "Backup directory";
+    };
     groups.media.enable = mkBoolOpt false "Enable the media group";
     passwdless-sudo.enable = mkBoolOpt false "Enable passwordless sudo for users in wheel group";
   };
@@ -63,13 +66,14 @@ in
 
     (mkIf cfg.users.borg.enable {
       users.groups.borg = { };
+
       users.users.borg = {
         isSystemUser = true;
         shell = pkgs.bashInteractive;
         group = "borg";
         createHome = true;
-        home = "/var/lib/backups";
-        packages = with pkgs; [ borgmatic ];
+        home = cfg.users.borg.home;
+        packages = with pkgs; [ borgbackup ];
         openssh.authorizedKeys.keys = [
           inputs.self.nixosConfigurations.spoonbill.config.${namespace}.services.openssh.pubKey
         ];
