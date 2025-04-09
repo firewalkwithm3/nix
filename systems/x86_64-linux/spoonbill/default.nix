@@ -56,6 +56,7 @@ with lib.${namespace};
       vaultwarden = enabled;
       wallos = enabled;
       searx = enabled;
+      explo = enabled;
     };
   };
 
