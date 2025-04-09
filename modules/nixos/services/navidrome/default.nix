@@ -18,8 +18,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.navidrome.rekeyFile = (inputs.self + "/secrets/services/navidrome.age");
+
+    systemd.services.navidrome.serviceConfig.EnvironmentFile = [
+      config.age.secrets.navidrome.path
+    ];
+
     # https://github.com/NixOS/nixpkgs/issues/151550
-    systemd.services.navidrome.serviceConfig.BindReadOnlyPaths = ["/run/systemd/resolve/stub-resolv.conf"];
+    systemd.services.navidrome.serviceConfig.BindReadOnlyPaths = [
+      "/run/systemd/resolve/stub-resolv.conf"
+    ];
 
     services.navidrome = {
       enable = true;
@@ -30,32 +38,9 @@ in
         ReverseProxyUserHeader = "X-authentik-username";
         EnableUserEditing = false;
         MusicFolder = cfg.musicDir;
+        LogLevel = "debug";
       };
       group = "media";
-    };
-
-    age.secrets.explo.rekeyFile = (inputs.self + "/secrets/services/explo.age");
-
-    virtualisation.oci-containers.containers = {
-      explo = {
-        image = "ghcr.io/lumepart/explo:latest";
-        volumes = [
-          "${cfg.musicDir}/explo:${cfg.musicDir}/explo"
-          "${config.age.secrets.explo.path}:/opt/explo/.env"
-        ];
-        environment = {
-          CRON_SCHEDULE = "0 1 * * 1";
-          EXPLO_SYSTEM = "subsonic";
-          SYSTEM_URL = "http://127.0.0.1:4533";
-          SYSTEM_USERNAME = "fern";
-          DOWNLOAD_DIR = "${cfg.musicDir}/explo";
-          LISTENBRAINZ_USER = "mtqueerie";
-          PERSIST = "false";
-          PUID = "1000";
-          PGID = "1800";
-        };
-        extraOptions = [ "--pull=newer" ];
-      };
     };
 
     ${namespace}.services.caddy.services.navidrome = {
