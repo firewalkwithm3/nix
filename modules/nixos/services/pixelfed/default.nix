@@ -36,37 +36,11 @@ in
       config =
         {
           lib,
-          pkgs,
           ...
         }:
-        let
-          pf-localfs-patch = pkgs.writeText "01-local-filesystem.patch" ''
-            diff --git a/config/filesystems.php b/config/filesystems.php
-            index 71f542a..fc1a58f 100644
-            --- a/config/filesystems.php
-            +++ b/config/filesystems.php
-            @@ -49,11 +49,11 @@ return [
-                         'permissions' => [
-                             'file' => [
-                                 'public' => 0644,
-            -                    'private' => 0600,
-            +                    'private' => 0640,
-                             ],
-                             'dir' => [
-                                 'public' => 0755,
-            -                    'private' => 0711,
-            +                    'private' => 0750,
-                             ],
-                         ],
-                     ],
-          '';
-        in
         {
           services.pixelfed = {
             enable = true;
-            package = pkgs.pixelfed.overrideAttrs (old: {
-              patches = (old.patches or [ ]) ++ [ "${pf-localfs-patch}" ];
-            });
             domain = "pixelfed.fern.garden";
             maxUploadSize = "20M";
             secretFile = "/run/agenix/pixelfed";
