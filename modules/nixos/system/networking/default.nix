@@ -58,6 +58,7 @@ in
             67
           ];
         };
+
         interfaces.ethernet.ipv4.addresses = [
           {
             address = "10.3.0.1";

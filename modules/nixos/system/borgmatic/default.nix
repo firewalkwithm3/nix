@@ -9,10 +9,10 @@
 with lib;
 with lib.${namespace};
 let
-  cfg = config.${namespace}.services.borgmatic;
+  cfg = config.${namespace}.backups;
 in
 {
-  options.${namespace}.services.borgmatic = with types; {
+  options.${namespace}.backups = with types; {
     enable = mkBoolOpt false "Enable automatic borg backups";
   };
 

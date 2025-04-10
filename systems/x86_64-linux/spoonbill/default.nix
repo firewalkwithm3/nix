@@ -20,13 +20,13 @@ with lib.${namespace};
     networking.wifi = disabled;
     firmware.intel-microcode = enabled;
     graphics.intel = enabled;
+    backups = enabled;
 
     user.groups.media = enabled;
 
     services = {
       audiobookshelf = enabled;
       bazarr = enabled;
-      borgmatic = enabled;
       caddy = enabled;
       calibre = enabled;
       forgejo = enabled;

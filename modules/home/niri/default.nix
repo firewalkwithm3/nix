@@ -251,7 +251,7 @@ in
             ];
           }
           { command = [ "${config.programs.firefox.finalPackage}/bin/firefox" ]; }
-          { command = [ "${pkgs.cinny-desktop}/bin/cinny" ]; }
+          { command = [ "${pkgs.fractal}/bin/fractal" ]; }
           { command = [ "${pkgs.signal-desktop}/bin/signal-desktop" ]; }
           { command = [ "${pkgs.${namespace}.beeper}/bin/beeper" ]; }
           { command = [ "${pkgs.feishin}/bin/feishin" ]; }
@@ -346,7 +346,7 @@ in
           }
           {
             matches = [
-              { app-id = "cinny"; }
+              { app-id = "org.gnome.Fractal"; }
               { app-id = "Signal"; }
               { app-id = "Beeper"; }
             ];

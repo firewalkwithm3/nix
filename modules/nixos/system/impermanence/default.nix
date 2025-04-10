@@ -39,6 +39,10 @@ in
         (mkIf config.${namespace}.networking.tailscale.enable [
           "/var/lib/tailscale"
         ])
+
+        (mkIf config.${namespace}.desktop-environment.printing.enable [
+          "/var/lib/cups"
+        ])
       ];
       files = [
         "/etc/machine-id"
@@ -63,9 +67,8 @@ in
             ".config/Signal"
           ])
 
-          (mkIf hm-cfg.apps.cinny.enable [
-            ".local/share/cinny"
-            ".local/share/in.cinny.app"
+          (mkIf hm-cfg.apps.fractal.enable [
+            ".local/share/fractal"
           ])
 
           (mkIf hm-cfg.apps.beeper.enable [
