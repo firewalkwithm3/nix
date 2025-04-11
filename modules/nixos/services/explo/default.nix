@@ -22,6 +22,8 @@ let
       LISTENBRAINZ_USER=${cfg.settings.listenbrainz.user}
       PERSIST=${boolToString cfg.settings.persist}
       LISTENBRAINZ_DISCOVERY=${cfg.settings.listenbrainz.discovery}
+      YTDLP_PATH=${pkgs.yt-dlp}/bin/yt-dlp
+      FFMPEG_PATH=${pkgs.ffmpeg}/bin/ffmpeg
     '';
   };
 

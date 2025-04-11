@@ -2,6 +2,8 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
+  ffmpeg,
+  yt-dlp,
 }:
 buildGoModule rec {
   pname = "explo";
@@ -13,14 +15,19 @@ buildGoModule rec {
     rev = "v${version}";
     hash = "sha256-jJdNhqV3jH3N+3iCHmGAB1Z9fCfpCRLUKrYirnPwutc=";
   };
+
   vendorHash = "sha256-zLTJUluhZfAhEcGzapuACrzx7ycVLDyqnO7dXskt7Lw=";
+
+  buildInputs = [
+    ffmpeg
+    yt-dlp
+  ];
 
   postPatch = ''
     substituteInPlace src/listenbrainz.go --replace-fail "_, creationWeek := playlist.Data.Date.ISOWeek()" "_, creationWeek := playlist.Data.Date.Local().ISOWeek()"
   '';
 
   postInstall = ''
-    mkdir -p $out/opt/explo
     mv $out/bin/src $out/bin/explo
   '';
 
