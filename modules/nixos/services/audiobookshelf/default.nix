@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.audiobookshelf;
+  dataDir = "/var/lib/${config.services.audiobookshelf.dataDir}";
 in
 {
   options.${namespace}.services.audiobookshelf = with types; {
@@ -22,10 +23,16 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.audiobookshelf = {
-      port = cfg.port;
-      subdomain = "audiobooks";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.audiobookshelf = {
+        directories = [ dataDir ];
+        databases = [ "${dataDir}/config/absdatabase.sqlite" ];
+      };
+      services.caddy.services.audiobookshelf = {
+        port = cfg.port;
+        subdomain = "audiobooks";
+        domain = "fern.garden";
+      };
     };
   };
 }

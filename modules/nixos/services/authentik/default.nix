@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.authentik;
+  mediaDir = config.services.authentik.settings.storage.media.file.path;
 in
 {
   options.${namespace}.services.authentik = with types; {
@@ -47,10 +48,16 @@ in
       environmentFile = config.age.secrets.authentik-ldap.path;
     };
 
-    ${namespace}.services.caddy.services.authentik = {
-      port = cfg.port;
-      subdomain = "auth";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.authentik = {
+        directories = [ mediaDir ];
+      };
+
+      services.caddy.services.authentik = {
+        port = cfg.port;
+        subdomain = "auth";
+        domain = "fern.garden";
+      };
     };
   };
 }

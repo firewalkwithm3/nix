@@ -145,5 +145,11 @@ in
         flip genAttrs hostCfg (lists.concatMap (domain: [ domain ] ++ [ "*.${domain}" ]) cfg.domains)
         // mkProxies cfg.services;
     };
+
+    ${namespace} = {
+      backups.modules.caddy = {
+        directories = [ config.services.caddy.dataDir ];
+      };
+    };
   };
 }

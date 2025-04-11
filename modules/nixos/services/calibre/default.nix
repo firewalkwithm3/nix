@@ -9,6 +9,8 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.calibre;
+  web.dataDir = "/var/lib/${config.services.calibre-web.dataDir}";
+  server.dataDir = "/var/lib/calibre-server";
 in
 {
   options.${namespace}.services.calibre = with types; {
@@ -51,10 +53,24 @@ in
       libraries = [ "/mnt/volume2/media/calibre/library" ];
     };
 
-    ${namespace}.services.caddy.services.calibre = {
-      port = cfg.web.port;
-      subdomain = "books";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.calibre = {
+        directories = [
+          web.dataDir
+          server.dataDir
+        ];
+        databases = [
+          "${web.dataDir}/app.db"
+          "${web.dataDir}/gdrive.db"
+          config.services.calibre-server.auth.userDb
+        ];
+      };
+
+      services.caddy.services.calibre = {
+        port = cfg.web.port;
+        subdomain = "books";
+        domain = "fern.garden";
+      };
     };
   };
 }

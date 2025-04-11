@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.esphome;
+  dataDir = "/var/lib/esphome";
 in
 {
   options.${namespace}.services.esphome = with types; {
@@ -24,10 +25,16 @@ in
       port = cfg.port;
     };
 
-    ${namespace}.services.caddy.services.esphome = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "esphome";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.esphome = {
+        directories = [ dataDir ];
+      };
+
+      services.caddy.services.esphome = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "esphome";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

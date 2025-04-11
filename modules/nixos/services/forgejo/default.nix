@@ -46,10 +46,16 @@ in
       settings.service.DISABLE_REGISTRATION = true;
     };
 
-    ${namespace}.services.caddy.services.forgejo = {
-      port = cfg.port;
-      subdomain = "git";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.forgejo = {
+        directories = [ config.services.forgejo.stateDir ];
+      };
+
+      services.caddy.services.forgejo = {
+        port = cfg.port;
+        subdomain = "git";
+        domain = "fern.garden";
+      };
     };
   };
 }

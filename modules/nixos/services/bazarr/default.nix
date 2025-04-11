@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.bazarr;
+  dataDir = "/var/lib/bazarr";
 in
 {
   options.${namespace}.services.bazarr = with types; {
@@ -22,10 +23,17 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.bazarr = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "bazarr";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.bazarr = {
+        directories = [ dataDir ];
+        databases = [ "${dataDir}/db/bazarr.db" ];
+      };
+
+      services.caddy.services.bazarr = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "bazarr";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

@@ -11,6 +11,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.crowdsec;
+  dataDir = "/var/lib/crowdsec";
 in
 {
   options.${namespace}.services.crowdsec = with types; {
@@ -85,6 +86,13 @@ in
       settings = {
         api_key = ''''${API_KEY}'';
         api_url = "http://127.0.0.1:${toString cfg.port}";
+      };
+    };
+
+    ${namespace} = {
+      backups.modules.crowdsec = {
+        directories = [ dataDir ];
+        databases = [ config.services.crowdsec.settings.db_config.db_path ];
       };
     };
   };
