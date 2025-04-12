@@ -25,8 +25,14 @@ in
       backups.modules.sonarr = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}/logs.db"
-          "${dataDir}/sonarr.db"
+          {
+            name = "sonarr-logs";
+            path = "${dataDir}/logs.db";
+          }
+          {
+            name = "sonarr";
+            path = "${dataDir}/sonarr.db";
+          }
         ];
       };
 

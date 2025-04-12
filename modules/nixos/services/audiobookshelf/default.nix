@@ -26,7 +26,12 @@ in
     ${namespace} = {
       backups.modules.audiobookshelf = {
         directories = [ dataDir ];
-        databases = [ "${dataDir}/config/absdatabase.sqlite" ];
+        databases = [
+          {
+            name = "audiobookshelf";
+            path = "${dataDir}/config/absdatabase.sqlite";
+          }
+        ];
       };
       services.caddy.services.audiobookshelf = {
         port = cfg.port;

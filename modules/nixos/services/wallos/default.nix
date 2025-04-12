@@ -31,7 +31,12 @@ in
     ${namespace} = {
       backups.modules.wallos = {
         directories = [ "${podmanVolumeDir}/wallos-logos" ];
-        databases = [ "${podmanVolumeDir}/wallos-db/_data/wallos.db" ];
+        databases = [
+          {
+            name = "wallos";
+            path = "${podmanVolumeDir}/wallos-db/_data/wallos.db";
+          }
+        ];
       };
 
       services.caddy.services.wallos = {

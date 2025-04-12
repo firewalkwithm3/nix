@@ -26,7 +26,12 @@ in
     ${namespace} = {
       backups.modules.bazarr = {
         directories = [ dataDir ];
-        databases = [ "${dataDir}/db/bazarr.db" ];
+        databases = [
+          {
+            name = "bazarr";
+            path = "${dataDir}/db/bazarr.db";
+          }
+        ];
       };
 
       services.caddy.services.bazarr = {

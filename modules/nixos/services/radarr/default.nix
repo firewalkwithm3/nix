@@ -40,8 +40,14 @@ in
       backups.modules.radarr = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}/logs.db}"
-          "${dataDir}/radarr.db"
+          {
+            name = "radarr-logs";
+            path = "${dataDir}/logs.db";
+          }
+          {
+            name = "radarr";
+            path = "${dataDir}/radarr.db";
+          }
         ];
       };
       services.caddy.services.radarr = {

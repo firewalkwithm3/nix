@@ -52,7 +52,12 @@ in
           "${podmanVolumeDir}/appdaemon-config"
           "${podmanVolumeDir}/appdaemon-certs"
         ];
-        databases = [ "${podmanVolumeDir}/hass/_data/home-assistant_v2.db" ];
+        databases = [
+          {
+            name = "homeassistant";
+            path = "${podmanVolumeDir}/hass/_data/home-assistant_v2.db";
+          }
+        ];
       };
 
       services.caddy.services.home-assistant = {

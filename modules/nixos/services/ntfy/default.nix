@@ -27,8 +27,14 @@ in
       backups.modules.ntfy = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}/cache-file.db"
-          "${dataDir}/user.db"
+          {
+            name = "ntfy-cache";
+            path = "${dataDir}/cache-file.db";
+          }
+          {
+            name = "ntfy-users";
+            path = "${dataDir}/user.db";
+          }
         ];
       };
       services.caddy.services.ntfy = {

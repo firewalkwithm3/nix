@@ -30,7 +30,12 @@ in
     ${namespace} = {
       backups.modules.memos = {
         directories = [ "${podmanVolumeDir}/memos" ];
-        databases = [ "${podmanVolumeDir}/memos/memos_prod.db" ];
+        databases = [
+          {
+            name = "memos";
+            path = "${podmanVolumeDir}/memos/_data/memos_prod.db";
+          }
+        ];
       };
 
       services.caddy.services.memos = {

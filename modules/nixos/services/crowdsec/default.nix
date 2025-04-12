@@ -92,7 +92,12 @@ in
     ${namespace} = {
       backups.modules.crowdsec = {
         directories = [ dataDir ];
-        databases = [ config.services.crowdsec.settings.db_config.db_path ];
+        databases = [
+          {
+            name = "crowdsec";
+            path = config.services.crowdsec.settings.db_config.db_path;
+          }
+        ];
       };
     };
   };

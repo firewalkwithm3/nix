@@ -8,7 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.pinchflat;
-  dataDir = "${podmanVolumeDir}/pinchflat";
+  dataDir = "${podmanVolumeDir}/pinchflat-config";
 in
 {
   options.${namespace}.services.pinchflat = with types; {
@@ -37,7 +37,12 @@ in
     ${namespace} = {
       backups.modules.pinchflat = {
         directories = [ dataDir ];
-        databases = [ "${dataDir}/db/pinchflat.db" ];
+        databases = [
+          {
+            name = "pinchflat";
+            path = "${dataDir}/_data/db/pinchflat.db";
+          }
+        ];
       };
 
       services.caddy.services.pinchflat = {

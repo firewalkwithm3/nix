@@ -25,7 +25,12 @@ in
     ${namespace} = {
       backups.modules.jellyseerr = {
         directories = [ dataDir ];
-        databases = [ "${dataDir}/db/db.sqlite3" ];
+        databases = [
+          {
+            name = "jellyseerr";
+            path = "${dataDir}/db/db.sqlite3";
+          }
+        ];
       };
 
       services.caddy.services.jellyseerr = {

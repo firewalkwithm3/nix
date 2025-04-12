@@ -73,9 +73,18 @@ in
       backups.modules.readarr-ebooks = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}cache.db"
-          "${dataDir}logs.db"
-          "${dataDir}readarr.db"
+          {
+            name = "readarr-ebooks-cache";
+            path = "${dataDir}cache.db";
+          }
+          {
+            name = "readarr-ebook-logs";
+            path = "${dataDir}logs.db";
+          }
+          {
+            name = "readarr-ebooks";
+            path = "${dataDir}readarr.db";
+          }
         ];
       };
 

@@ -60,9 +60,18 @@ in
           server.dataDir
         ];
         databases = [
-          "${web.dataDir}/app.db"
-          "${web.dataDir}/gdrive.db"
-          config.services.calibre-server.auth.userDb
+          {
+            name = "calibre-app";
+            path = "${web.dataDir}/app.db";
+          }
+          {
+            name = "calibre-gdrive";
+            path = "${web.dataDir}/gdrive.db";
+          }
+          {
+            name = "calibre-users";
+            path = config.services.calibre-server.auth.userDb;
+          }
         ];
       };
 

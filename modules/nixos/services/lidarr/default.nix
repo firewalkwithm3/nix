@@ -34,9 +34,18 @@ in
         ];
 
         databases = [
-          "${dataDir}/Lidarr/lidarr.db"
-          "${dataDir}/Lidarr/logs.db"
-          "${dataDir}/beets/library.db"
+          {
+            name = "lidarr";
+            path = "${dataDir}/Lidarr/lidarr.db";
+          }
+          {
+            name = "lidarr-logs";
+            path = "${dataDir}/Lidarr/logs.db";
+          }
+          {
+            name = "lidarr-library";
+            path = "${dataDir}/beets/library.db";
+          }
         ];
       };
 

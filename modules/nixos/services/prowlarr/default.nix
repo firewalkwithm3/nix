@@ -33,8 +33,14 @@ in
       backups.modules.prowlarr = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}/logs.db"
-          "${dataDir}/prowlarr.db"
+          {
+            name = "prowlarr-logs";
+            path = "${dataDir}/logs.db";
+          }
+          {
+            name = "prowlarr";
+            path = "${dataDir}/prowlarr.db";
+          }
         ];
       };
       services.caddy.services.prowlarr = {

@@ -48,10 +48,22 @@ in
       backups.modules.jellyfin = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}/data/jellyfin.db"
-          "${dataDir}/data/library.db"
-          "${dataDir}/data/playback_reporting.db"
-          "${dataDir}/data/introskipper/introskipper.db"
+          {
+            name = "jellyfin";
+            path = "${dataDir}/data/jellyfin.db";
+          }
+          {
+            name = "jellyfin-library";
+            path = "${dataDir}/data/library.db";
+          }
+          {
+            name = "jellyfin-playback-reporting";
+            path = "${dataDir}/data/playback_reporting.db";
+          }
+          {
+            name = "jellyfin-introskipper";
+            path = "${dataDir}/data/introskipper/introskipper.db";
+          }
         ];
       };
 

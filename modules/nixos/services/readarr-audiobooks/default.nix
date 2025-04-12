@@ -61,9 +61,18 @@ in
       backups.modules.readarr-audio = {
         directories = [ dataDir ];
         databases = [
-          "${dataDir}cache.db"
-          "${dataDir}logs.db"
-          "${dataDir}readarr.db"
+          {
+            name = "readarr-audio-cache";
+            path = "${dataDir}cache.db";
+          }
+          {
+            name = "readarr-audio-logs";
+            path = "${dataDir}logs.db";
+          }
+          {
+            name = "readarr-audio";
+            path = "${dataDir}readarr.db";
+          }
         ];
       };
 

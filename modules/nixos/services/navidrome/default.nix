@@ -47,7 +47,12 @@ in
     ${namespace} = {
       backups.modules.navidrome = {
         directories = [ dataDir ];
-        databases = [ "${dataDir}/navidrome.db" ];
+        databases = [
+          {
+            name = "navidrome";
+            path = "${dataDir}/navidrome.db";
+          }
+        ];
       };
 
       services.caddy.services.navidrome = {

@@ -13,21 +13,25 @@ let
 
   module = {
     options = with types; {
-      databases = mkOpt (listOf str) [ ] "sqlite databases to back up";
+      databases = mkOpt (listOf (submodule {
+        options = with types; {
+          path = mkStrOpt "" "Path to sqlite database";
+          name = mkStrOpt "" "Name of sqlite database";
+        };
+      })) [ ] "sqlite databases to back up";
       directories = mkOpt (listOf str) [ ] "Directories to back up";
     };
   };
-
-  mkDBNames = map (db: (lists.last (strings.splitString "/" db)));
 
   mkBackups =
     modules:
     let
       values = attrValues modules;
     in
-    {
+    rec {
       source_directories = concatLists (map (module: module.directories) values);
       sqlite_databases = concatLists (map (module: module.databases) values);
+      exclude_patterns = attrsets.catAttrs "path" sqlite_databases;
     };
 
 in
