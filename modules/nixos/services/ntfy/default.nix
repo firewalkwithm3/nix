@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.ntfy;
+  dataDir = "/var/lib/ntfy-sh";
 in
 {
   options.${namespace}.services.ntfy = with types; {
@@ -22,10 +23,19 @@ in
       settings.auth-default-access = "deny-all";
     };
 
-    ${namespace}.services.caddy.services.ntfy = {
-      port = cfg.port;
-      subdomain = "ntfy";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.ntfy = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}/cache-file.db"
+          "${dataDir}/user.db"
+        ];
+      };
+      services.caddy.services.ntfy = {
+        port = cfg.port;
+        subdomain = "ntfy";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

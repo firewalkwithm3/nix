@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.pinchflat;
+  dataDir = "${podmanVolumeDir}/pinchflat";
 in
 {
   options.${namespace}.services.pinchflat = with types; {
@@ -33,10 +34,17 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.pinchflat = {
-      port = cfg.port;
-      subdomain = "pinchflat";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.pinchflat = {
+        directories = [ dataDir ];
+        databases = [ "${dataDir}/db/pinchflat.db" ];
+      };
+
+      services.caddy.services.pinchflat = {
+        port = cfg.port;
+        subdomain = "pinchflat";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

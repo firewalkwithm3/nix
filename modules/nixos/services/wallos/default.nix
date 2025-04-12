@@ -28,10 +28,17 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.wallos = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "subscriptions";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.wallos = {
+        directories = [ "${podmanVolumeDir}/wallos-logos" ];
+        databases = [ "${podmanVolumeDir}/wallos-db/_data/wallos.db" ];
+      };
+
+      services.caddy.services.wallos = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "subscriptions";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

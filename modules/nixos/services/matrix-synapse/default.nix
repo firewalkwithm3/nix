@@ -69,10 +69,18 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.matrix-synapse = {
-      port = cfg.port;
-      subdomain = "mx";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.matrix-synapse = {
+        directories = [
+          config.services.matrix-synapse.settings.signing_key_path
+          config.services.matrix-synapse.settings.media_store_path
+        ];
+      };
+      services.caddy.services.matrix-synapse = {
+        port = cfg.port;
+        subdomain = "mx";
+        domain = "fern.garden";
+      };
     };
   };
 }

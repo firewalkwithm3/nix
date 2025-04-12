@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.pixelfed;
+  dataDir = "${(containerDataDir "pixelfed")}${config.containers.pixelfed.config.services.pixelfed.dataDir}";
 in
 {
   options.${namespace}.services.pixelfed = with types; {
@@ -78,11 +79,17 @@ in
         };
     };
 
-    ${namespace}.services.caddy.services.pixelfed = {
-      port = cfg.port;
-      host = cfg.host;
-      subdomain = "pixelfed";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.pixelfed = {
+        directories = [ dataDir ];
+      };
+
+      services.caddy.services.pixelfed = {
+        port = cfg.port;
+        host = cfg.host;
+        subdomain = "pixelfed";
+        domain = "fern.garden";
+      };
     };
   };
 }

@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.radarr;
+  dataDir = config.services.radarr.dataDir;
 in
 {
   options.${namespace}.services.radarr = with types; {
@@ -35,10 +36,19 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.radarr = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "radarr";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.radarr = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}/logs.db}"
+          "${dataDir}/radarr.db"
+        ];
+      };
+      services.caddy.services.radarr = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "radarr";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

@@ -23,4 +23,5 @@ rec {
   };
 
   podmanVolumeDir = "/var/lib/containers/storage/volumes";
+  containerDataDir = name: "/var/lib/nixos-containers/${name}";
 }

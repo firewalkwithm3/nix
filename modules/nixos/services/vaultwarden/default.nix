@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.vaultwarden;
+  dataDir = "/var/lib/vaultwarden";
 in
 {
   options.${namespace}.services.vaultwarden = with types; {
@@ -43,10 +44,16 @@ in
       environmentFile = config.age.secrets.vaultwarden.path;
     };
 
-    ${namespace}.services.caddy.services.vaultwarden = {
-      port = cfg.port;
-      subdomain = "vault";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.vaultwarden = {
+        directories = [ dataDir ];
+      };
+
+      services.caddy.services.vaultwarden = {
+        port = cfg.port;
+        subdomain = "vault";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.lidarr;
+  dataDir = "${config.users.users.lidarr.home}/.config";
 in
 {
   options.${namespace}.services.lidarr = with types; {
@@ -25,10 +26,25 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.lidarr = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "lidarr";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.lidarr = {
+        directories = [
+          "${dataDir}/Lidarr"
+          "${dataDir}/beets"
+        ];
+
+        databases = [
+          "${dataDir}/Lidarr/lidarr.db"
+          "${dataDir}/Lidarr/logs.db"
+          "${dataDir}/beets/library.db"
+        ];
+      };
+
+      services.caddy.services.lidarr = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "lidarr";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

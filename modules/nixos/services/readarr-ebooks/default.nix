@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.readarr-ebooks;
+  dataDir = "${(containerDataDir "readarr-ebook")}${config.containers.readarr-ebook.config.services.readarr.dataDir}";
 in
 {
   options.${namespace}.services.readarr-ebooks = with types; {
@@ -68,10 +69,21 @@ in
         };
     };
 
-    ${namespace}.services.caddy.services.readarr-ebooks = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "readarr-ebooks";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.readarr-ebooks = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}cache.db"
+          "${dataDir}logs.db"
+          "${dataDir}readarr.db"
+        ];
+      };
+
+      services.caddy.services.readarr-ebooks = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "readarr-ebooks";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

@@ -96,10 +96,19 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.qbittorrent = {
-      port = cfg.port;
-      subdomain = "qbittorrent";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.qbittorrent = {
+        directories = [
+          "${podmanVolumeDir}/qbittorrent-config"
+          "${podmanVolumeDir}/seedboxapi"
+        ];
+      };
+
+      services.caddy.services.qbittorrent = {
+        port = cfg.port;
+        subdomain = "qbittorrent";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

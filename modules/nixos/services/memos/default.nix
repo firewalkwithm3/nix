@@ -27,10 +27,17 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.memos = {
-      port = cfg.port;
-      subdomain = "memos";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.memos = {
+        directories = [ "${podmanVolumeDir}/memos" ];
+        databases = [ "${podmanVolumeDir}/memos/memos_prod.db" ];
+      };
+
+      services.caddy.services.memos = {
+        port = cfg.port;
+        subdomain = "memos";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

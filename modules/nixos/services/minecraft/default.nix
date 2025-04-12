@@ -68,5 +68,10 @@ in
       };
     };
 
+    ${namespace} = {
+      backups.modules.minecraft = {
+        directories = [ "${podmanVolumeDir}/minecraft" ];
+      };
+    };
   };
 }

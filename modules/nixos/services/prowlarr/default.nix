@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.prowlarr;
+  dataDir = "/var/lib/prowlarr";
 in
 {
   options.${namespace}.services.prowlarr = with types; {
@@ -28,10 +29,19 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.prowlarr = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "prowlarr";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.prowlarr = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}/logs.db"
+          "${dataDir}/prowlarr.db"
+        ];
+      };
+      services.caddy.services.prowlarr = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "prowlarr";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

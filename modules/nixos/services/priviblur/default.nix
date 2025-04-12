@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.priviblur;
+  dataDir = "${podmanVolumeDir}/priviblur";
 in
 {
   options.${namespace}.services.priviblur = with types; {
@@ -27,10 +28,16 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.priviblur = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "priviblur";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.priviblur = {
+        directories = [ dataDir ];
+      };
+
+      services.caddy.services.priviblur = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "priviblur";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

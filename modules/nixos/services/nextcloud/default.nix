@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.nextcloud;
+  dataDir = "${(containerDataDir "nextcloud")}${config.containers.nextcloud.config.services.nextcloud.home}";
 in
 {
   options.${namespace}.services.nextcloud = with types; {
@@ -95,11 +96,17 @@ in
         };
     };
 
-    ${namespace}.services.caddy.services.nextcloud = {
-      port = cfg.port;
-      host = cfg.host;
-      subdomain = "cloud";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.nextcloud = {
+        directories = [ dataDir ];
+      };
+
+      services.caddy.services.nextcloud = {
+        port = cfg.port;
+        host = cfg.host;
+        subdomain = "cloud";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

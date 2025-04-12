@@ -82,10 +82,19 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.zigbee2mqtt = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "z2m";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.zigbee2mqtt = {
+        directories = [
+          config.services.zigbee2mqtt.dataDir
+          config.services.mosquitto.dataDir
+        ];
+      };
+
+      services.caddy.services.zigbee2mqtt = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "z2m";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

@@ -40,5 +40,11 @@ in
         };
       };
     };
+
+    ${namespace} = {
+      backups.modules.mailserver = {
+        directories = [ config.mailserver.mailDirectory ];
+      };
+    };
   };
 }

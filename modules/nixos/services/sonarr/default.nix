@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.sonarr;
+  dataDir = config.services.sonarr.dataDir;
 in
 {
   options.${namespace}.services.sonarr = with types; {
@@ -20,10 +21,20 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.sonarr = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "sonarr";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.sonarr = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}/logs.db"
+          "${dataDir}/sonarr.db"
+        ];
+      };
+
+      services.caddy.services.sonarr = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "sonarr";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

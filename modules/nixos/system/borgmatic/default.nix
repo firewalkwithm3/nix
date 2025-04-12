@@ -18,6 +18,8 @@ let
     };
   };
 
+  mkDBNames = map (db: (lists.last (strings.splitString "/" db)));
+
   mkBackups =
     modules:
     let

@@ -9,6 +9,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.navidrome;
+  dataDir = "/var/lib/navidrome";
 in
 {
   options.${namespace}.services.navidrome = with types; {
@@ -43,10 +44,17 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.navidrome = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "music";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.navidrome = {
+        directories = [ dataDir ];
+        databases = [ "${dataDir}/navidrome.db" ];
+      };
+
+      services.caddy.services.navidrome = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "music";
+        domain = "fern.garden";
+      };
     };
   };
 }

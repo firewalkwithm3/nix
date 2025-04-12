@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.readarr-audiobooks;
+  dataDir = "${(containerDataDir "readarr-audio")}${config.containers.readarr-audio.config.services.readarr.dataDir}";
 in
 {
   options.${namespace}.services.readarr-audiobooks = with types; {
@@ -56,10 +57,21 @@ in
         };
     };
 
-    ${namespace}.services.caddy.services.readarr-audiobooks = {
-      port = config.${namespace}.services.authentik.port;
-      subdomain = "readarr-audiobooks";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.readarr-audio = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}cache.db"
+          "${dataDir}logs.db"
+          "${dataDir}readarr.db"
+        ];
+      };
+
+      services.caddy.services.readarr-audiobooks = {
+        port = config.${namespace}.services.authentik.port;
+        subdomain = "readarr-audiobooks";
+        domain = "ferngarden.net";
+      };
     };
   };
 }
