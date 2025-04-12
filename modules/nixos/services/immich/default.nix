@@ -24,10 +24,16 @@ in
       port = cfg.port;
     };
 
-    ${namespace}.services.caddy.services.immich = {
-      port = cfg.port;
-      subdomain = "photos";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      backups.modules.immich = {
+        directories = [ config.services.immich.mediaLocation ];
+      };
+
+      services.caddy.services.immich = {
+        port = cfg.port;
+        subdomain = "photos";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

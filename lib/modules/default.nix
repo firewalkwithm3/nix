@@ -21,4 +21,6 @@ rec {
   disabled = {
     enable = false;
   };
+
+  podmanVolumeDir = "/var/lib/containers/storage/volumes";
 }

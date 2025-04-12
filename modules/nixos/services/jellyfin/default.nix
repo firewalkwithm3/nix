@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.jellyfin;
+  dataDir = config.services.jellyfin.dataDir;
 in
 {
   options.${namespace}.services.jellyfin = with types; {
@@ -43,10 +44,22 @@ in
       group = "media";
     };
 
-    ${namespace}.services.caddy.services.jellyfin = {
-      port = cfg.port;
-      subdomain = "jellyfin";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.jellyfin = {
+        directories = [ dataDir ];
+        databases = [
+          "${dataDir}/data/jellyfin.db"
+          "${dataDir}/data/library.db"
+          "${dataDir}/data/playback_reporting.db"
+          "${dataDir}/data/introskipper/introskipper.db"
+        ];
+      };
+
+      services.caddy.services.jellyfin = {
+        port = cfg.port;
+        subdomain = "jellyfin";
+        domain = "fern.garden";
+      };
     };
   };
 }

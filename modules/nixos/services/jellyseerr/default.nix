@@ -8,6 +8,7 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.jellyseerr;
+  dataDir = "/var/lib/jellyseerr";
 in
 {
   options.${namespace}.services.jellyseerr = with types; {
@@ -21,10 +22,17 @@ in
       port = cfg.port;
     };
 
-    ${namespace}.services.caddy.services.jellyseerr = {
-      port = cfg.port;
-      subdomain = "jellyseerr";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.jellyseerr = {
+        directories = [ dataDir ];
+        databases = [ "${dataDir}/db/db.sqlite3" ];
+      };
+
+      services.caddy.services.jellyseerr = {
+        port = cfg.port;
+        subdomain = "jellyseerr";
+        domain = "fern.garden";
+      };
     };
   };
 }

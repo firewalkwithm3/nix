@@ -45,10 +45,21 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.home-assistant = {
-      port = cfg.port;
-      subdomain = "home";
-      domain = "fern.garden";
+    ${namespace} = {
+      backups.modules.homeassistant = {
+        directories = [
+          "${podmanVolumeDir}/hass"
+          "${podmanVolumeDir}/appdaemon-config"
+          "${podmanVolumeDir}/appdaemon-certs"
+        ];
+        databases = [ "${podmanVolumeDir}/hass/_data/home-assistant_v2.db" ];
+      };
+
+      services.caddy.services.home-assistant = {
+        port = cfg.port;
+        subdomain = "home";
+        domain = "fern.garden";
+      };
     };
   };
 }
