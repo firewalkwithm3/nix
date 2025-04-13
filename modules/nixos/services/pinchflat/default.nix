@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   namespace,
@@ -17,10 +18,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.pinchflat.rekeyFile = (inputs.self + "/secrets/services/pinchflat.age");
+
     virtualisation.oci-containers.containers = {
       pinchflat = {
         image = "ghcr.io/kieraneglin/pinchflat:latest";
         ports = [ "${toString cfg.port}:${toString cfg.port}" ];
+        environmentFiles = [ config.age.secrets.pinchflat.path ];
         environment = {
           PUID = "1000";
           PGID = "1800";
@@ -46,7 +50,7 @@ in
       };
 
       services.caddy.services.pinchflat = {
-        port = cfg.port;
+        port = config.${namespace}.services.authentik.port;
         subdomain = "pinchflat";
         domain = "ferngarden.net";
       };
