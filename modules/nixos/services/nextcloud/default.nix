@@ -34,7 +34,7 @@ in
       localAddress = cfg.host;
       bindMounts = {
         "${config.age.secrets.nextcloud.path}".isReadOnly = true;
-        "/var/run/postgresql".mountPoint = "/var/run/postgresql";
+        "/run/postgresql".mountPoint = "/run/postgresql";
       };
 
       config =
@@ -56,7 +56,7 @@ in
               "opcache.interned_strings_buffer" = "10";
             };
             config = {
-              dbhost = "/var/run/postgresql";
+              dbhost = "/run/postgresql";
               adminuser = "fern";
               adminpassFile = "/run/agenix/nextcloud";
               dbtype = "pgsql";

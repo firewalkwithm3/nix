@@ -26,6 +26,7 @@ in
         "invidious"
         "matrix-synapse"
         "miniflux"
+        "memos"
         "nextcloud"
         "paperless"
         "vaultwarden"
@@ -49,6 +50,10 @@ in
         }
         {
           name = "matrix-synapse";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "memos";
           ensureDBOwnership = true;
         }
         {

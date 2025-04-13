@@ -20,24 +20,19 @@ in
       memos = {
         image = "neosmemo/memos:latest";
         ports = [ "${toString cfg.port}:${toString cfg.port}" ];
+        environment = {
+          MEMOS_DRIVER = "postgres";
+          MEMOS_DSN = "user=memos dbname=memos host=/run/postgresql";
+        };
         volumes = [
           "memos:/var/opt/memos"
+          "/run/postgresql:/run/postgresql"
         ];
         extraOptions = [ "--pull=newer" ];
       };
     };
 
     ${namespace} = {
-      backups.modules.memos = {
-        directories = [ "${podmanVolumeDir}/memos" ];
-        databases = [
-          {
-            name = "memos";
-            path = "${podmanVolumeDir}/memos/_data/memos_prod.db";
-          }
-        ];
-      };
-
       services.caddy.services.memos = {
         port = cfg.port;
         subdomain = "memos";
