@@ -77,8 +77,7 @@
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "dotnet-sdk-6.0.136"
-          "dotnet-runtime-6.0.36"
+          "olm-3.2.16"
         ];
       };
 

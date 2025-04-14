@@ -25,6 +25,8 @@ in
         "immich"
         "invidious"
         "matrix-synapse"
+        "mautrix-meta-instagram"
+        "mautrix-meta-facebook"
         "miniflux"
         "memos"
         "nextcloud"
@@ -50,6 +52,14 @@ in
         }
         {
           name = "matrix-synapse";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "mautrix-meta-instagram";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "mautrix-meta-facebook";
           ensureDBOwnership = true;
         }
         {

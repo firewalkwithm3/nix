@@ -19,7 +19,7 @@ in
   config = mkIf cfg.enable {
     services.ntfy-sh = {
       enable = true;
-      settings.base-url = "https://ntfy.ferngarden.net";
+      settings.base-url = "https://ntfy.fern.garden";
       settings.auth-default-access = "deny-all";
     };
 
@@ -40,7 +40,7 @@ in
       services.caddy.services.ntfy = {
         port = cfg.port;
         subdomain = "ntfy";
-        domain = "ferngarden.net";
+        domain = "fern.garden";
       };
     };
   };

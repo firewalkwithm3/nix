@@ -23,7 +23,7 @@ in
       enable = true;
       database = {
         type = "postgres";
-        socket = "/run/postgresql";
+        socket = "/var/run/postgresql";
       };
       settings.DEFAULT = {
         APP_NAME = "Fern's Git Server";

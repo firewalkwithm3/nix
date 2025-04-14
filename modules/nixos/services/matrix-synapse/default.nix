@@ -24,6 +24,12 @@ in
         owner = "matrix-synapse";
         group = "matrix-synapse";
       };
+      matrix-doublepuppet = {
+        rekeyFile = (inputs.self + "/secrets/services/matrix-doublepuppet.age");
+        owner = "matrix-synapse";
+        group = "matrix-synapse";
+      };
+      mautrix.rekeyFile = (inputs.self + "/secrets/services/mautrix.age");
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.federation.port ];
@@ -42,6 +48,7 @@ in
       extraConfigFiles = [ config.age.secrets.matrix.path ];
       settings = {
         server_name = "mx.fern.garden";
+        app_service_config_files = [ config.age.secrets.matrix-doublepuppet.path ];
         listeners = [
           {
             bind_addresses = [ "127.0.0.1" ];
@@ -66,6 +73,42 @@ in
             server_name = "matrix.org";
           }
         ];
+      };
+    };
+
+    services.mautrix-meta.instances = {
+      instagram = {
+        enable = true;
+        environmentFile = config.age.secrets.mautrix.path;
+        settings = {
+          homeserver = {
+            address = "http://127.0.0.1:8008";
+            domain = "mx.fern.garden";
+          };
+          database = {
+            type = "postgres";
+            uri = "postgresql:///mautrix-meta-instagram?host=/var/run/postgresql";
+          };
+          bridge.permissions."@fern:mx.fern.garden" = "admin";
+          double_puppet.secrets."mx.fern.garden" = "as_token:$AS_TOKEN";
+        };
+      };
+
+      facebook = {
+        enable = true;
+        environmentFile = config.age.secrets.mautrix.path;
+        settings = {
+          homeserver = {
+            address = "http://127.0.0.1:8008";
+            domain = "mx.fern.garden";
+          };
+          database = {
+            type = "postgres";
+            uri = "postgresql:///mautrix-meta-facebook?host=/var/run/postgresql";
+          };
+          bridge.permissions."@fern:mx.fern.garden" = "admin";
+          double_puppet.secrets."mx.fern.garden" = "as_token:$AS_TOKEN";
+        };
       };
     };
 

@@ -26,7 +26,7 @@ in
         };
         volumes = [
           "memos:/var/opt/memos"
-          "/run/postgresql:/run/postgresql"
+          "/var/run/postgresql:/run/postgresql"
         ];
         extraOptions = [ "--pull=newer" ];
       };

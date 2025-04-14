@@ -34,7 +34,7 @@ in
       localAddress = cfg.host;
       bindMounts = {
         "${config.age.secrets.nextcloud.path}".isReadOnly = true;
-        "/run/postgresql".mountPoint = "/run/postgresql";
+        "/var/run/postgresql".mountPoint = "/run/postgresql";
       };
 
       config =
