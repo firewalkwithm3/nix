@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    mautrix-discord.url = "github:NixOS/nixpkgs?ref=pull/355025/head";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -95,6 +96,7 @@
         stylix.nixosModules.stylix
         simple-nixos-mailserver.nixosModule
         nix-index.nixosModules.nix-index
+        "${mautrix-discord}/nixos/modules/services/matrix/mautrix-discord.nix"
       ];
 
       systems.hosts.weebill.modules = with inputs; [

@@ -76,6 +76,25 @@ in
       };
     };
 
+    services.mautrix-discord = {
+      enable = true;
+      environmentFile = config.age.secrets.mautrix.path;
+      settings = {
+        homeserver = {
+          address = "http://127.0.0.1:8008";
+          domain = "mx.fern.garden";
+          database = {
+            type = "postgres";
+            uri = "postgresql:///mautrix-discord?host=/var/run/postgresql";
+          };
+        };
+        bridge = {
+          permissions."@fern:mx.fern.garden" = "admin";
+          login_shared_secret_map."mx.fern.garden" = "as_token:$AS_TOKEN";
+        };
+      };
+    };
+
     services.mautrix-meta.instances = {
       instagram = {
         enable = true;

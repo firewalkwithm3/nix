@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744556841,
-        "narHash": "sha256-ZGSj/SEqoBBJiTW4FHj66mqGrVe6vVW8aa/8LIiuMaI=",
+        "lastModified": 1744578060,
+        "narHash": "sha256-ApX5u3aXtmthemPSnZls/oxvqpNR7C9t4Ut57MTvces=",
         "owner": "AdnanHodzic",
         "repo": "auto-cpufreq",
-        "rev": "f9b9fe42c90e176ec4104adcd3eb5e3b4d1823b6",
+        "rev": "b6493edc7033beac216b8836af4994e56c6682f4",
         "type": "github"
       },
       "original": {
@@ -1050,6 +1050,22 @@
         "type": "github"
       }
     },
+    "mautrix-discord": {
+      "locked": {
+        "lastModified": 1732929934,
+        "narHash": "sha256-H4j05jpmdO0LX3UdviELhYcvKsr0+MHRvflxjzWiX/c=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2a4291f2a1a3db571555705de6298aa739b52cf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/355025/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "napalm": {
       "inputs": {
         "flake-utils": [
@@ -1543,6 +1559,7 @@
         "home-manager": "home-manager_2",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "mautrix-discord": "mautrix-discord",
         "niri": "niri",
         "nix-index": "nix-index",
         "nixos-hardware": "nixos-hardware",

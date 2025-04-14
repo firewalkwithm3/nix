@@ -25,6 +25,7 @@ in
         "immich"
         "invidious"
         "matrix-synapse"
+        "mautrix-discord"
         "mautrix-meta-instagram"
         "mautrix-meta-facebook"
         "miniflux"
@@ -52,6 +53,10 @@ in
         }
         {
           name = "matrix-synapse";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "mautrix-discord";
           ensureDBOwnership = true;
         }
         {
