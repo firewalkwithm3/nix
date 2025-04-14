@@ -1,0 +1,19 @@
+diff --git a/src/lm/LabelManagerLanguageMonitorV2.cpp b/src/lm/LabelManagerLanguageMonitorV2.cpp
+index 4ad5b99..b48b30d 100644
+--- a/src/lm/LabelManagerLanguageMonitorV2.cpp
++++ b/src/lm/LabelManagerLanguageMonitorV2.cpp
+@@ -21,6 +21,7 @@
+ #include "LabelManagerLanguageMonitorV2.h"
+ 
+ #include <unistd.h>
++#include <ctime>
+ 
+ namespace DymoPrinterDriver
+ {
+@@ -273,4 +274,4 @@ void CLabelManagerLanguageMonitorV2::ReprintPage()
+     _printEnvironment.WriteData(_pageData);
+ }
+ 
+-};
+\ No newline at end of file
++};

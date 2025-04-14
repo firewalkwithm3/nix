@@ -41,7 +41,10 @@ in
       users.users.${config.${namespace}.user.name}.extraGroups = [ "lp" ];
       services.printing = {
         enable = true;
-        drivers = [ pkgs.brlaser ];
+        drivers = with pkgs; [
+          brlaser
+          cups-dymo
+        ];
       };
     })
 
