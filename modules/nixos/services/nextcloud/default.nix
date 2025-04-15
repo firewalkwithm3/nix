@@ -78,7 +78,15 @@ in
                 calendar
                 contacts
                 user_oidc
+                gpoddersync
                 ;
+              dav_push = pkgs.fetchNextcloudApp rec {
+                appName = "dav_push";
+                appVersion = "0.0.2";
+                url = "https://github.com/bitfireAT/nc_ext_dav_push/releases/download/v${appVersion}/dav_push.tar.gz";
+                sha256 = "sha256-XRDZHZFHQ1GChWE7Ps5lqhf7aPO4qZtWGoz8wBFQl/g=";
+                license = "agpl3Only";
+              };
             };
             extraAppsEnable = true;
           };
