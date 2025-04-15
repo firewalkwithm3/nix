@@ -83,6 +83,8 @@ in
         homeserver = {
           address = "http://127.0.0.1:8008";
           domain = "mx.fern.garden";
+        };
+        appservice = {
           database = {
             type = "postgres";
             uri = "postgresql:///mautrix-discord?host=/var/run/postgresql";
@@ -108,7 +110,11 @@ in
             type = "postgres";
             uri = "postgresql:///mautrix-meta-instagram?host=/var/run/postgresql";
           };
-          bridge.permissions."@fern:mx.fern.garden" = "admin";
+          bridge = {
+            permissions."@fern:mx.fern.garden" = "admin";
+            private_chat_portal_meta = true;
+          };
+          matrix.sync_direct_chat_list = true;
           double_puppet.secrets."mx.fern.garden" = "as_token:$AS_TOKEN";
         };
       };
@@ -125,7 +131,11 @@ in
             type = "postgres";
             uri = "postgresql:///mautrix-meta-facebook?host=/var/run/postgresql";
           };
-          bridge.permissions."@fern:mx.fern.garden" = "admin";
+          bridge = {
+            permissions."@fern:mx.fern.garden" = "admin";
+            private_chat_portal_meta = true;
+          };
+          matrix.sync_direct_chat_list = true;
           double_puppet.secrets."mx.fern.garden" = "as_token:$AS_TOKEN";
         };
       };
