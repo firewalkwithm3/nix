@@ -63,16 +63,8 @@ in
             ".local/share/PrismLauncher"
           ])
 
-          (mkIf hm-cfg.apps.signal.enable [
-            ".config/Signal"
-          ])
-
           (mkIf hm-cfg.apps.fractal.enable [
             ".local/share/fractal"
-          ])
-
-          (mkIf hm-cfg.apps.beeper.enable [
-            ".config/BeeperTexts"
           ])
 
           (mkIf hm-cfg.apps.feishin.enable [

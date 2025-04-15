@@ -40,6 +40,7 @@ with lib.${namespace};
       memos = enabled;
       minecraft = enabled;
       miniflux = enabled;
+      mollysocket = enabled;
       navidrome = enabled;
       nextcloud = enabled;
       ntfy = enabled;
