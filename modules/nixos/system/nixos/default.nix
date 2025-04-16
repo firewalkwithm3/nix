@@ -37,29 +37,6 @@ in
         flake = "github:firewalkwithm3/nix";
       };
 
-      systemd.services.nixos-upgrade.onFailure = [ "notify-failure@nixos-upgrade.service" ];
-
-      systemd.services."notify-failure@" = {
-        enable = true;
-        description = "Failure notification for %i";
-        scriptArgs = ''"%i" "Hostname: %H" "Machine ID: %m" "Boot ID: %b"'';
-        script = ''
-          unit="$1"
-          extra_information=""
-          for e in "''${@:2}"; do
-            extra_information+="$e"$'\n'
-          done
-          ${pkgs.mailutils}/bin/mail \
-          --subject="Service $unit failed on $2" \
-          --return-address="mail@ferngarden.net" \
-          recipient@example.com \
-          <<EOF
-          $(systemctl status -n 1000000 "$unit")
-          $extra_information
-          EOF
-        '';
-      };
-
       nix.gc = {
         automatic = true;
         dates = "Mon *-*-* 04:00:00";
