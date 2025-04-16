@@ -53,6 +53,8 @@ in
         directories = [ mediaDir ];
       };
 
+      services.postgres.databases = [ "authentik" ];
+
       services.caddy.services.authentik = {
         port = cfg.port;
         subdomain = "auth";

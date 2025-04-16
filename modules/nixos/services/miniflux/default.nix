@@ -32,10 +32,14 @@ in
       };
     };
 
-    ${namespace}.services.caddy.services.miniflux = {
-      port = cfg.port;
-      subdomain = "rss";
-      domain = "ferngarden.net";
+    ${namespace} = {
+      services.postgres.databases = [ "miniflux" ];
+
+      services.caddy.services.miniflux = {
+        port = cfg.port;
+        subdomain = "rss";
+        domain = "ferngarden.net";
+      };
     };
   };
 }

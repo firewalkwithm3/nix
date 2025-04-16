@@ -109,6 +109,8 @@ in
         directories = [ dataDir ];
       };
 
+      services.postgres.databases = [ "nextcloud" ];
+
       services.caddy.services.nextcloud = {
         port = cfg.port;
         host = cfg.host;

@@ -49,6 +49,8 @@ in
         directories = [ dataDir ];
       };
 
+      services.postgres.databases = [ "vaultwarden" ];
+
       services.caddy.services.vaultwarden = {
         port = cfg.port;
         subdomain = "vault";

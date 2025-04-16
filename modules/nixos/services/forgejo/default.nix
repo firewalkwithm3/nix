@@ -51,6 +51,8 @@ in
         directories = [ config.services.forgejo.stateDir ];
       };
 
+      services.postgres.databases = [ "forgejo" ];
+
       services.caddy.services.forgejo = {
         port = cfg.port;
         subdomain = "git";

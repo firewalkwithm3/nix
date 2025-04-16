@@ -148,6 +148,14 @@ in
           config.services.matrix-synapse.settings.media_store_path
         ];
       };
+
+      services.postgres.databases = [
+        "matrix-synapse"
+        "mautrix-discord"
+        "mautrix-meta-instagram"
+        "mautrix-meta-facebook"
+      ];
+
       services.caddy.services.matrix-synapse = {
         port = cfg.port;
         subdomain = "mx";

@@ -9,85 +9,26 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.services.postgres;
+
+  mkUsers =
+    modules:
+    map (db: {
+      name = db;
+      ensureDBOwnership = true;
+    }) modules;
 in
 {
   options.${namespace}.services.postgres = with types; {
     enable = mkBoolOpt false "Enable postgres - database";
+    databases = mkOpt (listOf str) [ ] "List of databases to be created for this module";
   };
 
   config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
-      ensureDatabases = [
-        "authentik"
-        "forgejo"
-        "immich"
-        "invidious"
-        "matrix-synapse"
-        "mautrix-discord"
-        "mautrix-meta-instagram"
-        "mautrix-meta-facebook"
-        "miniflux"
-        "memos"
-        "nextcloud"
-        "paperless"
-        "vaultwarden"
-      ];
-      ensureUsers = [
-        {
-          name = "authentik";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "forgejo";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "immich";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "invidious";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "matrix-synapse";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "mautrix-discord";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "mautrix-meta-instagram";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "mautrix-meta-facebook";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "memos";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "miniflux";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "nextcloud";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "paperless";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "vaultwarden";
-          ensureDBOwnership = true;
-        }
-      ];
+      ensureDatabases = cfg.databases;
+      ensureUsers = mkUsers cfg.databases;
       identMap = ''
         # ArbitraryMapName systemUser DBUser
         superuser_map      postgres  postgres

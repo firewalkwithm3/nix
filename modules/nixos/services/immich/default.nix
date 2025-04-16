@@ -29,6 +29,8 @@ in
         directories = [ config.services.immich.mediaLocation ];
       };
 
+      services.postgres.databases = [ "immich" ];
+
       services.caddy.services.immich = {
         port = cfg.port;
         subdomain = "photos";

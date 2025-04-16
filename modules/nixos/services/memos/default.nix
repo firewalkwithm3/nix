@@ -33,6 +33,7 @@ in
     };
 
     ${namespace} = {
+      services.postgres.databases = [ "memos" ];
       services.caddy.services.memos = {
         port = cfg.port;
         subdomain = "memos";
