@@ -19,5 +19,7 @@ in
     home.packages = with pkgs; [
       feishin
     ];
+
+    ${namespace}.impermanence.directories = [ ".config/feishin" ];
   };
 }

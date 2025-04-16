@@ -147,5 +147,7 @@ in
         '';
       };
     };
+
+    ${namespace}.impermanence.directories = [ ".mozilla" ];
   };
 }

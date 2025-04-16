@@ -11,7 +11,9 @@ let
 in
 {
   options.${namespace}.apps.nextcloud = with types; {
-    enable = mkBoolOpt config.${namespace}.window-manager.niri.enable "Enable nextcloud client - cloud storage";
+    enable =
+      mkBoolOpt config.${namespace}.window-manager.niri.enable
+        "Enable nextcloud client - cloud storage";
   };
 
   config = mkIf cfg.enable {
@@ -24,5 +26,10 @@ in
       enable = true;
       startInBackground = true;
     };
+
+    ${namespace}.impermanence.directories = [
+      "Nextcloud"
+      ".config/Nextcloud"
+    ];
   };
 }

@@ -154,6 +154,8 @@ in
       ];
 
       networking.search = [ "kingfisher-antares.ts.net" ];
+
+      ${namespace}.impermanence.directories = [ "/var/lib/tailscale" ];
     })
 
     (mkIf cfg.containers.enable {

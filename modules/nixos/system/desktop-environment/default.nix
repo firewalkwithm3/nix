@@ -46,6 +46,14 @@ in
           cups-dymo
         ];
       };
+
+      ${namespace}.impermanence = {
+        directories = [ "/var/lib/cups" ];
+      };
+
+      home-manager.users.${config.${namespace}.user.name}.${namespace}.impermanence.directories = [
+        ".local/share/keyrings"
+      ];
     })
 
     (mkIf cfg.scanning.enable {

@@ -22,5 +22,9 @@ in
       alsa.enable = true;
       wireplumber.enable = true;
     };
+
+    home-manager.users.${config.${namespace}.user.name}.${namespace}.impermanence.directories = [
+      ".local/state/wireplumber"
+    ];
   };
 }

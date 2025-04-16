@@ -103,6 +103,8 @@ in
           pkiBundle = "/etc/secureboot";
         };
       };
+
+      ${namespace}.impermanence.directories = [ "/etc/secureboot" ];
     })
 
     (mkIf cfg.raspberry-pi.enable {

@@ -19,5 +19,7 @@ in
     home.packages = with pkgs; [
       fractal
     ];
+
+    ${namespace}.impermanence.directories = [ ".local/share/fractal" ];
   };
 }

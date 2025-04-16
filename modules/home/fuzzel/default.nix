@@ -37,5 +37,7 @@ in
         };
       };
     };
+
+    ${namespace}.impermanence.files = [ ".local/share/bemoji/emojis.txt" ];
   };
 }

@@ -16,6 +16,9 @@ in
 
   config = mkIf cfg.enable {
     services.hardware.bolt.enable = true;
-    ${namespace}.udev.thunderbolt.enable = true;
+    ${namespace} = {
+      udev.thunderbolt.enable = true;
+      impermanence.directories = [ "/var/lib/boltd" ];
+    };
   };
 }
