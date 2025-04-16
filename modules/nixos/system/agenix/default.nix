@@ -47,7 +47,6 @@ in
             #    Recipient: age1yubikey1q067ueujmw6jvfrqa3sdlhy004kyqlp8gmv7hjy7pqgfwehzr8q7y3eegdy
             AGE-PLUGIN-YUBIKEY-1XC3V6QVZ08WTJ6GM3CGKY
           '';
-
         in
         {
           masterIdentities = [ "${yubikeyPubKey}" ];

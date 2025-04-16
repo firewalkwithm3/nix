@@ -25,8 +25,7 @@ in
         initrdBin = [ pkgs.util-linux ];
         services.rollback =
           let
-            rootPart =
-              if config.${namespace}.filesystems.disko.encryption.enable then "/dev/mapper/${hostName}" else "/";
+            rootPart = config.fileSystems."/".device;
           in
           {
             description = "Rollback BTRFS root subvolume to a pristine state";

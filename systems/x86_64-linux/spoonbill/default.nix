@@ -20,7 +20,10 @@ with lib.${namespace};
     networking.wifi = disabled;
     firmware.intel-microcode = enabled;
     graphics.intel = enabled;
-    backups = enabled;
+    backups = {
+      enable = true;
+      targetHost = "weebill";
+    };
 
     user.groups.media = enabled;
 

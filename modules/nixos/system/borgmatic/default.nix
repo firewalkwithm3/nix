@@ -11,6 +11,8 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.backups;
 
+  hostName = config.networking.hostName;
+
   module = {
     options = with types; {
       databases = mkOpt (listOf (submodule {
@@ -39,9 +41,17 @@ in
   options.${namespace}.backups = with types; {
     enable = mkBoolOpt false "Enable automatic borg backups";
     modules = mkOpt (attrsOf (submodule module)) { } "The modules to back up";
+    targetHost = mkStrOpt "" "Target to backup to";
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.targetHost != "";
+        message = "Please provide the target backup host";
+      }
+    ];
+
     age.secrets.borgmatic.rekeyFile = (inputs.self + "/secrets/services/borgmatic.age");
 
     systemd.services.borgmatic.path = [ pkgs.sqlite ];
@@ -57,7 +67,7 @@ in
     services.borgmatic = {
       enable = true;
       configurations = {
-        "spoonbill" = {
+        "${hostName}" = {
           compression = "lz4";
           archive_name_format = "backup-{now}";
           keep_daily = 7;
@@ -67,19 +77,24 @@ in
           encryption_passcommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.borgmatic.path}";
           ssh_command = "ssh -i /etc/ssh/ssh_host_ed25519_key";
 
-          repositories = [
-            {
-              label = "onedrive";
-              path = "/mnt/onedrive/Backups/spoonbill";
-            }
-            {
-              label = "weebill";
-              path = "ssh://borg@weebill/./spoonbill";
-            }
-            {
-              label = "local";
-              path = "/var/lib/backups/spoonbill";
-            }
+          repositories = mkMerge [
+            (mkIf config.${namespace}.filesystems.rclone.enable [
+              {
+                label = "onedrive";
+                path = "/mnt/onedrive/Backups/${hostName}";
+              }
+            ])
+
+            [
+              {
+                label = "${cfg.targetHost}";
+                path = "ssh://borg@${cfg.targetHost}/./${hostName}";
+              }
+              {
+                label = "local";
+                path = "/var/lib/backups/${hostName}";
+              }
+            ]
           ];
 
           postgresql_databases = [
