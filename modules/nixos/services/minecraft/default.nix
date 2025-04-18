@@ -118,7 +118,6 @@ in
         dependsOn = [ "velocity" ];
         volumes = [
           "minecraft-bob:/data"
-          "${podmanVolumeDir}/minecraft/_data/plugins:/plugins"
         ];
         environmentFiles = [ config.age.secrets.minecraft.path ];
         environment = {
