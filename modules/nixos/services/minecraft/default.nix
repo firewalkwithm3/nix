@@ -15,8 +15,7 @@ let
     EULA = "TRUE";
     TZ = "Australia/Perth";
     TYPE = "PAPER";
-    # ICON = "https://raw.githubusercontent.com/firewalkwithm3/nix/refs/heads/main/packages/www-transgender-pet/images/server-icon.png";
-    # OVERRIDE_ICON = "TRUE";
+    OVERRIDE_ICON = "TRUE";
     ONLINE_MODE = "FALSE";
     MEMORY = "8G";
     DIFFICULTY = "normal";
@@ -27,9 +26,24 @@ let
     VIEW_DISTANCE = "24";
     SIMULATION_DISTANCE = "12";
     ENABLE_WHITELIST = "true";
-    # OVERRIDE_WHITELIST = "true";
+    OVERRIDE_WHITELIST = "true";
     USE_AIKAR_FLAGS = "true";
     ENABLE_RCON = "false";
+  };
+
+  plugins = {
+    MODRINTH_PROJECTS = ''
+      essentialsx
+      essentialsx-antibuild
+      essentialsx-chat-module
+      essentialsx-protect
+      essentialsx-spawn
+      luckperms
+    '';
+    PLUGINS = ''
+      https://dev.bukkit.org/projects/dead-chest/files/latest
+    '';
+    SPIGET_RESOURCES = "40313"; # ChestCleaner
 
   };
 in
@@ -46,6 +60,15 @@ in
 
     age.secrets.minecraft.rekeyFile = (inputs.self + "/secrets/services/minecraft.age");
 
+    systemd.services.create-minecraft-network = {
+      serviceConfig.Type = "oneshot";
+      wantedBy = [ "podman-velocity.service" ];
+      script = ''
+        ${pkgs.podman}/bin/podman network exists minecraft || \
+        ${pkgs.podman}/bin/podman network create minecraft
+      '';
+    };
+
     virtualisation.oci-containers.containers = {
       velocity = {
         image = "itzg/mc-proxy";
@@ -56,9 +79,14 @@ in
         ];
         environment = {
           TYPE = "VELOCITY";
+          MINECRAFT_VERSION = "1.21.5";
+          MODRINTH_PROJECTS = ''
+            viaversion
+          '';
         };
         extraOptions = [
           "--pull=newer"
+          "--network=minecraft"
         ];
       };
 
@@ -69,26 +97,19 @@ in
         ];
         dependsOn = [ "velocity" ];
         environmentFiles = [ config.age.secrets.minecraft.path ];
-        environment = {
-          SERVER_PORT = "30066";
-          VERSION = "1.21.4";
-          MODRINTH_PROJECTS = ''
-            essentialsx
-            essentialsx-antibuild
-            essentialsx-chat-module
-            essentialsx-protect
-            essentialsx-spawn
-            luckperms
-          '';
-          PLUGINS = ''
-            https://dev.bukkit.org/projects/dead-chest/files/latest
-          '';
-          SPIGET_RESOURCES = "40313"; # ChestCleaner
-        } // globalConfig;
+        environment =
+          {
+            SERVER_PORT = "30066";
+            MOTD = "meow";
+            ICON = "https://raw.githubusercontent.com/firewalkwithm3/nix/refs/heads/main/packages/www-transgender-pet/images/server-icons/transcat.png";
+            VERSION = "1.21.4";
+          }
+          // globalConfig
+          // plugins;
         extraOptions = [
           "--pull=newer"
           "--tty"
-          "--network=container:velocity"
+          "--network=minecraft"
         ];
       };
 
@@ -97,17 +118,20 @@ in
         dependsOn = [ "velocity" ];
         volumes = [
           "minecraft-bob:/data"
+          "${podmanVolumeDir}/minecraft/_data/plugins:/plugins"
         ];
         environmentFiles = [ config.age.secrets.minecraft.path ];
         environment = {
           SERVER_PORT = "30067";
+          MOTD = "it's bob's world, we're just living in it";
+          ICON = "https://raw.githubusercontent.com/firewalkwithm3/nix/refs/heads/main/packages/www-transgender-pet/images/server-icons/gayarmadillo.png";
           VERSION = "1.21.5";
           PAPER_CHANNEL = "experimental";
         } // globalConfig;
         extraOptions = [
           "--pull=newer"
           "--tty"
-          "--network=container:velocity"
+          "--network=minecraft"
         ];
       };
     };
