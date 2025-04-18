@@ -317,7 +317,12 @@ in
 
         window-rules = [
           {
-            matches = [ { app-id = "firefox"; } ];
+            matches = [
+              {
+                app-id = "firefox";
+                at-startup = true;
+              }
+            ];
             open-on-workspace = "browser";
             open-maximized = true;
           }
@@ -330,9 +335,17 @@ in
             open-maximized = true;
           }
           {
-            matches = [ { app-id = "org.prismlauncher.PrismLauncher"; } ];
+            matches = [
+              { app-id = "org.prismlauncher.PrismLauncher"; }
+            ];
             open-on-workspace = "games";
-            open-maximized = true;
+          }
+          {
+            matches = [
+              { app-id = "Minecraft*"; }
+            ];
+            open-on-workspace = "games";
+            open-fullscreen = true;
           }
           {
             matches = [
