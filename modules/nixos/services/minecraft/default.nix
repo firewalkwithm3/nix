@@ -15,6 +15,8 @@ let
     EULA = "TRUE";
     TZ = "Australia/Perth";
     TYPE = "PAPER";
+    # ICON = "https://raw.githubusercontent.com/firewalkwithm3/nix/refs/heads/main/packages/www-transgender-pet/images/server-icon.png";
+    # OVERRIDE_ICON = "TRUE";
     ONLINE_MODE = "FALSE";
     MEMORY = "8G";
     DIFFICULTY = "normal";
@@ -54,8 +56,6 @@ in
         ];
         environment = {
           TYPE = "VELOCITY";
-          ICON = "https://raw.githubusercontent.com/firewalkwithm3/nix/refs/heads/main/packages/www-transgender-pet/images/server-icon.png";
-          OVERRIDE_ICON = "TRUE";
         };
         extraOptions = [
           "--pull=newer"
